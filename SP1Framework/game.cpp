@@ -8,6 +8,7 @@
 #include <sstream>
 
 double  g_dElapsedTime;
+int g_dTotalPoints;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
 
@@ -17,7 +18,7 @@ EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
 
 // Console object
-Console g_Console(80, 25, "SP1 Framework");
+Console g_Console(80, 25, "Kentucky Cooke and The Crystal Temple");
 
 //--------------------------------------------------------------
 // Purpose  : Initialisation function
@@ -31,6 +32,7 @@ void init( void )
     // Set precision for floating point output
     g_dElapsedTime = 0.0;
     g_dBounceTime = 0.0;
+	g_dTotalPoints = 0;
 
     // sets the initial state for the game
     g_eGameState = S_SPLASHSCREEN;
@@ -195,18 +197,16 @@ void processUserInput()
 void clearScreen()
 {
     // Clears the buffer with this colour attribute
-	g_Console.clearBuffer(0x3C);
+	g_Console.clearBuffer(0x00);
 }
 
 void renderSplashScreen()  // renders the splash screen
 {
+	void titleText(Console g_Console);
     COORD c = g_Console.getConsoleSize();
     c.Y /= 3;
     c.X = c.X / 2 - 9;
     g_Console.writeToBuffer(c, "A game in 3 seconds", 0x03);
-    c.Y += 1;
-    c.X = g_Console.getConsoleSize().X / 2 - 20;
-    g_Console.writeToBuffer(c, "Press <Space> to change character colour", 0x09);
     c.Y += 1;
     c.X = g_Console.getConsoleSize().X / 2 - 9;
     g_Console.writeToBuffer(c, "Press 'Esc' to quit", 0x09);
@@ -229,21 +229,17 @@ void renderMap()
     COORD c;
     for (int i = 0; i < 12; ++i)
     {
-        c.X = 5 * i;
-        c.Y = i + 1;
-        colour(colors[i]);
-        g_Console.writeToBuffer(c, " °±²Û", colors[i]);
-    }
+        c.X = 6;
+        c.Y = i + 3;
+		colour(0x02);
+		g_Console.writeToBuffer(c, "##########################", 0x02);
+    } 
 }
 
 void renderCharacter()
 {
     // Draw the location of the character
-	WORD charColor = 0xF6;
-    if (g_sChar.m_bActive)
-    {
-        charColor = 0x0A;
-    }
+	WORD charColor = 0x06;
     g_Console.writeToBuffer(g_sChar.m_cLocation, (char)232, charColor);
 }
 
@@ -254,16 +250,23 @@ void renderFramerate()
     std::ostringstream ss;
     ss << std::fixed << std::setprecision(3);
     ss << 1.0 / g_dDeltaTime << "fps";
-    c.X = g_Console.getConsoleSize().X - 9;
-    c.Y = 0;
+    c.X = g_Console.getConsoleSize().X - 11;
+    c.Y = 1;
     g_Console.writeToBuffer(c, ss.str());
 
     // displays the elapsed time
     ss.str("");
     ss << (int) g_dElapsedTime << " secs";
-    c.X = 0;
-    c.Y = 0;
+    c.X = 2;
+    c.Y = 1;
     g_Console.writeToBuffer(c, ss.str());
+
+	// displays the points
+	ss.str("");
+	ss << "Points: " << g_dTotalPoints;
+	c.X = 20;
+	c.Y = 1;
+	g_Console.writeToBuffer(c, ss.str());
 }
 void renderToScreen()
 {
