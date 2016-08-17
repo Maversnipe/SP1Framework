@@ -10,6 +10,9 @@
 #include <fstream>
 #include <stdlib.h>
 
+COORD arrow;
+bool setArrow = false;
+
 double  g_dElapsedTime;
 int g_dTotalPoints;
 double  g_dDeltaTime;
@@ -148,8 +151,9 @@ void splashScreenWait()    // waits for time to pass in splash screen
 void gameplay()            // gameplay logic
 {
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
-    moveCharacter();    // moves the character, collision detection, physics, etc
-                        // sound can be played here too.
+    moveCharacter(); // moves the character, collision detection, physics, etc
+	              // sound can be played here too.
+	
 }
 
 void moveCharacter()
@@ -272,6 +276,10 @@ void renderSplashScreen()  // renders the splash screen
 	c.Y += 1;
 	c.X = g_Console.getConsoleSize().X / 2 - 9;
 	g_Console.writeToBuffer(c, "Press 'Esc' to quit", 0x07);
+	renderarrow();
+
+	processUserInput();
+	movearrow();
 }
 
 void renderGame()
@@ -303,6 +311,20 @@ void renderCharacter()
     // Draw the location of the character
 	WORD charColor = 0x06;
     g_Console.writeToBuffer(g_sChar.m_cLocation, (char)232, charColor);
+}
+void renderarrow()
+{
+	if (setArrow == false)
+	{
+		arrow.X = 25;
+		arrow.Y = 12;
+		g_Console.writeToBuffer(arrow, ">");
+		setArrow = true;
+	}
+	// Draw the location of the character
+	WORD charColor = 0x06;
+	g_Console.writeToBuffer(arrow, ">", charColor);
+
 }
 
 void renderFramerate()
@@ -351,4 +373,28 @@ void renderPauseScreen(){
 			}
 			myfile.close();
 		}
+}
+void movearrow()
+{
+	bool bSomethingHappened = false;
+	if (g_dBounceTime > g_dElapsedTime)
+		return;
+	if (g_abKeyPressed[K_UP] && arrow.Y > 12)
+	{
+		arrow.Y--;
+		bSomethingHappened = true;
+		g_Console.writeToBuffer(arrow, ">");
+
+	}
+	if (g_abKeyPressed[K_DOWN] && arrow.Y < 15)
+	{
+		arrow.Y++;
+		bSomethingHappened = true;
+		g_Console.writeToBuffer(arrow, ">");
+	}
+	if (bSomethingHappened)
+	{
+		// set the bounce time to some time in the future to prevent accidental triggers
+		g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
+	}
 }
