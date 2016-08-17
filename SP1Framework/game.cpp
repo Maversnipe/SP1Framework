@@ -218,7 +218,7 @@ void processUserInput()
 {
     // quits the game if player hits the escape key
 	if (g_abKeyPressed[K_SPACE]){
-		g_bGamePaused = true;
+		renderPauseScreen();
 	}
 }
 
@@ -244,7 +244,6 @@ void titleText() {
 		myfile.close();
 	}
 }
-
 
 void renderSplashScreen()  // renders the splash screen
 {
@@ -328,4 +327,21 @@ void renderToScreen()
 {
     // Writes the buffer to the console, hence you will see what you have written
     g_Console.flushBufferToConsole();
+}
+
+void renderPauseScreen(){
+		COORD c = g_Console.getConsoleSize();
+		c.Y = 4;
+		c.X = 7;
+
+		std::string sym;
+		std::ifstream myfile("PauseScreen.txt");
+
+		if (myfile.is_open()){
+			while (getline(myfile, sym)) {
+				g_Console.writeToBuffer(c, sym, 0x0B);
+				c.Y++;
+			}
+			myfile.close();
+		}
 }

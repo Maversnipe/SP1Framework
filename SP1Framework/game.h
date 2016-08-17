@@ -11,6 +11,7 @@
 #define VK_D 0x44
 extern CStopWatch g_swTimer;
 extern bool g_bQuitGame;
+bool g_bGamePaused;
 
 // Enumeration to store the control keys that your game will have
 enum EKEYS
@@ -32,6 +33,7 @@ enum EKEYS
 enum EGAMESTATES
 {
     S_SPLASHSCREEN,
+	S_PAUSE,
     S_GAME,
     S_COUNT
 };
@@ -60,5 +62,6 @@ void renderMap();           // renders the map to the buffer first
 void renderCharacter();     // renders the character into the buffer
 void renderFramerate();     // renders debug information, frame rate, elapsed time, etc
 void renderToScreen();      // dump the contents of the buffer to the screen, one frame worth of game
+void renderPauseScreen();
 
 #endif // _GAME_H
