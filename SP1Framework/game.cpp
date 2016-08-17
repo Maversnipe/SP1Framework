@@ -15,6 +15,10 @@ int g_dTotalPoints;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
 
+int g_dBoulders;
+int g_dBonusKey;
+int g_dMainKey;
+
 // Game specific variables here
 SGameChar   g_sChar;
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
@@ -86,6 +90,8 @@ void getInput(void)
 	g_abKeyPressed[K_S] = isKeyPressed(VK_S);
 	g_abKeyPressed[K_A] = isKeyPressed(VK_A);
 	g_abKeyPressed[K_D] = isKeyPressed(VK_D);
+	g_abKeyPressed[K_ONE] = isKeyPressed(VK_ONE);
+	g_abKeyPressed[K_TWO] = isKeyPressed(VK_TWO);
 }
 
 //--------------------------------------------------------------
@@ -151,6 +157,17 @@ void splashScreenWait()    // waits for time to pass in splash screen
 	if (g_abKeyPressed[K_ESCAPE]){
 		g_bQuitGame = true;
 	}
+
+	/* if (g_abKeyPressed[K_ONE]){
+	g_eGameState = S_OPTIONS;
+	}
+
+	if (g_abKeyPressed[K_TWO]){
+	g_eGameState = S_LEADERBOARD;
+	} 
+	
+	-- Commented out because the game states S_OPTIONS and S_LEADERBOARD are not done yet.
+	*/
 }
 
 void gameplay()            // gameplay logic
@@ -266,16 +283,16 @@ void renderSplashScreen()  // renders the splash screen
     COORD c = g_Console.getConsoleSize();
     c.Y = c.Y / 2;
     c.X = c.X / 2 - 9;
-    g_Console.writeToBuffer(c, "Start Game", 0x07);
+    g_Console.writeToBuffer(c, "Enter - Start Game", 0x07);
     c.Y += 1;
     c.X = g_Console.getConsoleSize().X / 2 - 9;
-	g_Console.writeToBuffer(c, "Options", 0x07);
+	g_Console.writeToBuffer(c, "1 - Options", 0x07);
 	c.Y += 1;
 	c.X = g_Console.getConsoleSize().X / 2 - 9;
-	g_Console.writeToBuffer(c, "Leaderboard", 0x07);
+	g_Console.writeToBuffer(c, "2 - Leaderboard", 0x07);
 	c.Y += 1;
 	c.X = g_Console.getConsoleSize().X / 2 - 9;
-	g_Console.writeToBuffer(c, "Press 'Esc' to quit", 0x07);
+	g_Console.writeToBuffer(c, "Esc - Quit Game", 0x07);
 }
 
 void renderGame()
@@ -372,4 +389,56 @@ void renderPauseScreen(){
 			}
 			myfile.close();
 		}
+}
+
+void OptionsChoices(){
+	if (g_abKeyPressed[K_ENTER]){
+		// enter options
+	}
+
+	if (g_abKeyPressed[K_UP] || g_abKeyPressed[K_W]){
+		// move up
+	}
+
+	if (g_abKeyPressed[K_UP] || g_abKeyPressed[K_S]){
+		// move down
+	}
+
+	if (g_abKeyPressed[K_ESCAPE]){
+		g_eGameState = S_SPLASHSCREEN;
+	}
+}
+
+void renderOptions(){
+	std::string sym;
+	std::ifstream myfile("options.txt");
+
+	COORD c = g_Console.getConsoleSize();
+	c.Y = 4;
+	c.X = 15;
+
+	if (myfile.is_open()){
+		while (getline(myfile, sym)) {
+			g_Console.writeToBuffer(c, sym, 0x07);
+			c.Y++;
+		}
+		myfile.close();
+	}
+}
+
+void renderLB(){
+	std::string sym;
+	std::ifstream myfile("Leaderboard.txt");
+
+	COORD c = g_Console.getConsoleSize();
+	c.Y = 4;
+	c.X = 0;
+
+	if (myfile.is_open()){
+		while (getline(myfile, sym)) {
+			g_Console.writeToBuffer(c, sym, 0x07);
+			c.Y++;
+		}
+		myfile.close();
+	}
 }
