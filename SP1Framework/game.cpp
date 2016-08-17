@@ -168,8 +168,13 @@ void moveCharacter()
 
 	// Updating the location of the character based on the key press
 	// providing a beep sound whenver we shift the character
-
-	if (g_abKeyPressed[K_UP] || g_abKeyPressed[K_W] && g_sChar.m_cLocation.Y > 0)
+	if (g_abKeyPressed[K_W] && g_sChar.m_cLocation.Y > 0)
+	{
+		//Beep(1440, 30);
+		g_sChar.m_cLocation.Y--;
+		bSomethingHappened = true;
+	}
+	if (g_abKeyPressed[K_UP]&& g_sChar.m_cLocation.Y > 0)
 	{
 		//Beep(1440, 30);
 		g_sChar.m_cLocation.Y--;
