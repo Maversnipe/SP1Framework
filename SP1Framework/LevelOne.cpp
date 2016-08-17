@@ -8,7 +8,7 @@ void LevelOne()
 	COORD c;
 	c.Y = 0;
 	c.X = 0;
-	char LevelOne[22][52];
+	char Map[22][52];
 	std::ifstream File("LevelOne.txt");
 
 	if (File.is_open())
@@ -17,7 +17,7 @@ void LevelOne()
 		{
 			for (int Columns = 0; Columns < 52; Columns++)
 			{
-				File >> LevelOne[Rows][Columns];
+				File >> Map[Rows][Columns];
 			}
 		}
 		File.close();
@@ -26,12 +26,12 @@ void LevelOne()
 			c.Y = Rows + 3;
 			for (int Columns = 0; Columns < 52; Columns++)
 			{
-				if (LevelOne[Rows][Columns] == 'i')
+				if (Map[Rows][Columns] == 'i')
 				{
-					LevelOne[Rows][Columns] = ' ';
+					Map[Rows][Columns] = ' ';
 				}
 				c.X = Columns + 3;
-				g_Console.writeToBuffer(c, LevelOne[Rows][Columns], 0x0A);
+				g_Console.writeToBuffer(c, Map[Rows][Columns], 0x0A);
 			}
 		}
 	}

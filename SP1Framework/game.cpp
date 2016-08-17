@@ -83,6 +83,7 @@ void getInput(void)
 	g_abKeyPressed[K_RIGHT] = isKeyPressed(VK_RIGHT);
 	g_abKeyPressed[K_SPACE] = isKeyPressed(VK_SPACE);
 	g_abKeyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
+	g_abKeyPressed[K_ENTER] = isKeyPressed(VK_RETURN);
 	g_abKeyPressed[K_W] = isKeyPressed(VK_W);
 	g_abKeyPressed[K_S] = isKeyPressed(VK_S);
 	g_abKeyPressed[K_A] = isKeyPressed(VK_A);
@@ -106,15 +107,19 @@ void getInput(void)
 void update(double dt)
 {
     // get the delta time
-    g_dElapsedTime += dt;
-    g_dDeltaTime = dt;
+
+	if (g_eGameState == S_GAME)
+	{
+		g_dDeltaTime = dt;
+		g_dElapsedTime += dt;
+	}
 
     switch (g_eGameState)
     {
         case S_SPLASHSCREEN : splashScreenWait(); // game logic for the splash screen
             break;
-        case S_GAME: gameplay(); // gameplay logic when we are in the game
-            break;
+		case S_GAME: gameplay(); // gameplay logic when we are in the game
+			break;
 		//case S_PAUSE: renderPauseScreen();
     }
 }
@@ -143,7 +148,7 @@ void render()
 
 void splashScreenWait()    // waits for time to pass in splash screen
 {
-    if (g_dElapsedTime > 1.0) // wait for 3 seconds to switch to game mode, else do nothing
+    if ((g_eGameState == S_SPLASHSCREEN) && (g_abKeyPressed[K_ENTER])) // Press Enter to start game
         g_eGameState = S_GAME;
 }
 
@@ -316,7 +321,7 @@ void renderarrow()
 	if (setArrow == false)
 	{
 		arrow.X = 25;
-		arrow.Y = 12;
+		arrow.Y = 15;
 		g_Console.writeToBuffer(arrow, ">");
 		setArrow = true;
 	}
@@ -378,14 +383,14 @@ void movearrow()
 	bool bSomethingHappened = false;
 	if (g_dBounceTime > g_dElapsedTime)
 		return;
-	if (g_abKeyPressed[K_UP] && arrow.Y > 12)
+	if (g_abKeyPressed[K_UP] && arrow.Y > 15)
 	{
 		arrow.Y--;
 		bSomethingHappened = true;
 		g_Console.writeToBuffer(arrow, ">");
 
 	}
-	if (g_abKeyPressed[K_DOWN] && arrow.Y < 15)
+	if (g_abKeyPressed[K_DOWN] && arrow.Y < 18)
 	{
 		arrow.Y++;
 		bSomethingHappened = true;
