@@ -6,5 +6,5 @@
 |   |   |   _   |       |_____| |   |___|       |
 |___|   |__| |__|_______|_______|_______|______| 
 
-Press ESC again to return to the GAME
-Press SPACE to return to the MAIN MENU
+        Press ENTER to return to the GAME
+      Press SPACE to return to the MAIN MENU

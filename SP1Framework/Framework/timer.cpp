@@ -82,16 +82,16 @@ void CStopWatch::waitUntil(long long llTime)
 {
     LARGE_INTEGER liCurTime;
     LONGLONG llTimeElapsed;
-    while (true)
-    {
-        // get current time
-        QueryPerformanceCounter(&liCurTime);
-        // Calculate time elapsed
-        llTimeElapsed = ((liCurTime.QuadPart - m_liPrevTime.QuadPart) * 1000 / m_liFrequency.QuadPart);
-        // llTime has passed, return and end sleep
-        if (llTimeElapsed > llTime)
-            return;
-        else if (llTime - llTimeElapsed > 1)
-            Sleep(1);
+	while (true)
+	{
+		// get current time
+		QueryPerformanceCounter(&liCurTime);
+		// Calculate time elapsed
+		llTimeElapsed = ((liCurTime.QuadPart - m_liPrevTime.QuadPart) * 1000 / m_liFrequency.QuadPart);
+		// llTime has passed, return and end sleep
+		if (llTimeElapsed > llTime)
+			return;
+		else if (llTime - llTimeElapsed > 1)
+			Sleep(1);
     }
 }
