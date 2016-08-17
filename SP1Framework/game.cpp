@@ -1,11 +1,14 @@
 // This is the main file for the game logic and function
 //
 //
+#include <string>
 #include "game.h"
 #include "Framework\console.h"
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+#include <fstream>
+#include <stdlib.h>
 
 double  g_dElapsedTime;
 int g_dTotalPoints;
@@ -18,7 +21,7 @@ EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
 
 // Console object
-Console g_Console(80, 25, "Kentucky Cooke and The Crystal Temple");
+Console g_Console(80, 25, "Crystal Temple");
 
 //--------------------------------------------------------------
 // Purpose  : Initialisation function
@@ -70,14 +73,18 @@ void shutdown( void )
 // Input    : Void
 // Output   : void
 //--------------------------------------------------------------
-void getInput( void )
-{    
-    g_abKeyPressed[K_UP]     = isKeyPressed(VK_UP);
-    g_abKeyPressed[K_DOWN]   = isKeyPressed(VK_DOWN);
-    g_abKeyPressed[K_LEFT]   = isKeyPressed(VK_LEFT);
-    g_abKeyPressed[K_RIGHT]  = isKeyPressed(VK_RIGHT);
-    g_abKeyPressed[K_SPACE]  = isKeyPressed(VK_SPACE);
-    g_abKeyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
+void getInput(void)
+{
+	g_abKeyPressed[K_UP] = isKeyPressed(VK_UP);
+	g_abKeyPressed[K_DOWN] = isKeyPressed(VK_DOWN);
+	g_abKeyPressed[K_LEFT] = isKeyPressed(VK_LEFT);
+	g_abKeyPressed[K_RIGHT] = isKeyPressed(VK_RIGHT);
+	g_abKeyPressed[K_SPACE] = isKeyPressed(VK_SPACE);
+	g_abKeyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
+	g_abKeyPressed[K_W] = isKeyPressed(VK_W);
+	g_abKeyPressed[K_S] = isKeyPressed(VK_S);
+	g_abKeyPressed[K_A] = isKeyPressed(VK_A);
+	g_abKeyPressed[K_D] = isKeyPressed(VK_D);
 }
 
 //--------------------------------------------------------------
@@ -132,7 +139,7 @@ void render()
 
 void splashScreenWait()    // waits for time to pass in splash screen
 {
-    if (g_dElapsedTime > 3.0) // wait for 3 seconds to switch to game mode, else do nothing
+    if (g_dElapsedTime > 10.0) // wait for 3 seconds to switch to game mode, else do nothing
         g_eGameState = S_GAME;
 }
 
@@ -145,31 +152,51 @@ void gameplay()            // gameplay logic
 
 void moveCharacter()
 {
-    bool bSomethingHappened = false;
-    if (g_dBounceTime > g_dElapsedTime)
-        return;
+	bool bSomethingHappened = false;
+	if (g_dBounceTime > g_dElapsedTime)
+		return;
 
-    // Updating the location of the character based on the key press
-    // providing a beep sound whenver we shift the character
-    if (g_abKeyPressed[K_UP] && g_sChar.m_cLocation.Y > 0)
-    {
-        //Beep(1440, 30);
-        g_sChar.m_cLocation.Y--;
-        bSomethingHappened = true;
-    }
-    if (g_abKeyPressed[K_LEFT] && g_sChar.m_cLocation.X > 0)
+	// Updating the location of the character based on the key press
+	// providing a beep sound whenver we shift the character
+
+	if (g_abKeyPressed[K_UP] || g_abKeyPressed[K_W] && g_sChar.m_cLocation.Y > 0)
+	{
+		//Beep(1440, 30);
+		g_sChar.m_cLocation.Y--;
+		bSomethingHappened = true;
+	}
+	if (g_abKeyPressed[K_A] && g_sChar.m_cLocation.X > 0)
+	{
+		//Beep(1440, 30);
+		
+		g_sChar.m_cLocation.X--;
+		bSomethingHappened = true;
+	}
+	if (g_abKeyPressed[K_LEFT]  && g_sChar.m_cLocation.X > 0)
     {
         //Beep(1440, 30);
         g_sChar.m_cLocation.X--;
         bSomethingHappened = true;
     }
-    if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
+	if (g_abKeyPressed[K_S] && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
+	{
+		//Beep(1440, 30);
+		g_sChar.m_cLocation.Y++;
+		bSomethingHappened = true;
+	}
+	if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y-1)
     {
         //Beep(1440, 30);
         g_sChar.m_cLocation.Y++;
         bSomethingHappened = true;
     }
-    if (g_abKeyPressed[K_RIGHT] && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
+	if (g_abKeyPressed[K_D] && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
+	{
+		//Beep(1440, 30);
+		g_sChar.m_cLocation.X++;
+		bSomethingHappened = true;
+	}
+	if (g_abKeyPressed[K_RIGHT]&& g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
     {
         //Beep(1440, 30);
         g_sChar.m_cLocation.X++;
@@ -184,14 +211,15 @@ void moveCharacter()
     if (bSomethingHappened)
     {
         // set the bounce time to some time in the future to prevent accidental triggers
-        g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
+		g_dBounceTime = g_dElapsedTime + 0.125 ; // 125ms should be enough
     }
 }
 void processUserInput()
 {
     // quits the game if player hits the escape key
-    if (g_abKeyPressed[K_ESCAPE])
-        g_bQuitGame = true;    
+	if (g_abKeyPressed[K_SPACE]){
+		g_bGamePaused = true;
+	}
 }
 
 void clearScreen()
@@ -200,16 +228,44 @@ void clearScreen()
 	g_Console.clearBuffer(0x00);
 }
 
+void titleText() {
+	COORD c = g_Console.getConsoleSize();
+	c.Y = 4;
+	c.X = 7;
+
+	std::string sym;
+	std::ifstream myfile("GameTitle.txt");
+
+	if (myfile.is_open()){
+		while (getline(myfile, sym)) {
+			g_Console.writeToBuffer(c, sym, 0x0B);
+			c.Y++;
+		}
+		myfile.close();
+	}
+}
+
+
 void renderSplashScreen()  // renders the splash screen
 {
-	void titleText(Console g_Console);
+	titleText();
     COORD c = g_Console.getConsoleSize();
-    c.Y /= 3;
+    c.Y = c.Y / 2;
     c.X = c.X / 2 - 9;
-    g_Console.writeToBuffer(c, "A game in 3 seconds", 0x03);
+    g_Console.writeToBuffer(c, "Start Game", 0x07);
     c.Y += 1;
     c.X = g_Console.getConsoleSize().X / 2 - 9;
-    g_Console.writeToBuffer(c, "Press 'Esc' to quit", 0x09);
+	g_Console.writeToBuffer(c, "Options", 0x07);
+	c.Y += 1;
+	c.X = g_Console.getConsoleSize().X / 2 - 9;
+	g_Console.writeToBuffer(c, "Leaderboard", 0x07);
+	c.Y += 1;
+	c.X = g_Console.getConsoleSize().X / 2 - 9;
+	g_Console.writeToBuffer(c, "Press 'Esc' to quit", 0x07);
+
+	if (g_abKeyPressed[K_ESCAPE]){
+		g_bQuitGame = true;
+	}
 }
 
 void renderGame()

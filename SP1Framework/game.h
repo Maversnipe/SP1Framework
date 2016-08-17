@@ -1,21 +1,31 @@
 #ifndef _GAME_H
 #define _GAME_H
 
+#include <Windows.h>
 #include "Framework\timer.h"
+#include <string>
 
+#define VK_A 0x41
+#define VK_W 0x57
+#define VK_S 0x53
+#define VK_D 0x44
 extern CStopWatch g_swTimer;
 extern bool g_bQuitGame;
 
 // Enumeration to store the control keys that your game will have
 enum EKEYS
 {
-    K_UP,
-    K_DOWN,
-    K_LEFT,
-    K_RIGHT,
-    K_ESCAPE,
-    K_SPACE,
-    K_COUNT
+	K_UP,
+	K_DOWN,
+	K_LEFT,
+	K_RIGHT,
+	K_ESCAPE,
+	K_SPACE,
+	K_W,
+	K_A,
+	K_S,
+	K_D,
+	K_COUNT,
 };
 
 // Enumeration for the different screen states
