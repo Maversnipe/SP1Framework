@@ -81,6 +81,7 @@ void getInput(void)
 	g_abKeyPressed[K_RIGHT] = isKeyPressed(VK_RIGHT);
 	g_abKeyPressed[K_SPACE] = isKeyPressed(VK_SPACE);
 	g_abKeyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
+	g_abKeyPressed[K_ENTER] = isKeyPressed(VK_RETURN);
 	g_abKeyPressed[K_W] = isKeyPressed(VK_W);
 	g_abKeyPressed[K_S] = isKeyPressed(VK_S);
 	g_abKeyPressed[K_A] = isKeyPressed(VK_A);
@@ -104,8 +105,10 @@ void getInput(void)
 void update(double dt)
 {
     // get the delta time
-    g_dElapsedTime += dt;
-    g_dDeltaTime = dt;
+	if (g_eGameState == S_GAME){
+		g_dElapsedTime += dt;
+	}
+		g_dDeltaTime = dt;
 
     switch (g_eGameState)
     {
@@ -113,7 +116,7 @@ void update(double dt)
             break;
         case S_GAME: gameplay(); // gameplay logic when we are in the game
             break;
-		case S_PAUSE: renderPauseScreen();
+		case S_PAUSE: paused(); // game logic when game is paused
     }
 }
 //--------------------------------------------------------------
@@ -141,8 +144,13 @@ void render()
 
 void splashScreenWait()    // waits for time to pass in splash screen
 {
-    if (g_dElapsedTime > 10.0) // wait for 3 seconds to switch to game mode, else do nothing
-        g_eGameState = S_GAME;
+	if (g_abKeyPressed[K_ENTER]){ // wait for 3 seconds to switch to game mode, else do nothing
+		g_eGameState = S_GAME;
+	}
+
+	if (g_abKeyPressed[K_ESCAPE]){
+		g_bQuitGame = true;
+	}
 }
 
 void gameplay()            // gameplay logic
@@ -219,12 +227,8 @@ void moveCharacter()
 void processUserInput()
 {
     // quits the game if player hits the escape key
-	if (g_abKeyPressed[K_SPACE]){
-		renderPauseScreen();
-	}
-
 	if (g_abKeyPressed[K_ESCAPE]){
-		g_bQuitGame = true;
+		g_eGameState = S_PAUSE;
 	}
 }
 
@@ -331,17 +335,34 @@ void renderToScreen()
     g_Console.flushBufferToConsole();
 }
 
-void renderPauseScreen(){
-		COORD c = g_Console.getConsoleSize();
-		c.Y = 4;
-		c.X = 7;
+void paused(){
+	renderPauseScreen();
+	pauseScreenChoices();
+}
 
+void pauseScreenChoices(){
+	if (g_abKeyPressed[K_ENTER]){
+		g_eGameState = S_GAME;
+	}
+	if (g_abKeyPressed[K_SPACE]){
+		g_dElapsedTime = 0.0;
+		g_dBounceTime = 0.0;
+		g_dTotalPoints = 0;
+		g_eGameState = S_SPLASHSCREEN;
+	}
+}
+
+void renderPauseScreen(){
 		std::string sym;
 		std::ifstream myfile("PauseScreen.txt");
 
+		COORD c = g_Console.getConsoleSize();
+		c.Y = 4;
+		c.X = 15;
+
 		if (myfile.is_open()){
 			while (getline(myfile, sym)) {
-				g_Console.writeToBuffer(c, sym, 0x0B);
+				g_Console.writeToBuffer(c, sym, 0x07);
 				c.Y++;
 			}
 			myfile.close();
