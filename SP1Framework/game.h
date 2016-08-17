@@ -10,6 +10,8 @@
 #define VK_W 0x57
 #define VK_S 0x53
 #define VK_D 0x44
+#define VK_ONE 0x31
+#define VK_TWO 0x32
 extern CStopWatch g_swTimer;
 extern bool g_bQuitGame;
 
@@ -27,6 +29,9 @@ enum EKEYS
 	K_S,
 	K_D,
 	K_COUNT,
+	K_ENTER,
+	K_ONE,
+	K_TWO,
 };
 
 // Enumeration for the different screen states
@@ -63,5 +68,9 @@ void renderCharacter();     // renders the character into the buffer
 void renderFramerate();     // renders debug information, frame rate, elapsed time, etc
 void renderToScreen();      // dump the contents of the buffer to the screen, one frame worth of game
 void renderPauseScreen();
+void renderarrow();
+void movearrow();
+void paused();
+void pauseScreenChoices();
 
 #endif // _GAME_H
