@@ -113,6 +113,7 @@ void update(double dt)
             break;
         case S_GAME: gameplay(); // gameplay logic when we are in the game
             break;
+		case S_PAUSE: renderPauseScreen();
     }
 }
 //--------------------------------------------------------------
@@ -132,6 +133,7 @@ void render()
             break;
         case S_GAME: renderGame();
             break;
+		case S_PAUSE: renderPauseScreen();
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
@@ -220,6 +222,10 @@ void processUserInput()
 	if (g_abKeyPressed[K_SPACE]){
 		renderPauseScreen();
 	}
+
+	if (g_abKeyPressed[K_ESCAPE]){
+		g_bQuitGame = true;
+	}
 }
 
 void clearScreen()
@@ -261,10 +267,6 @@ void renderSplashScreen()  // renders the splash screen
 	c.Y += 1;
 	c.X = g_Console.getConsoleSize().X / 2 - 9;
 	g_Console.writeToBuffer(c, "Press 'Esc' to quit", 0x07);
-
-	if (g_abKeyPressed[K_ESCAPE]){
-		g_bQuitGame = true;
-	}
 }
 
 void renderGame()

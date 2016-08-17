@@ -11,7 +11,6 @@
 #define VK_D 0x44
 extern CStopWatch g_swTimer;
 extern bool g_bQuitGame;
-bool g_bGamePaused;
 
 // Enumeration to store the control keys that your game will have
 enum EKEYS
