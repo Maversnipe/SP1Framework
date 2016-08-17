@@ -21,8 +21,7 @@ EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
 
 // Console object
-Console g_Console(80, 25, "Crystal Temple");
-
+Console g_Console(80, 30, "Crystal Temple");
 //--------------------------------------------------------------
 // Purpose  : Initialisation function
 //            Initialize variables, allocate memory, load data from file, etc. 
@@ -113,7 +112,7 @@ void update(double dt)
             break;
         case S_GAME: gameplay(); // gameplay logic when we are in the game
             break;
-		case S_PAUSE: renderPauseScreen();
+		//case S_PAUSE: renderPauseScreen();
     }
 }
 //--------------------------------------------------------------
@@ -131,9 +130,9 @@ void render()
     {
         case S_SPLASHSCREEN: renderSplashScreen();
             break;
-        case S_GAME: renderGame();
+		case S_GAME: renderGame();
             break;
-		case S_PAUSE: renderPauseScreen();
+		//case S_PAUSE: renderPauseScreen();
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
@@ -141,7 +140,7 @@ void render()
 
 void splashScreenWait()    // waits for time to pass in splash screen
 {
-    if (g_dElapsedTime > 10.0) // wait for 3 seconds to switch to game mode, else do nothing
+    if (g_dElapsedTime > 1.0) // wait for 3 seconds to switch to game mode, else do nothing
         g_eGameState = S_GAME;
 }
 
@@ -271,7 +270,7 @@ void renderSplashScreen()  // renders the splash screen
 
 void renderGame()
 {
-    renderMap();        // renders the map to the buffer first
+    LevelOne();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
 }
 

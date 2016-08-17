@@ -4,6 +4,7 @@
 #include <Windows.h>
 #include "Framework\timer.h"
 #include <string>
+#include "LevelOne.h"
 
 #define VK_A 0x41
 #define VK_W 0x57
