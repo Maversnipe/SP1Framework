@@ -133,7 +133,7 @@ void render()
 
 void splashScreenWait()    // waits for time to pass in splash screen
 {
-    if (g_dElapsedTime > 1.0) // wait for 3 seconds to switch to game mode, else do nothing
+    if (g_dElapsedTime > 3.0) // wait for 3 seconds to switch to game mode, else do nothing
         g_eGameState = S_GAME;
 }
 
@@ -283,7 +283,7 @@ void renderFramerate()
 
     // displays the elapsed time
     ss.str("");
-    ss << (int) g_dElapsedTime << " secs";
+    ss << (double) g_dElapsedTime << " secs";
     c.X = 0;
     c.Y = 0;
     g_Console.writeToBuffer(c, ss.str());
