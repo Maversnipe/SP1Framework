@@ -10,7 +10,7 @@
 #include <fstream>
 #include <stdlib.h>
 
-char Map[22][52];
+char Map[100][100];
 COORD arrow;
 bool setArrow = false;
 
@@ -167,53 +167,77 @@ void moveCharacter()
 
 	// Updating the location of the character based on the key press
 	// providing a beep sound whenver we shift the character
-	if ((g_abKeyPressed[K_W]) && (g_sChar.m_cLocation.Y > 0))//Move Up [W] Key
+	if ((g_abKeyPressed[K_W]) && (Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] > 0))//Move Up [W] Key
 	{
 		//Beep(1440, 30);
+		if (Map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != '=' && Map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != '|')
+		{
 			g_sChar.m_cLocation.Y--;
 			bSomethingHappened = true;
+		}
 	}
-	if ((g_abKeyPressed[K_UP]) && (g_sChar.m_cLocation.Y > 0))//Move Up [UP] Key
+	if ((g_abKeyPressed[K_UP]) && (Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] > 0))//Move Up [UP] Key
 	{
 		//Beep(1440, 30);
+		if (Map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != '=' && Map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != '|')
+		{
 			g_sChar.m_cLocation.Y--;
 			bSomethingHappened = true;
+		}
 	}
-	if ((g_abKeyPressed[K_A]) && (g_sChar.m_cLocation.X > 0))//Move Left [A] Key
+	if ((g_abKeyPressed[K_A]) && (Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] > 0))//Move Left [A] Key
 	{
 		//Beep(1440, 30);
+		if (Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != '=' && Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != '|')
+		{
 			g_sChar.m_cLocation.X--;
 			bSomethingHappened = true;
+		}
 	}
-	if ((g_abKeyPressed[K_LEFT]) && (g_sChar.m_cLocation.X - 1 > 0))//Move Left [LEFT] Key
+	if ((g_abKeyPressed[K_LEFT]) && (Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] > 0))//Move Left [LEFT] Key
     {
         //Beep(1440, 30);
+		if (Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != '=' && Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != '|')
+		{
 			g_sChar.m_cLocation.X--;
 			bSomethingHappened = true;
+		}
     }
 	if ((g_abKeyPressed[K_S]) && (g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1))//Move Down [S] Key
 	{
 		//Beep(1440, 30);
+		if ((Map[g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != '=') && (Map[g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != '|'))
+		{
 			g_sChar.m_cLocation.Y++;
 			bSomethingHappened = true;
+		}
 	}
 	if ((g_abKeyPressed[K_DOWN]) && (g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1))//Move Down [DOWN] Key
     {
         //Beep(1440, 30);
+		if ((Map[g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X]) != '=' && (Map[g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != '|'))
+		{
 			g_sChar.m_cLocation.Y++;
 			bSomethingHappened = true;
+		}
     }
 	if ((g_abKeyPressed[K_D]) && (g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1))//Move Right [D] Key
 	{
 		//Beep(1440, 30);
+		if (Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != '=' && Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != '|')
+		{
 			g_sChar.m_cLocation.X++;
 			bSomethingHappened = true;
+		}
 	}
 	if ((g_abKeyPressed[K_RIGHT]) && (g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1))//Move Right [RIGHT] Key
     {
         //Beep(1440, 30);
+		if (Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != '=' && Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != '|')
+		{
 			g_sChar.m_cLocation.X++;
 			bSomethingHappened = true;
+		}
     }
     if (g_abKeyPressed[K_SPACE])
     {
