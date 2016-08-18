@@ -2,28 +2,29 @@
 #include <stdio.h>
 #include <chrono>
 #include <thread>
+#include "game.h"
 
 void spikes_on() {
 	int secondcounter = 0;
 
 	for (int secondcounter = 0; secondcounter >= 0; secondcounter++){
 		if (secondcounter % 2 == 0){
-			std::ostringstream ss;
-			ss << std::fixed;
-			ss << "\r" << "a" << std::flush;
+			ostringstream ss;
+			ss << fixed;
+			ss << "\r" << "a" << flush;
 
 			/* if (playerPositionX == spikeX && playerPositionY == spikeY){
 				}
 			*/
 
-			std::this_thread::sleep_for(std::chrono::seconds(10));
+			this_thread::sleep_for(chrono::seconds(10));
 		}
 
 		else {
-			std::ostringstream ss;
-			ss << std::fixed;
+			ostringstream ss;
+			ss << fixed;
 			ss << "\r" << "b" << std::flush;
-			std::this_thread::sleep_for(std::chrono::seconds(10));
+			this_thread::sleep_for(chrono::seconds(10));
 		}
 	}
 }

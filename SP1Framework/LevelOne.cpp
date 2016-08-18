@@ -1,15 +1,14 @@
 #include "LevelOne.h"
 extern Console g_Console;
 #include <iostream>
-using namespace std;
 
 void LevelOne()
 {
 	COORD c;
 	c.Y = 0;
 	c.X = 0;
-	char Map[22][52];
-	std::ifstream File("LevelOne.txt");
+	extern char Map[22][52];
+	ifstream File("LevelOne.txt");
 
 	if (File.is_open())
 	{

@@ -6,6 +6,8 @@
 #include <string>
 #include "LevelOne.h"
 
+using namespace std;
+
 #define VK_A 0x41
 #define VK_W 0x57
 #define VK_S 0x53

@@ -10,6 +10,7 @@
 #include <fstream>
 #include <stdlib.h>
 
+char Map[22][52];
 COORD arrow;
 bool setArrow = false;
 
@@ -42,8 +43,7 @@ void init( void )
     // sets the initial state for the game
     g_eGameState = S_SPLASHSCREEN;
 
-    g_sChar.m_cLocation.X = g_Console.getConsoleSize().X / 2;
-    g_sChar.m_cLocation.Y = g_Console.getConsoleSize().Y / 2;
+	Map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] = Map[4][24];
     g_sChar.m_bActive = true;
     // sets the width, height and the font name to use in the console
     g_Console.setConsoleFont(0, 16, L"Consolas");
@@ -107,12 +107,8 @@ void getInput(void)
 void update(double dt)
 {
     // get the delta time
-
-	if (g_eGameState == S_GAME)
-	{
 		g_dDeltaTime = dt;
 		g_dElapsedTime += dt;
-	}
 
     switch (g_eGameState)
     {
@@ -120,7 +116,7 @@ void update(double dt)
             break;
 		case S_GAME: gameplay(); // gameplay logic when we are in the game
 			break;
-		//case S_PAUSE: renderPauseScreen();
+		case S_PAUSE: renderPauseScreen();
     }
 }
 //--------------------------------------------------------------
@@ -168,54 +164,78 @@ void moveCharacter()
 
 	// Updating the location of the character based on the key press
 	// providing a beep sound whenver we shift the character
-	if (g_abKeyPressed[K_W] && g_sChar.m_cLocation.Y > 0)
+	if ((g_abKeyPressed[K_W]) && (Map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] > 0))//Move Up [W] Key
 	{
 		//Beep(1440, 30);
-		g_sChar.m_cLocation.Y--;
-		bSomethingHappened = true;
+		if ((Map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] != '=') || (Map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] != '|'))
+		{
+			Map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1];
+			bSomethingHappened = true;
+		}
+
 	}
-	if (g_abKeyPressed[K_UP]&& g_sChar.m_cLocation.Y > 0)
+	if ((g_abKeyPressed[K_UP]) && (Map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] > 0))//Move Up [UP] Key
 	{
 		//Beep(1440, 30);
-		g_sChar.m_cLocation.Y--;
-		bSomethingHappened = true;
+		if ((Map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] != '=') || (Map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1] != '|'))
+		{
+			Map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y - 1];
+			bSomethingHappened = true;
+		}
 	}
-	if (g_abKeyPressed[K_A] && g_sChar.m_cLocation.X > 0)
+	if ((g_abKeyPressed[K_A]) && (Map[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y] > 0))//Move Left [A] Key
 	{
 		//Beep(1440, 30);
-		
-		g_sChar.m_cLocation.X--;
-		bSomethingHappened = true;
+		if ((Map[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y] != '=') || (Map[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y] != '|'))
+		{
+			Map[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y];
+			bSomethingHappened = true;
+		}
 	}
-	if (g_abKeyPressed[K_LEFT]  && g_sChar.m_cLocation.X > 0)
+	if ((g_abKeyPressed[K_LEFT]) && (Map[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y] > 0))//Move Left [LEFT] Key
     {
         //Beep(1440, 30);
-        g_sChar.m_cLocation.X--;
-        bSomethingHappened = true;
+		if ((Map[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y] != '=') || (Map[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y] != '|'))
+		{
+			Map[g_sChar.m_cLocation.X - 1][g_sChar.m_cLocation.Y];
+			bSomethingHappened = true;
+		}
     }
-	if (g_abKeyPressed[K_S] && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1)
+	if ((g_abKeyPressed[K_S]) && (Map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] < Map[g_sChar.m_cLocation.X][g_Console.getConsoleSize().Y - 1]))//Move Down [S] Key
 	{
 		//Beep(1440, 30);
-		g_sChar.m_cLocation.Y++;
-		bSomethingHappened = true;
+		if ((Map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y + 1] != '=') || (Map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y + 1] != '|'))
+		{
+			Map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y + 1];
+			bSomethingHappened = true;
+		}
 	}
-	if (g_abKeyPressed[K_DOWN] && g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y-1)
+	if ((g_abKeyPressed[K_DOWN]) && (Map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] < Map[g_sChar.m_cLocation.X][g_Console.getConsoleSize().Y - 1]))//Move Down [DOWN] Key
     {
         //Beep(1440, 30);
-        g_sChar.m_cLocation.Y++;
-        bSomethingHappened = true;
+		if ((Map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y + 1] != '=') || (Map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y + 1] != '|'))
+		{
+			Map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y + 1];
+			bSomethingHappened = true;
+		}
     }
-	if (g_abKeyPressed[K_D] && g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
+	if ((g_abKeyPressed[K_D]) && (Map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] < Map[g_Console.getConsoleSize().X - 1][g_sChar.m_cLocation.Y]))//Move Right [D] Key
 	{
 		//Beep(1440, 30);
-		g_sChar.m_cLocation.X++;
-		bSomethingHappened = true;
+		if ((Map[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y] != '=') || (Map[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y] != '|'))
+		{
+			Map[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y];
+			bSomethingHappened = true;
+		}
 	}
-	if (g_abKeyPressed[K_RIGHT]&& g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1)
+	if ((g_abKeyPressed[K_RIGHT]) && (Map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] < Map[g_Console.getConsoleSize().X - 1][g_sChar.m_cLocation.Y]))//Move Right [RIGHT] Key
     {
         //Beep(1440, 30);
-        g_sChar.m_cLocation.X++;
-        bSomethingHappened = true;
+		if ((Map[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y] != '=') || (Map[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y] != '|'))
+		{
+			Map[g_sChar.m_cLocation.X + 1][g_sChar.m_cLocation.Y];
+			bSomethingHappened = true;
+		}
     }
     if (g_abKeyPressed[K_SPACE])
     {
@@ -252,8 +272,8 @@ void titleText() {
 	c.Y = 4;
 	c.X = 7;
 
-	std::string sym;
-	std::ifstream myfile("GameTitle.txt");
+	string sym;
+	ifstream myfile("GameTitle.txt");
 
 	if (myfile.is_open()){
 		while (getline(myfile, sym)) {
@@ -316,6 +336,7 @@ void renderCharacter()
 	WORD charColor = 0x06;
     g_Console.writeToBuffer(g_sChar.m_cLocation, (char)232, charColor);
 }
+
 void renderarrow()
 {
 	if (setArrow == false)
@@ -335,7 +356,7 @@ void renderFramerate()
 {
     COORD c;
     // displays the framerate
-    std::ostringstream ss;
+    ostringstream ss;
     ss << std::fixed << std::setprecision(3);
     ss << 1.0 / g_dDeltaTime << "fps";
     c.X = g_Console.getConsoleSize().X - 11;
@@ -367,8 +388,8 @@ void renderPauseScreen(){
 		c.Y = 4;
 		c.X = 7;
 
-		std::string sym;
-		std::ifstream myfile("PauseScreen.txt");
+		string sym;
+		ifstream myfile("PauseScreen.txt");
 
 		if (myfile.is_open()){
 			while (getline(myfile, sym)) {
