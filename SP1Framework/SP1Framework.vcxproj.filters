@@ -45,6 +45,7 @@
     <ClCompile Include="BonusRoom.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="levelselection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -73,6 +74,13 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LevelThree.cpp">
+=======
+<<<<<<< HEAD
+    <ClCompile Include="AI.cpp">
+=======
+    <ClCompile Include="LevelTwo.cpp">
+>>>>>>> 2202f10aaf19ff09d47823e390a8d2892f5bb1c9
+>>>>>>> 37946b3060003193f8fcbe5dfe1b6bc430788bb2
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -92,6 +100,7 @@
     <ClInclude Include="BonusRoom.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="LevelThree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -117,6 +126,13 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LevelTwo.h">
+=======
+<<<<<<< HEAD
+    <ClInclude Include="AI.h">
+=======
+    <ClInclude Include="LevelTwo.h">
+>>>>>>> 2202f10aaf19ff09d47823e390a8d2892f5bb1c9
+>>>>>>> 37946b3060003193f8fcbe5dfe1b6bc430788bb2
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

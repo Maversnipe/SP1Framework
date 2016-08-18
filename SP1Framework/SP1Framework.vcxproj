@@ -77,6 +77,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AI.cpp" />
     <ClCompile Include="BonusRoom.cpp" />
     <ClCompile Include="Framework\console.cpp" />
     <ClCompile Include="Framework\timer.cpp" />
@@ -89,14 +90,19 @@
     <ClCompile Include="LevelFour.cpp" />
     <ClCompile Include="LevelNine.cpp" />
     <ClCompile Include="LevelOne.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="levelselection.cpp" />
     <ClCompile Include="LevelSeven.cpp" />
     <ClCompile Include="LevelSix.cpp" />
     <ClCompile Include="LevelTen.cpp" />
+=======
+    <ClCompile Include="LevelTwo.cpp" />
+>>>>>>> 37946b3060003193f8fcbe5dfe1b6bc430788bb2
     <ClCompile Include="main.cpp" />
     <ClCompile Include="spikes.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AI.h" />
     <ClInclude Include="BonusRoom.h" />
     <ClInclude Include="Framework\console.h" />
     <ClInclude Include="Framework\timer.h" />

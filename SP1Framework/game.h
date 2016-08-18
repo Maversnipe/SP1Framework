@@ -5,6 +5,7 @@
 #include "Framework\timer.h"
 #include <string>
 #include "LevelOne.h"
+#include "LevelTwo.h"
 #include "BonusRoom.h"
 
 using namespace std;
@@ -54,6 +55,13 @@ struct SGameChar
     COORD m_cLocation;
     bool  m_bActive;
 };
+
+struct Enemy
+{
+	COORD m_cLocation;
+};
+
+
 
 void init        ( void );      // initialize your variables, allocate memory, etc
 void getInput    ( void );      // get input from player

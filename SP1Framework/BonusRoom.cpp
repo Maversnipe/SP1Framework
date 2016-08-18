@@ -30,10 +30,10 @@ void BonusRoom(){
 					Map[Rows][Columns] = ' ';
 				}
 				c.X = Columns;
-				g_Console.writeToBuffer(c, Map[Rows][Columns], 0x0A);
+				g_Console.writeToBuffer(c, Map[Rows][Columns], 0x0B);
 			}
 		}
-		if (g_sChar.m_cLocation.X == 11 && g_sChar.m_cLocation.Y == 21){
+		if (g_sChar.m_cLocation.X == 12 && g_sChar.m_cLocation.Y == 22){
 			g_dTotalPoints = g_dTotalPoints + 50;
 		}
 	}

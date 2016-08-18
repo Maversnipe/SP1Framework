@@ -323,8 +323,13 @@ void renderMap()
         0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
         0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
     };
+<<<<<<< HEAD
 	selectlevel();
 	BonusRoom();
+=======
+
+	LevelOne();
+>>>>>>> 37946b3060003193f8fcbe5dfe1b6bc430788bb2
 }
 
 void renderCharacter()
