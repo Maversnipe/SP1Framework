@@ -15,6 +15,7 @@ using namespace std;
 #define VK_D 0x44
 #define VK_ONE 0x31
 #define VK_TWO 0x32
+#define VK_R 0x52
 extern CStopWatch g_swTimer;
 extern bool g_bQuitGame;
 
@@ -35,6 +36,7 @@ enum EKEYS
 	K_ENTER,
 	K_ONE,
 	K_TWO,
+	K_R,
 };
 
 // Enumeration for the different screen states
@@ -75,5 +77,6 @@ void renderarrow();
 void movearrow();
 void paused();
 void pauseScreenChoices();
+void pointSystem();
 
 #endif // _GAME_H

@@ -90,6 +90,7 @@ void getInput(void)
 	g_abKeyPressed[K_S] = isKeyPressed(VK_S);
 	g_abKeyPressed[K_A] = isKeyPressed(VK_A);
 	g_abKeyPressed[K_D] = isKeyPressed(VK_D);
+	g_abKeyPressed[K_R] = isKeyPressed(VK_R);
 }
 
 //--------------------------------------------------------------
@@ -156,9 +157,10 @@ void splashScreenWait()    // waits for time to pass in splash screen
 void gameplay()            // gameplay logic
 {
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
-    moveCharacter(); // moves the character, collision detection, physics, etc
-	              // sound can be played here too.
+    moveCharacter(); // moves the character, collision detection, physics, etc sound can be played here too.
+	pointSystem(); // Points added (test).
 }
+
 
 void moveCharacter()
 {
@@ -245,13 +247,34 @@ void moveCharacter()
         g_sChar.m_bActive = !g_sChar.m_bActive;
         bSomethingHappened = true;
     }
-
+	
     if (bSomethingHappened)
     {
         // set the bounce time to some time in the future to prevent accidental triggers
 		g_dBounceTime = g_dElapsedTime + 0.125 ; // 125ms should be enough
     }
 }
+void pointSystem()
+{
+	if ((Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == '1')
+	{
+		g_dTotalPoints += 100;
+	
+	}
+	if ((Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == '2')
+	{
+		g_dTotalPoints += 200;
+	}
+	if ((Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == '5')
+	{
+		g_dTotalPoints += 500;
+	}
+	if ((Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == 'A')
+	{
+		g_dTotalPoints += 1000;
+	}
+}
+	
 void processUserInput()
 {
     // pauses the game if player hits the escape key
