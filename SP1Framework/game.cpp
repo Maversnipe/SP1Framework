@@ -107,8 +107,10 @@ void getInput(void)
 void update(double dt)
 {
     // get the delta time
-		g_dDeltaTime = dt;
+	if (g_eGameState == S_GAME){
 		g_dElapsedTime += dt;
+	}
+		g_dDeltaTime = dt;
 
     switch (g_eGameState)
     {
@@ -135,8 +137,9 @@ void render()
         case S_SPLASHSCREEN: renderSplashScreen();
             break;
 		case S_GAME: renderGame();
-            break;
-		//case S_PAUSE: renderPauseScreen();
+			break;
+		case S_PAUSE: renderPauseScreen();
+			break;
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
@@ -252,12 +255,8 @@ void moveCharacter()
 void processUserInput()
 {
     // quits the game if player hits the escape key
-	if (g_abKeyPressed[K_SPACE]){
-		renderPauseScreen();
-	}
-
 	if (g_abKeyPressed[K_ESCAPE]){
-		g_bQuitGame = true;
+		g_eGameState = S_PAUSE;
 	}
 }
 
@@ -302,7 +301,13 @@ void renderSplashScreen()  // renders the splash screen
 	g_Console.writeToBuffer(c, "Press 'Esc' to quit", 0x07);
 	renderarrow();
 
-	processUserInput();
+	if (g_abKeyPressed[K_ENTER]){
+		g_eGameState = S_GAME;
+	}
+
+	if (g_abKeyPressed[K_ESCAPE]){
+		g_bQuitGame = true;
+	}
 	movearrow();
 }
 
@@ -383,6 +388,18 @@ void renderToScreen()
     g_Console.flushBufferToConsole();
 }
 
+void pauseControls(){
+	if (g_abKeyPressed[K_ENTER]){
+		g_eGameState = S_GAME;
+	}
+
+	if (g_abKeyPressed[K_SPACE]){
+		g_dElapsedTime = 0.0;
+		g_dTotalPoints = 0;
+		g_eGameState = S_SPLASHSCREEN;
+	}
+}
+
 void renderPauseScreen(){
 		COORD c = g_Console.getConsoleSize();
 		c.Y = 4;
@@ -398,6 +415,7 @@ void renderPauseScreen(){
 			}
 			myfile.close();
 		}
+		pauseControls();
 }
 void movearrow()
 {
