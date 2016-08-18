@@ -48,5 +48,26 @@ void LevelTwo()
 	g_Console.writeToBuffer(c.X - 14, c.Y - 5, "1", 0x0F);
 	g_Console.writeToBuffer(c.X - 12, c.Y - 5, "1", 0x0F);
 	g_Console.writeToBuffer(c.X - 25, c.Y - 1, (char)210, 0x0F);
+	g_Console.writeToBuffer(c.X - 47, c.Y - 4, (char)233, 0x0F);
+	g_Console.writeToBuffer(c.X - 47, c.Y - 10, (char)233, 0x0F);
+	g_Console.writeToBuffer(c.X - 47, c.Y - 12, (char)233, 0x0F);
+	g_Console.writeToBuffer(c.X - 1, c.Y - 3, "T", 0x0A);
+	g_Console.writeToBuffer(c.X - 47, c.Y - 17, "T", 0x0A);
+	g_Console.writeToBuffer(c.X - 46, c.Y - 17, "T", 0x0A);
+	g_Console.writeToBuffer(c.X - 45, c.Y - 17, "T", 0x0A);
+	g_Console.writeToBuffer(c.X - 44, c.Y - 17, "T", 0x0A);
+	g_Console.writeToBuffer(c.X - 42, c.Y - 16, "T", 0x0A);
+	g_Console.writeToBuffer(c.X - 43, c.Y - 16, "T", 0x0A);
+	g_Console.writeToBuffer(c.X - 44, c.Y - 16, "T", 0x0A);
+
+	g_Console.writeToBuffer(c.X - 50, c.Y - 19, "T", 0x0A);
+	g_Console.writeToBuffer(c.X - 49, c.Y - 19, "T", 0x0A);
+	g_Console.writeToBuffer(c.X - 48, c.Y - 19, "T", 0x0A);
+	g_Console.writeToBuffer(c.X - 47, c.Y - 19, "T", 0x0A);
+	g_Console.writeToBuffer(c.X - 46, c.Y - 19, "T", 0x0A);
+	g_Console.writeToBuffer(c.X - 45, c.Y - 19, "T", 0x0A);
+	g_Console.writeToBuffer(c.X - 44, c.Y - 19, "T", 0x0A);
+	g_Console.writeToBuffer(c.X - 43, c.Y - 19, "T", 0x0A);
+	g_Console.writeToBuffer(c.X - 50, c.Y - 18, (char)225, 0x0F);
 
 }
