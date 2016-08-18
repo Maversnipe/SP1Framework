@@ -43,12 +43,9 @@ void init( void )
     // sets the initial state for the game
     g_eGameState = S_SPLASHSCREEN;
 
-<<<<<<< HEAD
 	Map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] = Map[5][2];
-=======
 	g_sChar.m_cLocation.X = 4;
 	g_sChar.m_cLocation.Y = 21;
->>>>>>> 38cc6f7994bc62265318b4175eec4b028ee49817
     g_sChar.m_bActive = true;
     // sets the width, height and the font name to use in the console
     g_Console.setConsoleFont(0, 16, L"Consolas");

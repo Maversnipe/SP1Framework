@@ -1,35 +1,40 @@
 #include "BonusRoom.h"
 extern Console g_Console;
+extern SGameChar g_sChar;
 
 void BonusRoom(){
 	COORD c;
-	c.Y = 4;
-	c.X = 2;
-	extern char Map[22][52];
+	c.Y = 0;
+	c.X = 0;
+	extern char Map[100][100];
+	extern int g_dTotalPoints;
 	ifstream File("bonusroom.txt");
 
 	if (File.is_open())
 	{
-		for (int Rows = 0; Rows < 21; Rows++){
-			for (int Columns = 0; Columns < 52; Columns++){
+		for (int Rows = 0; Rows < 24; Rows++)
+		{
+			for (int Columns = 0; Columns < 55; Columns++)
+			{
 				File >> Map[Rows][Columns];
 			}
 		}
-
 		File.close();
-		for (int Rows = 0; Rows < 21; Rows++){
-
-			c.Y = Rows + 3;
-
-			for (int Columns = 0; Columns < 52; Columns++){
-				if (Map[Rows][Columns] == 'i'){
+		for (int Rows = 0; Rows < 24; Rows++)
+		{
+			c.Y = Rows;
+			for (int Columns = 0; Columns < 55; Columns++)
+			{
+				if (Map[Rows][Columns] == 'i')
+				{
 					Map[Rows][Columns] = ' ';
 				}
-				
-				c.X = Columns + 3;
-				
+				c.X = Columns;
 				g_Console.writeToBuffer(c, Map[Rows][Columns], 0x0A);
 			}
+		}
+		if (g_sChar.m_cLocation.X == 11 && g_sChar.m_cLocation.Y == 21){
+			g_dTotalPoints = g_dTotalPoints + 50;
 		}
 	}
 }
