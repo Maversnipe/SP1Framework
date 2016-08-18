@@ -45,7 +45,11 @@
     <ClCompile Include="BonusRoom.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="AI.cpp">
+=======
+    <ClCompile Include="LevelTwo.cpp">
+>>>>>>> 2202f10aaf19ff09d47823e390a8d2892f5bb1c9
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,7 +69,11 @@
     <ClInclude Include="BonusRoom.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="AI.h">
+=======
+    <ClInclude Include="LevelTwo.h">
+>>>>>>> 2202f10aaf19ff09d47823e390a8d2892f5bb1c9
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

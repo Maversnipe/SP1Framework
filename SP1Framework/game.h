@@ -5,6 +5,7 @@
 #include "Framework\timer.h"
 #include <string>
 #include "LevelOne.h"
+#include "LevelTwo.h"
 #include "BonusRoom.h"
 
 using namespace std;
