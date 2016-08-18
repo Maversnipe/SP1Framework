@@ -121,6 +121,8 @@ void update(double dt)
 		case S_GAME: gameplay(); // gameplay logic when we are in the game
 			break;
 		case S_PAUSE: renderPauseScreen();
+			break;
+		case S_SELECT:renderselectlevel();
     }
 }
 //--------------------------------------------------------------
@@ -142,6 +144,7 @@ void render()
 			break;
 		case S_PAUSE: renderPauseScreen();
 			break;
+		case S_SELECT:renderselectlevel ();
     }
     renderFramerate();  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
@@ -320,7 +323,7 @@ void renderMap()
         0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
         0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
     };
-
+	selectlevel();
 	BonusRoom();
 }
 
@@ -428,5 +431,33 @@ void movearrow()
 	{
 		// set the bounce time to some time in the future to prevent accidental triggers
 		g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
+	}
+}
+void renderselectlevel()
+{
+		COORD c = g_Console.getConsoleSize();
+		c.Y = 0;
+		c.X = 0;
+
+		string sym;
+		ifstream myfile("levelselection.txt");
+
+		if (myfile.is_open())
+		{
+			while (getline(myfile, sym)) 
+			{
+				g_Console.writeToBuffer(c, sym, 0x0B);
+				c.Y++;
+			}
+			myfile.close();
+		}
+		selectlevel();
+}
+
+void selectlevel()
+{
+	if (g_abKeyPressed[K_ENTER])
+	{
+		g_eGameState=S_SELECT;
 	}
 }

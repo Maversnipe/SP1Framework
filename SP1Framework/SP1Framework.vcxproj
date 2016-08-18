@@ -82,7 +82,17 @@
     <ClCompile Include="Framework\timer.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gamePauseScreen.cpp" />
+    <ClCompile Include="LevelTwo.cpp" />
+    <ClCompile Include="LevelThree.cpp" />
+    <ClCompile Include="LevelEight.cpp" />
+    <ClCompile Include="LevelFive.cpp" />
+    <ClCompile Include="LevelFour.cpp" />
+    <ClCompile Include="LevelNine.cpp" />
     <ClCompile Include="LevelOne.cpp" />
+    <ClCompile Include="levelselection.cpp" />
+    <ClCompile Include="LevelSeven.cpp" />
+    <ClCompile Include="LevelSix.cpp" />
+    <ClCompile Include="LevelTen.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="spikes.cpp" />
   </ItemGroup>
@@ -91,7 +101,16 @@
     <ClInclude Include="Framework\console.h" />
     <ClInclude Include="Framework\timer.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="LevelTen.h" />
+    <ClInclude Include="LevelThree.h" />
+    <ClInclude Include="LevelFour.h" />
+    <ClInclude Include="LevelFive.h" />
+    <ClInclude Include="LevelSix.h" />
+    <ClInclude Include="LevelSeven.h" />
+    <ClInclude Include="LevelEight.h" />
+    <ClInclude Include="LevelNine.h" />
     <ClInclude Include="LevelOne.h" />
+    <ClInclude Include="LevelTwo.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
