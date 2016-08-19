@@ -33,7 +33,7 @@ void BonusRoom(){
 				g_Console.writeToBuffer(c, Map[Rows][Columns], 0x0B);
 			}
 		}
-		if (g_sChar.m_cLocation.X == 12 && g_sChar.m_cLocation.Y == 22){
+		if (Map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == 'A'){
 			g_dTotalPoints = g_dTotalPoints + 50;
 		}
 	}

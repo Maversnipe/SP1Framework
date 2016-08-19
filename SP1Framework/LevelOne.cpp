@@ -33,5 +33,9 @@ void LevelNine()
 				g_Console.writeToBuffer(c, Map[Rows][Columns], 0x0A);
 			}
 		}
+		// ======== Pick-em-up =========
+		c.Y = 0;
+		c.X = 0;
+		g_Console.writeToBuffer(c.X + 11, c.Y - 17, "1", 0x0F);
 	}
 }
