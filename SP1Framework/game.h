@@ -74,7 +74,6 @@ struct Enemy
 };
 
 
-
 void init        ( void );      // initialize your variables, allocate memory, etc
 void getInput    ( void );      // get input from player
 void update      ( double dt ); // update the game and the state of the game
@@ -98,10 +97,9 @@ void renderarrow();
 void movearrow();
 void paused();
 void pauseScreenChoices();
-
+void LoadMaps();
 void pointSystem();
 void LevelClear();
-//void renderExit();
 
 
 void selectlevel();
