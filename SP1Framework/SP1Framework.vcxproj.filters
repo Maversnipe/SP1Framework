@@ -45,7 +45,42 @@
     <ClCompile Include="BonusRoom.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
+    <ClCompile Include="levelselection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelFour.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelFive.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelSix.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelSeven.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelEight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelNine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelTen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="LevelTwo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelThree.cpp">
+=======
+<<<<<<< HEAD
+    <ClCompile Include="AI.cpp">
+=======
+    <ClCompile Include="LevelTwo.cpp">
+>>>>>>> 2202f10aaf19ff09d47823e390a8d2892f5bb1c9
+>>>>>>> 37946b3060003193f8fcbe5dfe1b6bc430788bb2
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,7 +100,39 @@
     <ClInclude Include="BonusRoom.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="LevelThree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelFour.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelFive.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelSix.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelSeven.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelEight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelNine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelTen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="LevelTwo.h">
+=======
+<<<<<<< HEAD
+    <ClInclude Include="AI.h">
+=======
+    <ClInclude Include="LevelTwo.h">
+>>>>>>> 2202f10aaf19ff09d47823e390a8d2892f5bb1c9
+>>>>>>> 37946b3060003193f8fcbe5dfe1b6bc430788bb2
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

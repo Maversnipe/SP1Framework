@@ -2,13 +2,13 @@
 extern Console g_Console;
 #include <iostream>
 
-void LevelNine()
+void LevelOne()
 {
 	COORD c;
 	c.Y = 0;
 	c.X = 0;
 	extern char Map[100][100];
-	ifstream File("LevelOne.txt");
+	ifstream File("LevelNine.txt");
 
 	if (File.is_open())
 	{

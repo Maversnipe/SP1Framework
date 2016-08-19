@@ -41,11 +41,13 @@ enum EKEYS
 // Enumeration for the different screen states
 enum EGAMESTATES
 {
-    S_SPLASHSCREEN,
+	S_SPLASHSCREEN,
 	S_PAUSE,
-    S_GAME,
-    S_COUNT
+	S_GAME,
+	S_SELECT,
+    S_COUNT,
 };
+
 
 // struct for the game character
 struct SGameChar
@@ -53,6 +55,13 @@ struct SGameChar
     COORD m_cLocation;
     bool  m_bActive;
 };
+
+struct Enemy
+{
+	COORD m_cLocation;
+};
+
+
 
 void init        ( void );      // initialize your variables, allocate memory, etc
 void getInput    ( void );      // get input from player
@@ -72,9 +81,10 @@ void renderCharacter();     // renders the character into the buffer
 void renderFramerate();     // renders debug information, frame rate, elapsed time, etc
 void renderToScreen();      // dump the contents of the buffer to the screen, one frame worth of game
 void renderPauseScreen();
+void renderselectlevel();
 void renderarrow();
 void movearrow();
 void paused();
 void pauseScreenChoices();
-
+void selectlevel();
 #endif // _GAME_H

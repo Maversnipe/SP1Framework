@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+#include "LevelOne.h"
+=======
 #include "LevelTwo.h"
+>>>>>>> 37946b3060003193f8fcbe5dfe1b6bc430788bb2
 extern Console g_Console;
 #include <iostream>
 
@@ -31,6 +35,11 @@ void LevelTwo()
 				}
 				c.X = Columns;
 				g_Console.writeToBuffer(c, Map[Rows][Columns], 0x0A);
+<<<<<<< HEAD
+			}
+		}
+	}
+=======
 
 				if (Map[Rows][Columns] == 'r'){
 					g_Console.writeToBuffer(c, Map[Rows][Columns], 0x0B);
@@ -70,4 +79,5 @@ void LevelTwo()
 	g_Console.writeToBuffer(c.X - 43, c.Y - 19, "T", 0x0A);
 	g_Console.writeToBuffer(c.X - 50, c.Y - 18, (char)225, 0x0F);
 
+>>>>>>> 37946b3060003193f8fcbe5dfe1b6bc430788bb2
 }
