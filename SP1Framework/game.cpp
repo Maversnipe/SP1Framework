@@ -360,7 +360,7 @@ void renderMap()
 	}
 	else if (LevelSelection == 1)
 	{
-		LevelOne();
+		LevelTwo();
 	}
 	LevelClear();
 
@@ -495,7 +495,7 @@ void movearrow()
 
 void LevelClear()
 {
-	if ((Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == 'B')
+	if (LevelSelection == 11 && (g_sChar.m_cLocation.X == 5 && g_sChar.m_cLocation.Y == 5))
 	{
 		LevelSelection = 1;
 	}

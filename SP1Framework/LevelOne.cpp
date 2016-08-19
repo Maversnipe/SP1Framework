@@ -1,17 +1,19 @@
 #include "LevelOne.h"
 extern Console g_Console;
+extern SGameChar g_sChar;
 #include <iostream>
 
-void LevelNine()
+void LevelOne()
 {
-	bool LevelOneChecker = true;
 	COORD c;
 	c.Y = 0;
 	c.X = 0;
+	g_sChar.m_cLocation.X = 4;
+	g_sChar.m_cLocation.Y = 22;
 	extern char Map[100][100];
 	ifstream File("LevelOne.txt");
 
-	if (File.is_open() && LevelOneChecker == true)
+	if (File.is_open())
 	{
 		for (int Rows = 0; Rows < 24; Rows++)
 		{
@@ -34,6 +36,5 @@ void LevelNine()
 				g_Console.writeToBuffer(c, Map[Rows][Columns], 0x0A);
 			}
 		}
-		LevelOneChecker = false;
 	}
 }

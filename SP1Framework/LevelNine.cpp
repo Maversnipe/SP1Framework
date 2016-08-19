@@ -2,7 +2,7 @@
 extern Console g_Console;
 #include <iostream>
 
-void LevelOne()
+/*void LevelOne()
 {
 	COORD c;
 	c.Y = 0;
@@ -34,4 +34,4 @@ void LevelOne()
 			}
 		}
 	}
-}
+}*/
