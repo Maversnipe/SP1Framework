@@ -123,6 +123,7 @@ void update(double dt)
 		case S_PAUSE: renderPauseScreen();
 			break;
 		case S_SELECT:renderselectlevel();
+			break;
     }
 }
 //--------------------------------------------------------------
@@ -141,12 +142,13 @@ void render()
         case S_SPLASHSCREEN: renderSplashScreen();
             break;
 		case S_GAME: renderGame();
+			renderFramerate();
 			break;
 		case S_PAUSE: renderPauseScreen();
 			break;
-		case S_SELECT:renderselectlevel ();
-    }
-    renderFramerate();  // renders debug information, frame rate, elapsed time, etc
+		case S_SELECT:renderselectlevel();
+			break;
+    }  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
 }
 
@@ -323,13 +325,7 @@ void renderMap()
         0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
         0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
     };
-<<<<<<< HEAD
-	selectlevel();
 	BonusRoom();
-=======
-
-	LevelOne();
->>>>>>> 37946b3060003193f8fcbe5dfe1b6bc430788bb2
 }
 
 void renderCharacter()
@@ -399,8 +395,8 @@ void pauseControls(){
 
 void renderPauseScreen(){
 		COORD c = g_Console.getConsoleSize();
-		c.Y = 4;
-		c.X = 7;
+		c.Y = 7;
+		c.X = 15;
 
 		string sym;
 		ifstream myfile("PauseScreen.txt");
