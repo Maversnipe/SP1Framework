@@ -8,8 +8,7 @@ void LevelOne()
 	COORD c;
 	c.Y = 0;
 	c.X = 0;
-	g_sChar.m_cLocation.X = 4;
-	g_sChar.m_cLocation.Y = 22;
+	moveCharacter();
 	extern char Map[100][100];
 	ifstream File("LevelOne.txt");
 
@@ -39,6 +38,12 @@ void LevelOne()
 		// ======== Pick-em-up =========
 		c.Y = 0;
 		c.X = 0;
-		g_Console.writeToBuffer(c.X + 11, c.Y - 17, "1", 0x0F);
+		g_Console.writeToBuffer(c.X + 10, c.Y + 17, "1", 0x0F);
+		g_Console.writeToBuffer(c.X + 49, c.Y + 18, "1", 0x0F);
+		g_Console.writeToBuffer(c.X + 46, c.Y + 4, "1", 0x0F);
+		g_Console.writeToBuffer(c.X + 32, c.Y + 22, "2", 0x0F);
+		g_Console.writeToBuffer(c.X + 19, c.Y + 6, "2", 0x0F);
+		g_Console.writeToBuffer(c.X + 36, c.Y + 4, "2", 0x0F);
+		g_Console.writeToBuffer(c.X + 5, c.Y + 4, (char)158, 0x0E);
 	}
 }

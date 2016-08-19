@@ -29,9 +29,18 @@ void LevelFour()
 				{
 					Map[Rows][Columns] = ' ';
 				}
+
 				c.X = Columns;
 				g_Console.writeToBuffer(c, Map[Rows][Columns], 0x0A);
+
+				if (Map[Rows][Columns] == '1' || Map[Rows][Columns] == '2' || Map[Rows][Columns] == '5'){
+					g_Console.writeToBuffer(c, Map[Rows][Columns], 0x0E);
+				}
 			}
 		}
+		c.Y = 0;
+		c.X = 0;
+		g_Console.writeToBuffer(c.X + 12, c.Y + 15, (char)210, 0x0F);
+		g_Console.writeToBuffer(c.X + 53, c.Y + 5, (char)158, 0x0E);
 	}
 }

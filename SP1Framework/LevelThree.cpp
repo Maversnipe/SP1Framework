@@ -29,9 +29,29 @@ void LevelThree()
 				{
 					Map[Rows][Columns] = ' ';
 				}
+
 				c.X = Columns;
 				g_Console.writeToBuffer(c, Map[Rows][Columns], 0x0A);
+
+				if (Map[Rows][Columns] == 'r'){
+					g_Console.writeToBuffer(c, Map[Rows][Columns], 0x0B);
+				}
+
+				if (Map[Rows][Columns] == '1' || Map[Rows][Columns] == '2' || Map[Rows][Columns] == '5'){
+					g_Console.writeToBuffer(c, Map[Rows][Columns], 0x0E);
+				}
+
+				if (Map[Rows][Columns] == 'x')
+				{
+					Map[Rows][Columns] = (char)233;
+					g_Console.writeToBuffer(c, Map[Rows][Columns], 0x0F);
+				}
 			}
 		}
+		c.Y = 0;
+		c.X = 0;
+		g_Console.writeToBuffer(c.X + 53, c.Y + 21, (char)158, 0x0E);
+		g_Console.writeToBuffer(c.X + 4, c.Y + 14, (char)210, 0x0F);
+		g_Console.writeToBuffer(c.X + 53, c.Y + 8, (char)210, 0x0F);
 	}
 }

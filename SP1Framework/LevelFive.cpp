@@ -30,7 +30,7 @@ void LevelFive()
 					Map[Rows][Columns] = ' ';
 				}
 				c.X = Columns;
-				g_Console.writeToBuffer(c, Map[Rows][Columns], 0x0A);
+				g_Console.writeToBuffer(c, Map[Rows][Columns], 0x0B);
 			}
 		}
 	}

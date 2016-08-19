@@ -180,7 +180,7 @@ void moveCharacter()
 	if ((g_abKeyPressed[K_W]) && (Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] > 0))//Move Up [W] Key
 	{
 		//Beep(1440, 30);
-		if (Map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != '=' && Map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != '|')
+		if (Map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != '=' && Map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != '|' && Map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != 'r')
 		{
 			g_sChar.m_cLocation.Y--;
 			bSomethingHappened = true;
@@ -189,7 +189,7 @@ void moveCharacter()
 	if ((g_abKeyPressed[K_UP]) && (Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] > 0))//Move Up [UP] Key
 	{
 		//Beep(1440, 30);
-		if (Map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != '=' && Map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != '|')
+		if (Map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != '=' && Map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != '|' && Map[g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != 'r')
 		{
 			g_sChar.m_cLocation.Y--;
 			bSomethingHappened = true;
@@ -198,7 +198,7 @@ void moveCharacter()
 	if ((g_abKeyPressed[K_A]) && (Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] > 0))//Move Left [A] Key
 	{
 		//Beep(1440, 30);
-		if (Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != '=' && Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != '|')
+		if (Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != '=' && Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != '|' && Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != 'r')
 		{
 			g_sChar.m_cLocation.X--;
 			bSomethingHappened = true;
@@ -207,7 +207,7 @@ void moveCharacter()
 	if ((g_abKeyPressed[K_LEFT]) && (Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] > 0))//Move Left [LEFT] Key
     {
         //Beep(1440, 30);
-		if (Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != '=' && Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != '|')
+		if (Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != '=' && Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != '|' && Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != 'r')
 		{
 			g_sChar.m_cLocation.X--;
 			bSomethingHappened = true;
@@ -216,7 +216,7 @@ void moveCharacter()
 	if ((g_abKeyPressed[K_S]) && (g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1))//Move Down [S] Key
 	{
 		//Beep(1440, 30);
-		if ((Map[g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != '=') && (Map[g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != '|'))
+		if ((Map[g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != '=') && (Map[g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != '|') && (Map[g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != 'r'))
 		{
 			g_sChar.m_cLocation.Y++;
 			bSomethingHappened = true;
@@ -225,7 +225,7 @@ void moveCharacter()
 	if ((g_abKeyPressed[K_DOWN]) && (g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1))//Move Down [DOWN] Key
     {
         //Beep(1440, 30);
-		if ((Map[g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X]) != '=' && (Map[g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != '|'))
+		if ((Map[g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X]) != '=' && (Map[g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != '|') && (Map[g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != 'r'))
 		{
 			g_sChar.m_cLocation.Y++;
 			bSomethingHappened = true;
@@ -234,7 +234,7 @@ void moveCharacter()
 	if ((g_abKeyPressed[K_D]) && (g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1))//Move Right [D] Key
 	{
 		//Beep(1440, 30);
-		if (Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != '=' && Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != '|')
+		if (Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != '=' && Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != '|' && Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != 'r')
 		{
 			g_sChar.m_cLocation.X++;
 			bSomethingHappened = true;
@@ -243,7 +243,7 @@ void moveCharacter()
 	if ((g_abKeyPressed[K_RIGHT]) && (g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1))//Move Right [RIGHT] Key
     {
         //Beep(1440, 30);
-		if (Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != '=' && Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != '|')
+		if (Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != '=' && Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != '|' && Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != 'r')
 		{
 			g_sChar.m_cLocation.X++;
 			bSomethingHappened = true;
@@ -353,9 +353,10 @@ void renderMap()
         0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
         0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
     };
-	LevelOne();
 
-	if (LevelSelection == 11)
+	LevelFive();
+
+/*	if (LevelSelection == 11)
 	{
 		BonusRoom();
 	}
@@ -363,7 +364,7 @@ void renderMap()
 	{
 		LevelTwo();
 	}
-	LevelClear();
+	LevelClear(); */
 }
 
 void renderCharacter()

@@ -40,13 +40,13 @@ void LevelTwo()
 	}
 
 	// ======== Pick-em-up =========
-	g_Console.writeToBuffer(c.X - 9, c.Y - 14, "1", 0x0F);
-	g_Console.writeToBuffer(c.X - 29, c.Y - 14, "1", 0x0F);
-	g_Console.writeToBuffer(c.X - 8, c.Y - 6, "1", 0x0F);
+	g_Console.writeToBuffer(c.X - 9, c.Y - 14, "1", 0x0E);
+	g_Console.writeToBuffer(c.X - 29, c.Y - 14, "1", 0x0E);
+	g_Console.writeToBuffer(c.X - 8, c.Y - 6, "1", 0x0E);
 	g_Console.writeToBuffer(c.X - 13, c.Y - 5, "5", 0x0E);
-	g_Console.writeToBuffer(c.X - 13, c.Y - 6, "2", 0x0F);
-	g_Console.writeToBuffer(c.X - 14, c.Y - 5, "1", 0x0F);
-	g_Console.writeToBuffer(c.X - 12, c.Y - 5, "1", 0x0F);
+	g_Console.writeToBuffer(c.X - 13, c.Y - 6, "2", 0x0E);
+	g_Console.writeToBuffer(c.X - 14, c.Y - 5, "1", 0x0E);
+	g_Console.writeToBuffer(c.X - 12, c.Y - 5, "1", 0x0E);
 	g_Console.writeToBuffer(c.X - 25, c.Y - 1, (char)210, 0x0F);
 	g_Console.writeToBuffer(c.X - 47, c.Y - 4, (char)233, 0x0F);
 	g_Console.writeToBuffer(c.X - 47, c.Y - 10, (char)233, 0x0F);
@@ -69,4 +69,5 @@ void LevelTwo()
 	g_Console.writeToBuffer(c.X - 44, c.Y - 19, "T", 0x0A);
 	g_Console.writeToBuffer(c.X - 43, c.Y - 19, "T", 0x0A);
 	g_Console.writeToBuffer(c.X - 50, c.Y - 18, (char)225, 0x0F);
+	g_Console.writeToBuffer(c.X - 2, c.Y - 18, (char)158, 0x0E);
 }
