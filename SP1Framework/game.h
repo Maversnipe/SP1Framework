@@ -18,6 +18,7 @@ using namespace std;
 #define VK_R 0x52
 extern CStopWatch g_swTimer;
 extern bool g_bQuitGame;
+extern Console g_Console;
 
 // Enumeration to store the control keys that your game will have
 enum EKEYS

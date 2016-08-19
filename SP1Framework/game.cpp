@@ -9,6 +9,7 @@
 #include <sstream>
 #include <fstream>
 #include <stdlib.h>
+extern Console g_Console;
 
 char Map[100][100];
 COORD arrow;
@@ -258,11 +259,13 @@ void pointSystem()
 {
 	if ((Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == '1')
 	{
+		Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] = ' ';
 		g_dTotalPoints += 100;
 	
 	}
 	if ((Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == '2')
 	{
+
 		g_dTotalPoints += 200;
 	}
 	if ((Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == '5')
