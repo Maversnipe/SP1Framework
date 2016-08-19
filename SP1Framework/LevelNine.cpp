@@ -1,14 +1,14 @@
-#include "LevelOne.h"
+#include "LevelNine.h"
 extern Console g_Console;
 #include <iostream>
 
-void LevelOne()
+/*void LevelNine()
 {
 	COORD c;
 	c.Y = 0;
 	c.X = 0;
 	extern char Map[100][100];
-	ifstream File("LevelNine.txt");
+	ifstream File("LevelOne.txt");
 
 	if (File.is_open())
 	{
@@ -34,4 +34,4 @@ void LevelOne()
 			}
 		}
 	}
-}
+}*/

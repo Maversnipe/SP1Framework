@@ -9,10 +9,12 @@
 #include <sstream>
 #include <fstream>
 #include <stdlib.h>
+extern Console g_Console;
 
 char Map[100][100];
 COORD arrow;
 bool setArrow = false;
+int LevelSelection = 11;
 
 double  g_dElapsedTime;
 int g_dTotalPoints;
@@ -90,6 +92,7 @@ void getInput(void)
 	g_abKeyPressed[K_S] = isKeyPressed(VK_S);
 	g_abKeyPressed[K_A] = isKeyPressed(VK_A);
 	g_abKeyPressed[K_D] = isKeyPressed(VK_D);
+	g_abKeyPressed[K_R] = isKeyPressed(VK_R);
 }
 
 //--------------------------------------------------------------
@@ -161,9 +164,10 @@ void splashScreenWait()    // waits for time to pass in splash screen
 void gameplay()            // gameplay logic
 {
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
-    moveCharacter(); // moves the character, collision detection, physics, etc
-	              // sound can be played here too.
+    moveCharacter(); // moves the character, collision detection, physics, etc sound can be played here too.
+	pointSystem(); // Points added (test).
 }
+
 
 void moveCharacter()
 {
@@ -250,13 +254,37 @@ void moveCharacter()
         g_sChar.m_bActive = !g_sChar.m_bActive;
         bSomethingHappened = true;
     }
-
+	
     if (bSomethingHappened)
     {
         // set the bounce time to some time in the future to prevent accidental triggers
 		g_dBounceTime = g_dElapsedTime + 0.125 ; // 125ms should be enough
     }
 }
+
+	void pointSystem()
+{
+	if ((Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == '1')
+	{
+		Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] = ' ';
+		g_dTotalPoints += 100;
+	
+	}
+	if ((Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == '2')
+	{
+
+		g_dTotalPoints += 200;
+	}
+	if ((Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == '5')
+	{
+		g_dTotalPoints += 500;
+	}
+	if ((Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == 'A')
+	{
+		g_dTotalPoints += 1000;
+	}
+}
+	
 void processUserInput()
 {
     // pauses the game if player hits the escape key
@@ -326,6 +354,16 @@ void renderMap()
         0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
     };
 	LevelOne();
+
+	if (LevelSelection == 11)
+	{
+		BonusRoom();
+	}
+	else if (LevelSelection == 1)
+	{
+		LevelTwo();
+	}
+	LevelClear();
 }
 
 void renderCharacter()
@@ -432,6 +470,34 @@ void movearrow()
 	{
 		// set the bounce time to some time in the future to prevent accidental triggers
 		g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
+	}
+}
+
+
+/*void renderExit()
+{
+	COORD c = g_Console.getConsoleSize();
+	c.Y = 4;
+	c.X = 7;
+
+	string sym;
+	ifstream myfile("LevelOne.txt");
+
+	if (myfile.is_open()){
+		while (getline(myfile, sym)) {
+			g_Console.writeToBuffer(c, sym, 0x0B);
+			c.Y++;
+		}
+		LevelOne();
+		myfile.close();
+	}
+}*/
+
+void LevelClear()
+{
+	if (LevelSelection == 11 && (g_sChar.m_cLocation.X == 5 && g_sChar.m_cLocation.Y == 5))
+	{
+		LevelSelection = 1;
 	}
 }
 void renderselectlevel()

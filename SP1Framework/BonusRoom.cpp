@@ -29,6 +29,7 @@ void BonusRoom(){
 				{
 					Map[Rows][Columns] = ' ';
 				}
+				pointSystem();
 				c.X = Columns;
 				g_Console.writeToBuffer(c, Map[Rows][Columns], 0x0B);
 			}
@@ -36,5 +37,7 @@ void BonusRoom(){
 		if (Map[g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] == 'A'){
 			g_dTotalPoints = g_dTotalPoints + 50;
 		}
+
 	}
 }
+	
