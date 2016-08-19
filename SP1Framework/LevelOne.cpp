@@ -4,13 +4,14 @@ extern Console g_Console;
 
 void LevelOne()
 {
+	bool LevelOneChecker = true;
 	COORD c;
 	c.Y = 0;
 	c.X = 0;
 	extern char Map[100][100];
 	ifstream File("LevelOne.txt");
 
-	if (File.is_open())
+	if (File.is_open() && LevelOneChecker == true)
 	{
 		for (int Rows = 0; Rows < 24; Rows++)
 		{
@@ -33,5 +34,6 @@ void LevelOne()
 				g_Console.writeToBuffer(c, Map[Rows][Columns], 0x0A);
 			}
 		}
+		LevelOneChecker = false;
 	}
 }

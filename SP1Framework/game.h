@@ -20,6 +20,7 @@ extern CStopWatch g_swTimer;
 extern bool g_bQuitGame;
 extern Console g_Console;
 
+
 // Enumeration to store the control keys that your game will have
 enum EKEYS
 {
@@ -79,5 +80,7 @@ void movearrow();
 void paused();
 void pauseScreenChoices();
 void pointSystem();
+void LevelClear();
+//void renderExit();
 
 #endif // _GAME_H

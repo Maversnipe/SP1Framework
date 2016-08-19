@@ -14,6 +14,7 @@ extern Console g_Console;
 char Map[100][100];
 COORD arrow;
 bool setArrow = false;
+int LevelSelection = 11;
 
 double  g_dElapsedTime;
 int g_dTotalPoints;
@@ -255,7 +256,8 @@ void moveCharacter()
 		g_dBounceTime = g_dElapsedTime + 0.125 ; // 125ms should be enough
     }
 }
-void pointSystem()
+
+	void pointSystem()
 {
 	if ((Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == '1')
 	{
@@ -346,8 +348,15 @@ void renderMap()
         0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
         0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
     };
-
-	BonusRoom();
+	if (LevelSelection == 11)
+	{
+		BonusRoom();
+	}
+	else if (LevelSelection == 1)
+	{
+		LevelOne();
+	}
+	LevelClear();
 }
 
 void renderCharacter()
@@ -454,5 +463,32 @@ void movearrow()
 	{
 		// set the bounce time to some time in the future to prevent accidental triggers
 		g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
+	}
+}
+
+/*void renderExit()
+{
+	COORD c = g_Console.getConsoleSize();
+	c.Y = 4;
+	c.X = 7;
+
+	string sym;
+	ifstream myfile("LevelOne.txt");
+
+	if (myfile.is_open()){
+		while (getline(myfile, sym)) {
+			g_Console.writeToBuffer(c, sym, 0x0B);
+			c.Y++;
+		}
+		LevelOne();
+		myfile.close();
+	}
+}*/
+
+void LevelClear()
+{
+	if ((Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == 'B')
+	{
+		LevelSelection = 1;
 	}
 }
