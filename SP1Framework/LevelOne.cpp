@@ -2,7 +2,7 @@
 extern Console g_Console;
 #include <iostream>
 
-void LevelOne()
+void LevelNine()
 {
 	bool LevelOneChecker = true;
 	COORD c;

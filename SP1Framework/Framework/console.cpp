@@ -29,7 +29,7 @@ void gotoXY(int iX,int iY)
 //--------------------------------------------------------------
 // Purpose  : Setting colour of the console text
 // Input    : WORD (2 bytes data type)
-// Output   : Nil
+// Output   : Nil 
 //--------------------------------------------------------------
 void colour(WORD wAttrib)
 {    

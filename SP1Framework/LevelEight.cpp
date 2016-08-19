@@ -1,14 +1,14 @@
-#include "BonusRoom.h"
+#include "LevelOne.h"
 extern Console g_Console;
-extern SGameChar g_sChar;
+#include <iostream>
 
-void BonusRoom(){
+void LevelEight()
+{
 	COORD c;
 	c.Y = 0;
 	c.X = 0;
 	extern char Map[100][100];
-	extern int g_dTotalPoints;
-	ifstream File("bonusroom.txt");
+	ifstream File("LevelEight.txt");
 
 	if (File.is_open())
 	{
@@ -29,18 +29,9 @@ void BonusRoom(){
 				{
 					Map[Rows][Columns] = ' ';
 				}
-				pointSystem();
 				c.X = Columns;
-				g_Console.writeToBuffer(c, Map[Rows][Columns], 0x0B);
+				g_Console.writeToBuffer(c, Map[Rows][Columns], 0x0A);
 			}
 		}
-		/*if (g_sChar.m_cLocation.X == 11 && g_sChar.m_cLocation.Y == 21){
-			g_dTotalPoints = g_dTotalPoints + 50;*/
-
-		if (g_sChar.m_cLocation.X == 12 && g_sChar.m_cLocation.Y == 22){
-			g_dTotalPoints = g_dTotalPoints + 50;
-		}
-
 	}
 }
-	
