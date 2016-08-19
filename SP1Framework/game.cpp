@@ -124,6 +124,9 @@ void update(double dt)
 		case S_GAME: gameplay(); // gameplay logic when we are in the game
 			break;
 		case S_PAUSE: renderPauseScreen();
+			break;
+		case S_SELECT:renderselectlevel();
+			break;
     }
 }
 //--------------------------------------------------------------
@@ -142,11 +145,13 @@ void render()
         case S_SPLASHSCREEN: renderSplashScreen();
             break;
 		case S_GAME: renderGame();
+			renderFramerate();
 			break;
 		case S_PAUSE: renderPauseScreen();
 			break;
-    }
-    renderFramerate();  // renders debug information, frame rate, elapsed time, etc
+		case S_SELECT:renderselectlevel();
+			break;
+    }  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
 }
 
@@ -348,6 +353,7 @@ void renderMap()
         0x1A, 0x2B, 0x3C, 0x4D, 0x5E, 0x6F,
         0xA1, 0xB2, 0xC3, 0xD4, 0xE5, 0xF6
     };
+
 	if (LevelSelection == 11)
 	{
 		BonusRoom();
@@ -357,6 +363,7 @@ void renderMap()
 		LevelOne();
 	}
 	LevelClear();
+
 }
 
 void renderCharacter()
@@ -426,8 +433,8 @@ void pauseControls(){
 
 void renderPauseScreen(){
 		COORD c = g_Console.getConsoleSize();
-		c.Y = 4;
-		c.X = 7;
+		c.Y = 7;
+		c.X = 15;
 
 		string sym;
 		ifstream myfile("PauseScreen.txt");
@@ -466,6 +473,7 @@ void movearrow()
 	}
 }
 
+
 /*void renderExit()
 {
 	COORD c = g_Console.getConsoleSize();
@@ -490,5 +498,33 @@ void LevelClear()
 	if ((Map[g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == 'B')
 	{
 		LevelSelection = 1;
+	}
+}
+void renderselectlevel()
+{
+		COORD c = g_Console.getConsoleSize();
+		c.Y = 0;
+		c.X = 0;
+
+		string sym;
+		ifstream myfile("levelselection.txt");
+
+		if (myfile.is_open())
+		{
+			while (getline(myfile, sym)) 
+			{
+				g_Console.writeToBuffer(c, sym, 0x0B);
+				c.Y++;
+			}
+			myfile.close();
+		}
+		selectlevel();
+}
+
+void selectlevel()
+{
+	if (g_abKeyPressed[K_ENTER])
+	{
+		g_eGameState=S_SELECT;
 	}
 }
