@@ -134,5 +134,8 @@
     <ClInclude Include="LevelTwo.h">
       <Filter>Header Files\LevelsHeader</Filter>
     </ClInclude>
+    <ClInclude Include="Levels.h">
+      <Filter>Header Files\Framework</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

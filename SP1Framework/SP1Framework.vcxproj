@@ -108,6 +108,7 @@
     <ClInclude Include="LevelFour.h" />
     <ClInclude Include="LevelNine.h" />
     <ClInclude Include="LevelOne.h" />
+    <ClInclude Include="Levels.h" />
     <ClInclude Include="levelselection.h" />
     <ClInclude Include="LevelSeven.h" />
     <ClInclude Include="LevelSix.h" />
