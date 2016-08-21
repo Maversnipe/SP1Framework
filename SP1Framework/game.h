@@ -92,14 +92,14 @@ void renderCharacter();     // renders the character into the buffer
 void renderFramerate();     // renders debug information, frame rate, elapsed time, etc
 void renderToScreen();      // dump the contents of the buffer to the screen, one frame worth of game
 void renderPauseScreen();
-void renderselectlevel();
-void renderarrow();
-void movearrow();
+void renderSelectLevel();
+void renderArrow();
+void moveArrow();
 void paused();
 void pauseScreenChoices();
 void LoadMaps();
 void pointSystem();
 void LevelClear();
-void selectlevel();
+void SelectLevel();
 
 #endif // _GAME_H

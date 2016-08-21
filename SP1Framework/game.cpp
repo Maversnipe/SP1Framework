@@ -14,7 +14,8 @@ extern Console g_Console;
 char Map[20][100][100];
 
 COORD arrow;
-bool setArrow = false;
+bool setArrowMenu = false;
+bool setArrowSelect = false;
 int LevelSelection = 11;
 
 double  g_dElapsedTime;
@@ -131,7 +132,7 @@ void update(double dt)
 			break;
 		case S_PAUSE: renderPauseScreen();
 			break;
-		case S_SELECT:renderselectlevel();
+		case S_SELECT:renderSelectLevel();
 			break;
     }
 }
@@ -155,7 +156,7 @@ void render()
 			break;
 		case S_PAUSE: renderPauseScreen();
 			break;
-		case S_SELECT:renderselectlevel();
+		case S_SELECT: renderSelectLevel();
 			break;
     }  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
@@ -163,8 +164,10 @@ void render()
 
 void splashScreenWait()    // waits for time to pass in splash screen
 {
-    if ((g_eGameState == S_SPLASHSCREEN) && (g_abKeyPressed[K_ENTER])) // Press Enter to start game
-        g_eGameState = S_GAME;
+	if ((g_eGameState == S_SPLASHSCREEN) && (g_abKeyPressed[K_ENTER]) && (arrow.Y == 15)) // Press Enter to start game
+	{
+		g_eGameState = S_SELECT;
+	}
 }
 
 void gameplay()            // gameplay logic
@@ -328,23 +331,24 @@ void renderSplashScreen()  // renders the splash screen
 	titleText();
     COORD c = g_Console.getConsoleSize();
     c.Y = c.Y / 2;
-    c.X = c.X / 2 - 9;
+    c.X = c.X / 2 - 6;
     g_Console.writeToBuffer(c, "Start Game", 0x07);
     c.Y += 1;
-    c.X = g_Console.getConsoleSize().X / 2 - 9;
+    c.X = g_Console.getConsoleSize().X / 2 - 6;
 	g_Console.writeToBuffer(c, "Options", 0x07);
 	c.Y += 1;
-	c.X = g_Console.getConsoleSize().X / 2 - 9;
+	c.X = g_Console.getConsoleSize().X / 2 - 6;
 	g_Console.writeToBuffer(c, "Leaderboard", 0x07);
 	c.Y += 1;
-	c.X = g_Console.getConsoleSize().X / 2 - 9;
+	c.X = g_Console.getConsoleSize().X / 2 - 10;
 	g_Console.writeToBuffer(c, "Press 'Esc' to quit", 0x07);
-	renderarrow();
+
+	renderArrow();
+	moveArrow();
 
 	if (g_abKeyPressed[K_ESCAPE]){
 		g_bQuitGame = true;
 	}
-	movearrow();
 }
 
 void renderGame()
@@ -388,14 +392,21 @@ void renderCharacter()
     g_Console.writeToBuffer(g_sChar.m_cLocation, (char)232, charColor);
 }
 
-void renderarrow()
+void renderArrow()
 {
-	if (setArrow == false)
+	if (setArrowMenu == false && g_eGameState == S_SPLASHSCREEN)
 	{
 		arrow.X = 25;
 		arrow.Y = 15;
 		g_Console.writeToBuffer(arrow, ">");
-		setArrow = true;
+		setArrowMenu = true;
+	}
+	else if (setArrowSelect == false && g_eGameState == S_SELECT)
+	{
+		arrow.X = 25;
+		arrow.Y = 18;
+		g_Console.writeToBuffer(arrow, ">");
+		setArrowSelect = true;
 	}
 	// Draw the location of the character
 	WORD charColor = 0x06;
@@ -462,19 +473,34 @@ void renderPauseScreen(){
 		}
 		pauseControls();
 }
-void movearrow()
+void moveArrow()
 {
 	bool bSomethingHappened = false;
 	if (g_dBounceTime > g_dElapsedTime)
 		return;
-	if (g_abKeyPressed[K_UP] && arrow.Y > 15)
+
+	if (g_abKeyPressed[K_UP] && arrow.Y > 15 && g_eGameState == S_SPLASHSCREEN)
 	{
 		arrow.Y--;
 		bSomethingHappened = true;
 		g_Console.writeToBuffer(arrow, ">");
 
 	}
-	if (g_abKeyPressed[K_DOWN] && arrow.Y < 18)
+	if (g_abKeyPressed[K_DOWN] && arrow.Y < 17 && g_eGameState == S_SPLASHSCREEN)
+	{
+		arrow.Y++;
+		bSomethingHappened = true;
+		g_Console.writeToBuffer(arrow, ">");
+	}
+
+	if (g_abKeyPressed[K_UP] && arrow.Y > 18 && g_eGameState == S_SELECT)
+	{
+		arrow.Y--;
+		bSomethingHappened = true;
+		g_Console.writeToBuffer(arrow, ">");
+
+	}
+	if (g_abKeyPressed[K_DOWN] && arrow.Y < 27 && g_eGameState == S_SELECT)
 	{
 		arrow.Y++;
 		bSomethingHappened = true;
@@ -494,32 +520,44 @@ void LevelClear()
 	if (LevelSelection == 11 && (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == 'B'))
 		LevelSelection = 1;
 }
-void renderselectlevel()
+void renderSelectLevel()
 {
-		COORD c = g_Console.getConsoleSize();
-		c.Y = 0;
-		c.X = 0;
+	COORD c = g_Console.getConsoleSize();
+	c.Y = 0;
+	c.X = 0;
 
-		string sym;
-		ifstream myfile("levelselection.txt");
+	string sym;
+	ifstream myfile("levelselection.txt");
 
-		if (myfile.is_open())
+	if (myfile.is_open())
+	{
+		while (getline(myfile, sym)) 
 		{
-			while (getline(myfile, sym)) 
-			{
-				g_Console.writeToBuffer(c, sym, 0x0B);
-				c.Y++;
-			}
-			myfile.close();
+			g_Console.writeToBuffer(c, sym, 0x0B);
+			c.Y++;
 		}
-		selectlevel();
+		myfile.close();
+	}
+
+	renderArrow();
+	moveArrow();
+	SelectLevel();
 }
 
-void selectlevel()
+void SelectLevel()
 {
-	if (g_abKeyPressed[K_ENTER])
+	Sleep(1000);
+	bool bSomethingHappened = false;
+	if (g_abKeyPressed[K_ENTER] && arrow.Y == 18 && g_eGameState == S_SELECT)
 	{
-		g_eGameState=S_SELECT;
+		LevelSelection = 1;
+		g_eGameState = S_GAME;
+		bSomethingHappened = true;
+	}
+	if (bSomethingHappened)
+	{
+		// set the bounce time to some time in the future to prevent accidental triggers
+		g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
 	}
 }
 

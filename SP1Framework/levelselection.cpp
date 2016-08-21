@@ -2,7 +2,7 @@
 extern Console g_Console;
 extern SGameChar g_sChar;
 
-void renderselectscreen()
+void renderSelectScreen()
 {
 	COORD c = g_Console.getConsoleSize();
 	c.Y = 4;
@@ -18,5 +18,6 @@ void renderselectscreen()
 		}
 		myfile.close();
 	}
-	selectlevel();
+	renderArrow();
+	SelectLevel();
 }

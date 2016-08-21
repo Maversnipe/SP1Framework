@@ -98,8 +98,5 @@
     <ClInclude Include="Levels.h">
       <Filter>Header Files\Framework</Filter>
     </ClInclude>
-    <ClInclude Include="levelselection.h">
-      <Filter>Header Files\Framework</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
