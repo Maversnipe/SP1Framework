@@ -11,8 +11,6 @@
 #include <stdlib.h>
 extern Console g_Console;
 
-char MapOne[100][100];
-char MapBonus[100][100];
 char Map[20][100][100];
 
 COORD arrow;
@@ -20,6 +18,7 @@ bool setArrow = false;
 int LevelSelection = 11;
 
 double  g_dElapsedTime;
+double g_dTimer;
 int g_dTotalPoints;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
@@ -42,6 +41,7 @@ void init( void )
 {
     // Set precision for floating point output
     g_dElapsedTime = 0.0;
+	g_dTimer = 0.0;
     g_dBounceTime = 0.0;
 	g_dTotalPoints = 0;
 
@@ -116,10 +116,12 @@ void getInput(void)
 void update(double dt)
 {
     // get the delta time
-	if (g_eGameState == S_GAME){
 		g_dElapsedTime += dt;
-	}
 		g_dDeltaTime = dt;
+		if (g_eGameState == S_GAME)
+		{
+			g_dTimer += dt;
+		}
 
     switch (g_eGameState)
     {
@@ -169,7 +171,7 @@ void gameplay()            // gameplay logic
 {
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter(); // moves the character, collision detection, physics, etc sound can be played here too.
-	pointSystem(); // Points added (test).
+	pointSystem(); // Points added
 }
 
 
@@ -413,7 +415,7 @@ void renderFramerate()
 
     // displays the elapsed time
     ss.str("");
-    ss << (int) g_dElapsedTime << " secs";
+    ss << (int) g_dTimer << " secs";
     c.X = 2;
     c.Y = 1;
     g_Console.writeToBuffer(c, ss.str());
@@ -437,7 +439,7 @@ void pauseControls(){
 	}
 
 	if (g_abKeyPressed[K_SPACE]){
-		g_dElapsedTime = 0.0;
+		g_dTimer = 0.0;
 		g_dTotalPoints = 0;
 		g_eGameState = S_SPLASHSCREEN;
 	}
@@ -524,8 +526,8 @@ void selectlevel()
 void LoadMaps()
 {
 	LevelOne();
-	/*LevelTwo();
-	LevelThree();
+	LevelTwo();
+	/*LevelThree();
 	LevelFour();
 	LevelFive();
 	LevelSix();

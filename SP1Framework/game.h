@@ -100,8 +100,6 @@ void pauseScreenChoices();
 void LoadMaps();
 void pointSystem();
 void LevelClear();
-
-
 void selectlevel();
 
 #endif // _GAME_H

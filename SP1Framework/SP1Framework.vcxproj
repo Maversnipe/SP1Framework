@@ -99,22 +99,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AI.h" />
-    <ClInclude Include="BonusRoom.h" />
     <ClInclude Include="Framework\console.h" />
     <ClInclude Include="Framework\timer.h" />
     <ClInclude Include="game.h" />
-    <ClInclude Include="LevelEight.h" />
-    <ClInclude Include="LevelFive.h" />
-    <ClInclude Include="LevelFour.h" />
-    <ClInclude Include="LevelNine.h" />
-    <ClInclude Include="LevelOne.h" />
     <ClInclude Include="Levels.h" />
     <ClInclude Include="levelselection.h" />
-    <ClInclude Include="LevelSeven.h" />
-    <ClInclude Include="LevelSix.h" />
-    <ClInclude Include="LevelTen.h" />
-    <ClInclude Include="LevelThree.h" />
-    <ClInclude Include="LevelTwo.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
