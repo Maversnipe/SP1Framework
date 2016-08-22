@@ -34,12 +34,13 @@ enum EKEYS
 	K_A,
 	K_S,
 	K_D,
-	K_COUNT,
 	K_ENTER,
 	K_ONE,
 	K_TWO,
 	K_R,
 	K_C,
+
+	K_COUNT // this is the last index code for checking the key.
 };
 
 // Enumeration for the different screen states
@@ -94,6 +95,10 @@ void pointSystem();
 void LevelClear();
 void SelectLevel();
 void bonusKey();
+<<<<<<< HEAD
+=======
+void Cut();
+>>>>>>> 0e5a0f9b8b17e456de6db2613cd2b1518f8250c7
 void renderInstructions();
 
 #endif // _GAME_H
