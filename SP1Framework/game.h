@@ -39,7 +39,6 @@ enum EKEYS
 	K_TWO,
 	K_R,
 	K_C,
-
 	K_COUNT // this is the last index code for checking the key.
 };
 
@@ -96,9 +95,14 @@ void LevelClear();
 void SelectLevel();
 void bonusKey();
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 void Cut();
 >>>>>>> 0e5a0f9b8b17e456de6db2613cd2b1518f8250c7
+=======
+void treeAxeCheck();
+void cut();
+>>>>>>> 01eaa9c4b79f80ee5e3274c41fa5150337d41cf6
 void renderInstructions();
 
 #endif // _GAME_H
