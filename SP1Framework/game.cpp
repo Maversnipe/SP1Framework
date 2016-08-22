@@ -24,6 +24,7 @@ double g_dMenuToSelectTimer;
 int g_dTotalPoints;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
+bool	bonusTimeKey;
 
 // Game specific variables here
 SGameChar   g_sChar;
@@ -180,6 +181,7 @@ void gameplay()		// gameplay logic
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter(); // moves the character, collision detection, physics, etc sound can be played here too.
 	pointSystem(); // Points added
+	bonusKey(); // checks for bonus key
 }
 
 
@@ -299,6 +301,14 @@ void pointSystem()
 		g_dTotalPoints += 1000;
 	}
 }
+
+void bonusKey(){
+	if ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == '+')
+	{
+		Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] = ' ';
+		bonusTimeKey = true;
+	}
+}
 	
 void processUserInput()
 {
@@ -383,6 +393,17 @@ void renderMap()
 			{
 				Map[LevelSelection][rows][columns] = ' ';
 			}
+
+			if (Map[LevelSelection][rows][columns] == 'L')
+			{
+				Map[LevelSelection][rows][columns] = (char)158;
+			}
+
+			if (Map[LevelSelection][rows][columns] == 'x')
+			{
+				Map[LevelSelection][rows][columns] = (char)233;
+			}
+
 			c.X = columns;
 			g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x0a);
 		}
@@ -442,6 +463,14 @@ void renderFramerate()
 	c.X = 20;
 	c.Y = 1;
 	g_Console.writeToBuffer(c, ss.str());
+
+	if (bonusTimeKey == true){
+		c.X = 5;
+		c.Y = 25;
+		ss.str("");
+		ss << "Obtained: Bonus Key";
+		g_Console.writeToBuffer(c, ss.str());
+	}
 }
 void renderToScreen()
 {
@@ -520,10 +549,12 @@ void moveArrow()
 
 void LevelClear()
 {
-	if (LevelSelection == 1 && (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == '2'))
-		LevelSelection = 11;
+	if (LevelSelection == 1 && (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == char(158)))
+		LevelSelection += 1;
 	if (LevelSelection == 11 && (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == 'B'))
 		LevelSelection = 1;
+	if (LevelSelection == 1 && (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == '2' && bonusTimeKey == true))
+		LevelSelection = 11;
 }
 void renderSelectLevel()
 {
