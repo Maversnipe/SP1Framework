@@ -16,7 +16,7 @@ char Map[20][100][100];
 COORD arrow;
 bool setArrowMenu = false;
 bool setArrowSelect = false;
-int LevelSelection = 11;
+int LevelSelection = 1;
 
 double  g_dElapsedTime;
 double g_dTimer;
@@ -58,7 +58,7 @@ void init( void )
 	g_sChar.m_cLocation.Y = 21;
     g_sChar.m_bActive = true;
     // sets the width, height and the font name to use in the console
-    g_Console.setConsoleFont(0, 16, L"Consolas");
+    g_Console.setConsoleFont(0, 16, L"Arial");
 }
 
 //--------------------------------------------------------------
@@ -203,78 +203,82 @@ void moveCharacter()
 
 	// Updating the location of the character based on the key press
 	// providing a beep sound whenver we shift the character
-	if ((g_abKeyPressed[K_W]) && (g_sChar.m_cLocation.Y > 0))//Move Up [W] Key
+	if (((g_abKeyPressed[K_W]) || (g_abKeyPressed[K_UP])) && (g_sChar.m_cLocation.Y > 0))//Move Up [W] Key
 	{
 		//Beep(1440, 30);
-		if (Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != 'r' && Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != 'T')
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] == (char)233)
+		{
+			if (Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] != 'T')
+			{
+				Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] = (char)233;
+				Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] = ' ';
+				g_sChar.m_cLocation.Y--;
+				bSomethingHappened = true;
+			}
+		}
+		else if (Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != 'r' && Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != 'T')
 		{
 			g_sChar.m_cLocation.Y--;
 			bSomethingHappened = true;
 		}
 	}
-	if ((g_abKeyPressed[K_UP]) && (g_sChar.m_cLocation.Y > 0))//Move Up [UP] Key
+	if (((g_abKeyPressed[K_A]) || (g_abKeyPressed[K_LEFT])) && (g_sChar.m_cLocation.X > 0))//Move Left [A] Key
 	{
 		//Beep(1440, 30);
-		if (Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != 'r' && Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != 'T')
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] == (char)233)
 		{
-			g_sChar.m_cLocation.Y--;
-			bSomethingHappened = true;
+			if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] != 'T')
+			{
+				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] = (char)233;
+				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] = ' ';
+				g_sChar.m_cLocation.X--;
+				bSomethingHappened = true;
+			}
 		}
-	}
-	if ((g_abKeyPressed[K_A]) && (g_sChar.m_cLocation.X > 0))//Move Left [A] Key
-	{
-		//Beep(1440, 30);
-		if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != 'r' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X-1] != 'T')
+		else if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X-1] != 'T')
 		{
 			g_sChar.m_cLocation.X--;
 			bSomethingHappened = true;
 		}
 	}
-	if ((g_abKeyPressed[K_LEFT]) && (g_sChar.m_cLocation.X > 0))//Move Left [LEFT] Key
-    {
-        //Beep(1440, 30);
-		if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != 'r' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X-1] != 'T')
-		{
-			g_sChar.m_cLocation.X--;
-			bSomethingHappened = true;
-		}
-    }
-	if ((g_abKeyPressed[K_S]) && (g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1))//Move Down [S] Key
+	if (((g_abKeyPressed[K_S]) || (g_abKeyPressed[K_DOWN])) && (g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1))//Move Down [S] Key
 	{
 		//Beep(1440, 30);
-		if ((Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != '=') && (Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != '|') && (Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != 'r')&& (Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != 'T'))
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] == (char)233)
+		{
+			if (Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] != 'T')
+			{
+				Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] = (char)233;
+				Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] = ' ';
+				g_sChar.m_cLocation.Y++;
+				bSomethingHappened = true;
+			}
+		}
+		else if ((Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != '=') && (Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != '|') && (Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != 'T'))
 		{
 			g_sChar.m_cLocation.Y++;
 			bSomethingHappened = true;
 		}
 	}
-	if ((g_abKeyPressed[K_DOWN]) && (g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1))//Move Down [DOWN] Key
-    {
-        //Beep(1440, 30);
-		if ((Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X]) != '=' && (Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != '|') && (Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != 'r') && (Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != 'T'))
-		{
-			g_sChar.m_cLocation.Y++;
-			bSomethingHappened = true;
-		}
-    }
-	if ((g_abKeyPressed[K_D]) && (g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1))//Move Right [D] Key
+	if (((g_abKeyPressed[K_D]) || (g_abKeyPressed[K_RIGHT])) && (g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1))//Move Right [D] Key
 	{
 		//Beep(1440, 30);
-		if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != 'r'&& Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != 'T')
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] == (char)233)
+		{
+			if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] != 'T')
+			{
+				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] = (char)233;
+				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] = ' ';
+				g_sChar.m_cLocation.X++;
+				bSomethingHappened = true;
+			}
+		}
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != 'T')
 		{
 			g_sChar.m_cLocation.X++;
 			bSomethingHappened = true;
 		}
 	}
-	if ((g_abKeyPressed[K_RIGHT]) && (g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1))//Move Right [RIGHT] Key
-    {
-        //Beep(1440, 30);
-		if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != 'r'&& Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != 'T')
-		{
-			g_sChar.m_cLocation.X++;
-			bSomethingHappened = true;
-		}
-    }
     if (g_abKeyPressed[K_SPACE])
     {
         g_sChar.m_bActive = !g_sChar.m_bActive;
@@ -569,7 +573,7 @@ void moveArrow()
 void LevelClear()
 {
 	if (LevelSelection == 1 && (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == char(158)))
-		LevelSelection += 1;
+		LevelSelection = 2;
 	if (LevelSelection == 11 && (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == 'B'))
 		LevelSelection = 1;
 	if (LevelSelection == 1 && (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == '2' && bonusTimeKey == true))
@@ -601,9 +605,6 @@ void LoadMaps()
 	BonusRoom();
 }
 
-<<<<<<< HEAD
-void Cut()
-=======
 void renderInstructions()
 {
 	COORD c = g_Console.getConsoleSize();
@@ -628,8 +629,7 @@ void renderInstructions()
 	}
 }
 
-void cut()
->>>>>>> 237a172dddfe1b4a4b6b9065e4d2e863aec764ab
+void Cut()
 {
 	if ((g_abKeyPressed[K_C]) && (g_abKeyPressed[K_A] || g_abKeyPressed[K_LEFT]) && ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1]) == 'T')) 
 	{
@@ -649,10 +649,9 @@ void cut()
 			g_dTotalPoints += 70;
 	}
 
-	if ((g_abKeyPressed[K_C]) && (g_abKeyPressed[K_S] || g_abKeyPressed[K_DOWN]) && ((Map[LevelSelection][g_sChar.m_cLocation.Y+1 ][g_sChar.m_cLocation.X]) == 'T'))
+	if ((g_abKeyPressed[K_C]) && (g_abKeyPressed[K_S] || g_abKeyPressed[K_DOWN]) && ((Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X]) == 'T'))
 	{
-			Map[LevelSelection][g_sChar.m_cLocation.Y+1][g_sChar.m_cLocation.X] = ' ';
-			g_dTotalPoints += 70;
+		Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] = ' ';
+		g_dTotalPoints += 70;
 	}
-
 }
