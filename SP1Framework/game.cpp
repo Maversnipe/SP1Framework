@@ -166,11 +166,12 @@ void splashScreenWait()    // waits for time to pass in splash screen
 {
 	if ((g_eGameState == S_SPLASHSCREEN) && (g_abKeyPressed[K_ENTER]) && (arrow.Y == 15)) // Press Enter to start game
 	{
+		g_abKeyPressed[K_ENTER] = false;
 		g_eGameState = S_SELECT;
 	}
 }
 
-void gameplay()            // gameplay logic
+void gameplay()		// gameplay logic
 {
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter(); // moves the character, collision detection, physics, etc sound can be played here too.
@@ -546,7 +547,6 @@ void renderSelectLevel()
 
 void SelectLevel()
 {
-	Sleep(1000);
 	bool bSomethingHappened = false;
 	if (g_abKeyPressed[K_ENTER] && arrow.Y == 18 && g_eGameState == S_SELECT)
 	{
