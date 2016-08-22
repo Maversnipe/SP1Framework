@@ -101,5 +101,6 @@ void LoadMaps();
 void pointSystem();
 void LevelClear();
 void SelectLevel();
+void bonusKey();
 
 #endif // _GAME_H
