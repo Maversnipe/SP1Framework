@@ -180,6 +180,7 @@ void gameplay()		// gameplay logic
 {
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter(); // moves the character, collision detection, physics, etc sound can be played here too.
+	Cut();
 	pointSystem(); // Points added
 	bonusKey(); // checks for bonus key
 }
@@ -556,29 +557,6 @@ void LevelClear()
 	if (LevelSelection == 1 && (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == '2' && bonusTimeKey == true))
 		LevelSelection = 11;
 }
-void renderSelectLevel()
-{
-	COORD c = g_Console.getConsoleSize();
-	c.Y = 0;
-	c.X = 0;
-
-	string sym;
-	ifstream myfile("levelselection.txt");
-
-	if (myfile.is_open())
-	{
-		while (getline(myfile, sym)) 
-		{
-			g_Console.writeToBuffer(c, sym, 0x0B);
-			c.Y++;
-		}
-		myfile.close();
-	}
-
-	renderArrow();
-	moveArrow();
-	SelectLevel();
-}
 
 void SelectLevel()
 {
@@ -605,29 +583,27 @@ void LoadMaps()
 	BonusRoom();
 }
 
-void cut()
+void Cut()
 {
-	if (g_abKeyPressed[K_C] && (/*g_abKeyPressed[K_A] || */g_abKeyPressed[K_LEFT]) && ( (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1]) == 'T') ) 
+	if ((g_abKeyPressed[K_C]) && (g_abKeyPressed[K_A] || g_abKeyPressed[K_LEFT]) && ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1]) == 'T')) 
 	{
 			Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X-1] = ' ';
 			g_dTotalPoints += 70;
 	}
 
-	if (g_abKeyPressed[K_C] && (/*g_abKeyPressed[K_D] || */g_abKeyPressed[K_RIGHT]) && ( (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1]) == 'T') )
+	if ((g_abKeyPressed[K_C]) && (g_abKeyPressed[K_D] || g_abKeyPressed[K_RIGHT]) && ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1]) == 'T'))
 	{
 			Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X +1 ] = ' ';
 			g_dTotalPoints += 70;
-		
-
 	}
 
-	if (g_abKeyPressed[K_C] && (/*g_abKeyPressed[K_W] || */g_abKeyPressed[K_UP]) && ( (Map[LevelSelection][g_sChar.m_cLocation.Y-1][g_sChar.m_cLocation.X ]) == 'T') )
+	if ((g_abKeyPressed[K_C]) && (g_abKeyPressed[K_W] || g_abKeyPressed[K_UP]) && ((Map[LevelSelection][g_sChar.m_cLocation.Y-1][g_sChar.m_cLocation.X ]) == 'T'))
 	{
 			Map[LevelSelection][g_sChar.m_cLocation.Y-1][g_sChar.m_cLocation.X] = ' ';
 			g_dTotalPoints += 70;
 	}
 
-	if (g_abKeyPressed[K_C] && (/*g_abKeyPressed[K_S] || */g_abKeyPressed[K_DOWN]) && ( (Map[LevelSelection][g_sChar.m_cLocation.Y+1 ][g_sChar.m_cLocation.X]) == 'T') )
+	if ((g_abKeyPressed[K_C]) && (g_abKeyPressed[K_S] || g_abKeyPressed[K_DOWN]) && ((Map[LevelSelection][g_sChar.m_cLocation.Y+1 ][g_sChar.m_cLocation.X]) == 'T'))
 	{
 			Map[LevelSelection][g_sChar.m_cLocation.Y+1][g_sChar.m_cLocation.X] = ' ';
 			g_dTotalPoints += 70;

@@ -82,13 +82,12 @@
     <ClCompile Include="Framework\console.cpp" />
     <ClCompile Include="Framework\timer.cpp" />
     <ClCompile Include="game.cpp" />
-    <ClCompile Include="gamePauseScreen.cpp" />
     <ClCompile Include="LevelEight.cpp" />
     <ClCompile Include="LevelFive.cpp" />
     <ClCompile Include="LevelFour.cpp" />
     <ClCompile Include="LevelNine.cpp" />
     <ClCompile Include="LevelOne.cpp" />
-    <ClCompile Include="levelselection.cpp" />
+    <ClCompile Include="LevelSelect.cpp" />
     <ClCompile Include="LevelSeven.cpp" />
     <ClCompile Include="LevelSix.cpp" />
     <ClCompile Include="LevelTen.cpp" />
