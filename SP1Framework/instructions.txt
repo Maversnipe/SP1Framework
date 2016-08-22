@@ -1,0 +1,27 @@
+          _____           _                   _   _                 
+         |_   _|         | |                 | | (_)                
+           | |  _ __  ___| |_ _ __ _   _  ___| |_ _  ___  _ __  ___ 
+           | | | '_ \/ __| __| '__| | | |/ __| __| |/ _ \| '_ \/ __|
+          _| |_| | | \__ | |_| |  | |_| | (__| |_| | (_) | | | \__ \
+         |_____|_| |_|___/\__|_|   \__,_|\___|\__|_|\___/|_| |_|___/  
+                            ESC TO LEAVE SCREEN                     
+                                                                    
+                  Key movement: W,A,S,D or Arrow Keypads.
+                  C to Cut.
+                  Escape to enter the pause menu during the levels. 
+                  All point items are in yellow.
+
+                  [space] - Walkable tiles
+                  X -  Spikes are on, players cannot walk through.
+
+                  1 - Gives 100 pts 
+                  2 - Gives 200 pts 
+                  5 - Gives 500 pts 
+                  (char)158 -Treasure (Completes the level when taken)
+                  r - Water Tiles, players can't walk on these tiles.
+                  (char)225 - Treasure Room Entrance
+                  (char)233 - Boulder
+                  (char)224 - 1000pts (Bonus Room Only)
+                  T - Trees
+                  (char)210 - Axe/Hatchet
+                  o - Player Character
