@@ -20,6 +20,7 @@ int LevelSelection = 11;
 
 double  g_dElapsedTime;
 double g_dTimer;
+double g_dMenuToSelectTimer;
 int g_dTotalPoints;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
@@ -45,6 +46,7 @@ void init( void )
 	g_dTimer = 0.0;
     g_dBounceTime = 0.0;
 	g_dTotalPoints = 0;
+	g_dMenuToSelectTimer = 0.0;
 
     // sets the initial state for the game
     g_eGameState = S_SPLASHSCREEN;
@@ -120,6 +122,7 @@ void update(double dt)
     // get the delta time
 		g_dElapsedTime += dt;
 		g_dDeltaTime = dt;
+
 		if (g_eGameState == S_GAME)
 		{
 			g_dTimer += dt;
@@ -167,7 +170,7 @@ void splashScreenWait()    // waits for time to pass in splash screen
 {
 	if ((g_eGameState == S_SPLASHSCREEN) && (g_abKeyPressed[K_ENTER]) && (arrow.Y == 15)) // Press Enter to start game
 	{
-		g_abKeyPressed[K_ENTER] = false;
+		g_dMenuToSelectTimer = g_dElapsedTime + 2;
 		g_eGameState = S_SELECT;
 	}
 }
@@ -548,18 +551,12 @@ void renderSelectLevel()
 
 void SelectLevel()
 {
-	bool bSomethingHappened = false;
-	if (g_abKeyPressed[K_ENTER] && arrow.Y == 18 && g_eGameState == S_SELECT)
+	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 18) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 1;
 		g_eGameState = S_GAME;
-		bSomethingHappened = true;
 	}
-	if (bSomethingHappened)
-	{
-		// set the bounce time to some time in the future to prevent accidental triggers
-		g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
-	}
+
 }
 
 void LoadMaps()
