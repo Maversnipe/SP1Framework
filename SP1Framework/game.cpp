@@ -139,6 +139,8 @@ void update(double dt)
 			break;
 		case S_SELECT:renderSelectLevel();
 			break;
+		case S_INSTRUCTIONS: renderInstructions();
+			break;
     }
 }
 //--------------------------------------------------------------
@@ -163,6 +165,8 @@ void render()
 			break;
 		case S_SELECT: renderSelectLevel();
 			break;
+		case S_INSTRUCTIONS: renderInstructions();
+			break;
     }  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
 }
@@ -171,8 +175,13 @@ void splashScreenWait()    // waits for time to pass in splash screen
 {
 	if ((g_eGameState == S_SPLASHSCREEN) && (g_abKeyPressed[K_ENTER]) && (arrow.Y == 15)) // Press Enter to start game
 	{
-		g_dMenuToSelectTimer = g_dElapsedTime + 2;
+		g_dMenuToSelectTimer = g_dElapsedTime + 0.25;
 		g_eGameState = S_SELECT;
+	}
+
+	if ((g_eGameState == S_SPLASHSCREEN) && (g_abKeyPressed[K_ENTER]) && (arrow.Y == 17)) // Instructions
+	{
+		g_eGameState = S_INSTRUCTIONS;
 	}
 }
 
@@ -275,7 +284,7 @@ void moveCharacter()
     if (bSomethingHappened)
     {
         // set the bounce time to some time in the future to prevent accidental triggers
-		g_dBounceTime = g_dElapsedTime + 0.125 ; // 125ms should be enough
+		g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
     }
 }
 
@@ -307,6 +316,7 @@ void bonusKey(){
 	if ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == '+')
 	{
 		Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] = ' ';
+		g_dTotalPoints += 500;
 		bonusTimeKey = true;
 	}
 }
@@ -354,15 +364,18 @@ void renderSplashScreen()  // renders the splash screen
 	g_Console.writeToBuffer(c, "Options", 0x07);
 	c.Y += 1;
 	c.X = g_Console.getConsoleSize().X / 2 - 6;
+	g_Console.writeToBuffer(c, "Instructions", 0x07);
+	c.Y += 1;
+	c.X = g_Console.getConsoleSize().X / 2 - 6;
 	g_Console.writeToBuffer(c, "Leaderboard", 0x07);
 	c.Y += 1;
-	c.X = g_Console.getConsoleSize().X / 2 - 10;
-	g_Console.writeToBuffer(c, "Press 'Esc' to quit", 0x07);
+	c.X = g_Console.getConsoleSize().X / 2 - 6;
+	g_Console.writeToBuffer(c, "Quit Game", 0x07);
 
 	renderArrow();
 	moveArrow();
 
-	if (g_abKeyPressed[K_ESCAPE]){
+	if ((g_eGameState == S_SPLASHSCREEN) && (g_abKeyPressed[K_ENTER]) && (arrow.Y == 19)){
 		g_bQuitGame = true;
 	}
 }
@@ -407,6 +420,11 @@ void renderMap()
 
 			c.X = columns;
 			g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x0a);
+
+			if (Map[LevelSelection][rows][columns] == '1' || Map[LevelSelection][rows][columns] == '2' || Map[LevelSelection][rows][columns] == '5' || Map[LevelSelection][rows][columns] == 'A')
+			{
+				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x0E);
+			}
 		}
 	}
 	LevelClear();
@@ -521,7 +539,7 @@ void moveArrow()
 		g_Console.writeToBuffer(arrow, ">");
 
 	}
-	if (g_abKeyPressed[K_DOWN] && arrow.Y < 17 && g_eGameState == S_SPLASHSCREEN)
+	if (g_abKeyPressed[K_DOWN] && arrow.Y < 19 && g_eGameState == S_SPLASHSCREEN)
 	{
 		arrow.Y++;
 		bSomethingHappened = true;
@@ -572,18 +590,46 @@ void LoadMaps()
 {
 	LevelOne();
 	LevelTwo();
-	/*LevelThree();
+	LevelThree();
 	LevelFour();
 	LevelFive();
 	LevelSix();
 	LevelSeven();
 	LevelEight();
 	LevelNine();
-	LevelTen();*/
+	LevelTen();
 	BonusRoom();
 }
 
+<<<<<<< HEAD
 void Cut()
+=======
+void renderInstructions()
+{
+	COORD c = g_Console.getConsoleSize();
+	c.Y = 0;
+	c.X = 0;
+
+	string sym;
+	ifstream myfile("instructions.txt");
+
+	if (myfile.is_open())
+	{
+		while (getline(myfile, sym))
+		{
+			g_Console.writeToBuffer(c, sym, 0x07);
+			c.Y++;
+		}
+		myfile.close();
+	}
+
+	if (g_abKeyPressed[K_ESCAPE] && (g_eGameState == S_INSTRUCTIONS)){
+		g_eGameState = S_SPLASHSCREEN;
+	}
+}
+
+void cut()
+>>>>>>> 237a172dddfe1b4a4b6b9065e4d2e863aec764ab
 {
 	if ((g_abKeyPressed[K_C]) && (g_abKeyPressed[K_A] || g_abKeyPressed[K_LEFT]) && ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1]) == 'T')) 
 	{

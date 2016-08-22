@@ -49,7 +49,8 @@ enum EGAMESTATES
 	S_PAUSE,
 	S_GAME,
 	S_SELECT,
-    S_COUNT,
+	S_COUNT,
+	S_INSTRUCTIONS,
 };
 
 
@@ -93,6 +94,10 @@ void pointSystem();
 void LevelClear();
 void SelectLevel();
 void bonusKey();
+<<<<<<< HEAD
 void Cut();
+=======
+void renderInstructions();
+>>>>>>> 237a172dddfe1b4a4b6b9065e4d2e863aec764ab
 
 #endif // _GAME_H
