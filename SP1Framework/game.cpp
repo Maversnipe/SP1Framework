@@ -445,6 +445,7 @@ void renderArrow()
 		g_Console.writeToBuffer(arrow, ">");
 		setArrowMenu = true;
 	}
+
 	else if (setArrowSelect == false && g_eGameState == S_SELECT)
 	{
 		arrow.X = 25;
@@ -606,6 +607,58 @@ void SelectLevel()
 		g_eGameState = S_GAME;
 	}
 
+	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 19) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
+	{
+		LevelSelection = 2;
+		g_eGameState = S_GAME;
+	}
+
+	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 20) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
+	{
+		LevelSelection = 3;
+		g_eGameState = S_GAME;
+	}	
+	
+	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 21) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
+	{
+		LevelSelection = 4;
+		g_eGameState = S_GAME;
+	}
+
+	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 22) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
+	{
+		LevelSelection = 5;
+		g_eGameState = S_GAME;
+	}
+
+	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 23) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
+	{
+		LevelSelection = 6;
+		g_eGameState = S_GAME;
+	}
+
+	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 24) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
+	{
+		LevelSelection = 7;
+		g_eGameState = S_GAME;
+	}
+
+	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 25) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
+	{
+		LevelSelection = 8;
+		g_eGameState = S_GAME;
+	}
+
+	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 26) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
+	{
+		LevelSelection = 9;
+		g_eGameState = S_GAME;
+	}
+	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 27) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
+	{
+		LevelSelection = 10;
+		g_eGameState = S_GAME;
+	}
 }
 
 void LoadMaps()
