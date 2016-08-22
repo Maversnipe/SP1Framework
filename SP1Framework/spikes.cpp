@@ -11,11 +11,7 @@ void spikes_on() {
 		if (secondcounter % 2 == 0){
 			ostringstream ss;
 			ss << fixed;
-			ss << "\r" << "a" << flush;
-
-			/* if (playerPositionX == spikeX && playerPositionY == spikeY){
-				}
-			*/
+			ss << "\r" << " " << flush;
 
 			this_thread::sleep_for(chrono::seconds(10));
 		}
@@ -23,7 +19,7 @@ void spikes_on() {
 		else {
 			ostringstream ss;
 			ss << fixed;
-			ss << "\r" << "b" << std::flush;
+			ss << "\r" << "x" << std::flush;
 			this_thread::sleep_for(chrono::seconds(10));
 		}
 	}

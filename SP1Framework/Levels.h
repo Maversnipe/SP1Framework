@@ -19,3 +19,4 @@ void LevelNine();
 void LevelTen();
 void BonusRoom();
 void renderSelectLevel();
+void doorSwitchFive();

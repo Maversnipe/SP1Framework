@@ -17,6 +17,7 @@ COORD arrow;
 bool setArrowMenu = false;
 bool setArrowSelect = false;
 int LevelSelection = 11;
+int AxeUses = 3;
 
 double  g_dElapsedTime;
 double g_dTimer;
@@ -25,6 +26,7 @@ int g_dTotalPoints;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
 bool	bonusTimeKey;
+bool	treeAxe;
 
 // Game specific variables here
 SGameChar   g_sChar;
@@ -189,9 +191,11 @@ void gameplay()		// gameplay logic
 {
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter(); // moves the character, collision detection, physics, etc sound can be played here too.
-	Cut();
+	cut();
 	pointSystem(); // Points added
 	bonusKey(); // checks for bonus key
+	treeAxeCheck(); // checks for axe
+	doorSwitchFive(); // switch for level 5
 }
 
 
@@ -316,8 +320,16 @@ void bonusKey(){
 	if ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == '+')
 	{
 		Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] = ' ';
-		g_dTotalPoints += 500;
+		g_dTotalPoints += 50;
 		bonusTimeKey = true;
+	}
+}
+
+void treeAxeCheck(){
+	if ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == (char)210)
+	{
+		Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] = ' ';
+		treeAxe = true;
 	}
 }
 	
@@ -418,12 +430,22 @@ void renderMap()
 				Map[LevelSelection][rows][columns] = (char)233;
 			}
 
+			if (Map[LevelSelection][rows][columns] == 'm')
+			{
+				Map[LevelSelection][rows][columns] = (char)210;
+			}
+
 			c.X = columns;
 			g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x0a);
 
 			if (Map[LevelSelection][rows][columns] == '1' || Map[LevelSelection][rows][columns] == '2' || Map[LevelSelection][rows][columns] == '5' || Map[LevelSelection][rows][columns] == 'A')
 			{
 				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x0E);
+			}
+
+			if (Map[LevelSelection][rows][columns] == '+' || Map[LevelSelection][rows][columns] == (char)158)
+			{
+				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x07);
 			}
 		}
 	}
@@ -488,7 +510,15 @@ void renderFramerate()
 		c.X = 5;
 		c.Y = 25;
 		ss.str("");
-		ss << "Obtained: Bonus Key";
+		ss << "Bonus Key   1x use";
+		g_Console.writeToBuffer(c, ss.str());
+	}
+
+	if (treeAxe == true){
+		c.X = 30;
+		c.Y = 25;
+		ss.str("");
+		ss << "Tree Axe   " << AxeUses << "x uses";
 		g_Console.writeToBuffer(c, ss.str());
 	}
 }
@@ -654,9 +684,6 @@ void LoadMaps()
 	BonusRoom();
 }
 
-<<<<<<< HEAD
-void Cut()
-=======
 void renderInstructions()
 {
 	COORD c = g_Console.getConsoleSize();
@@ -682,7 +709,6 @@ void renderInstructions()
 }
 
 void cut()
->>>>>>> 237a172dddfe1b4a4b6b9065e4d2e863aec764ab
 {
 	if ((g_abKeyPressed[K_C]) && (g_abKeyPressed[K_A] || g_abKeyPressed[K_LEFT]) && ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1]) == 'T')) 
 	{

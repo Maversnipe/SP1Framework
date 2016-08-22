@@ -1,13 +1,15 @@
 #include "Levels.h"
 extern Console g_Console;
 #include <iostream>
+extern char Map[20][100][100];
+extern SGameChar g_sChar;
 
 void LevelFive()
 {
 	COORD c;
 	c.Y = 0;
 	c.X = 0;
-	extern char Map[20][100][100];
+
 	ifstream File("LevelFive.txt");
 
 	if (File.is_open())
@@ -20,18 +22,20 @@ void LevelFive()
 			}
 		}
 		File.close();
-		/*for (int Rows = 0; Rows < 24; Rows++)
+	}
+}
+
+void doorSwitchFive(){
+	if ((Map[5][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == '&')
+	{
+		for (int Rows = 0; Rows < 24; Rows++)
 		{
-			c.Y = Rows;
 			for (int Columns = 0; Columns < 55; Columns++)
 			{
-				if (Map[Rows][Columns] == 'i')
-				{
-					Map[Rows][Columns] = ' ';
+				if ((Map[5][Rows][Columns]) == '#'){
+					Map[5][Rows][Columns] = (char)158;
 				}
-				c.X = Columns;
-				g_Console.writeToBuffer(c, Map[Rows][Columns], 0x0B);
 			}
-		}*/
+		}
 	}
 }
