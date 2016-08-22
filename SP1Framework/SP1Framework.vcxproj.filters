@@ -39,9 +39,6 @@
     <ClCompile Include="spikes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gamePauseScreen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="AI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -63,9 +60,6 @@
     <ClCompile Include="LevelOne.cpp">
       <Filter>Source Files\Levels</Filter>
     </ClCompile>
-    <ClCompile Include="levelselection.cpp">
-      <Filter>Source Files\Levels</Filter>
-    </ClCompile>
     <ClCompile Include="LevelSeven.cpp">
       <Filter>Source Files\Levels</Filter>
     </ClCompile>
@@ -79,6 +73,9 @@
       <Filter>Source Files\Levels</Filter>
     </ClCompile>
     <ClCompile Include="LevelTwo.cpp">
+      <Filter>Source Files\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelSelect.cpp">
       <Filter>Source Files\Levels</Filter>
     </ClCompile>
   </ItemGroup>

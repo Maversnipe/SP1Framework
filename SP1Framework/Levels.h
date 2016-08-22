@@ -18,3 +18,4 @@ void LevelEight();
 void LevelNine();
 void LevelTen();
 void BonusRoom();
+void renderSelectLevel();

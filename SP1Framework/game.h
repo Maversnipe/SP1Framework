@@ -4,17 +4,7 @@
 #include <Windows.h>
 #include "Framework\timer.h"
 #include <string>
-#include "LevelOne.h"
-#include "LevelTwo.h"
-#include "LevelThree.h"
-#include "LevelFour.h"
-#include "LevelFive.h"
-#include "LevelSix.h"
-#include "LevelSeven.h"
-#include "LevelEight.h"
-#include "LevelNine.h"
-#include "LevelTen.h"
-#include "BonusRoom.h"
+#include "Levels.h"
 
 using namespace std;
 
@@ -95,7 +85,6 @@ void renderCharacter();     // renders the character into the buffer
 void renderFramerate();     // renders debug information, frame rate, elapsed time, etc
 void renderToScreen();      // dump the contents of the buffer to the screen, one frame worth of game
 void renderPauseScreen();
-void renderSelectLevel();
 void renderArrow();
 void moveArrow();
 void paused();
@@ -105,6 +94,10 @@ void pointSystem();
 void LevelClear();
 void SelectLevel();
 void bonusKey();
+<<<<<<< HEAD
+void Cut();
+=======
 void renderInstructions();
+>>>>>>> 237a172dddfe1b4a4b6b9065e4d2e863aec764ab
 
 #endif // _GAME_H
