@@ -175,7 +175,7 @@ void splashScreenWait()    // waits for time to pass in splash screen
 {
 	if ((g_eGameState == S_SPLASHSCREEN) && (g_abKeyPressed[K_ENTER]) && (arrow.Y == 15)) // Press Enter to start game
 	{
-		g_dMenuToSelectTimer = g_dElapsedTime + 0.25;
+		g_dMenuToSelectTimer = g_dElapsedTime+0.25;
 		g_eGameState = S_SELECT;
 	}
 
@@ -189,7 +189,6 @@ void gameplay()		// gameplay logic
 {
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter(); // moves the character, collision detection, physics, etc sound can be played here too.
-	Cut();
 	pointSystem(); // Points added
 	bonusKey(); // checks for bonus key
 }
@@ -554,7 +553,7 @@ void moveArrow()
 		g_Console.writeToBuffer(arrow, ">");
 
 	}
-	if (g_abKeyPressed[K_DOWN] && arrow.Y < 27 && g_eGameState == S_SELECT)
+	if (g_abKeyPressed[K_DOWN] && arrow.Y < 28 && g_eGameState == S_SELECT)
 	{
 		arrow.Y++;
 		bSomethingHappened = true;
@@ -637,6 +636,14 @@ void SelectLevel()
 		LevelSelection = 10;
 		g_eGameState = S_GAME;
 	}
+	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 28) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
+	{
+		g_eGameState = S_SPLASHSCREEN;
+	}
+	if ((g_eGameState == S_SELECT) && (g_abKeyPressed[K_ESCAPE]))
+	{
+		g_bQuitGame = true;
+	}
 }
 
 void LoadMaps()
@@ -654,9 +661,6 @@ void LoadMaps()
 	BonusRoom();
 }
 
-<<<<<<< HEAD
-void Cut()
-=======
 void renderInstructions()
 {
 	COORD c = g_Console.getConsoleSize();
@@ -682,7 +686,6 @@ void renderInstructions()
 }
 
 void cut()
->>>>>>> 237a172dddfe1b4a4b6b9065e4d2e863aec764ab
 {
 	if ((g_abKeyPressed[K_C]) && (g_abKeyPressed[K_A] || g_abKeyPressed[K_LEFT]) && ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1]) == 'T')) 
 	{

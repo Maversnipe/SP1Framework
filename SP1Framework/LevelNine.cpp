@@ -8,7 +8,7 @@ void LevelNine()
 	c.Y = 0;
 	c.X = 0;
 	extern char Map[20][100][100];
-	ifstream File("LevelOne.txt");
+	ifstream File("LevelNine.txt");
 
 	if (File.is_open())
 	{
