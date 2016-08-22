@@ -17,7 +17,7 @@ COORD arrow;
 bool setArrowMenu = false;
 bool setArrowSelect = false;
 int LevelSelection = 1;
-int AxeUses = 3;
+int AxeUses = 0;
 
 double  g_dElapsedTime;
 double g_dTimer;
@@ -26,7 +26,7 @@ int g_dTotalPoints;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
 bool	bonusTimeKey;
-bool	treeAxe;
+bool	treeAxe = false;
 
 // Game specific variables here
 SGameChar   g_sChar;
@@ -158,7 +158,10 @@ void render()
     clearScreen();      // clears the current screen and draw from scratch 
     switch (g_eGameState)
     {
-        case S_SPLASHSCREEN: renderSplashScreen();
+        case S_SPLASHSCREEN: 
+			renderArrow();
+			moveArrow();
+			renderSplashScreen();
             break;
 		case S_GAME: renderGame();
 			renderFramerate();
@@ -175,9 +178,10 @@ void render()
 
 void splashScreenWait()    // waits for time to pass in splash screen
 {
-	if ((g_eGameState == S_SPLASHSCREEN) && (g_abKeyPressed[K_ENTER]) && (arrow.Y == 15)) // Press Enter to start game
+	if ((g_eGameState == S_SPLASHSCREEN) && (g_abKeyPressed[K_ENTER]) && (arrow.Y == 15) && g_dElapsedTime >= g_dMenuToSelectTimer) // Press Enter to start game
 	{
-		g_dMenuToSelectTimer = g_dElapsedTime+0.25;
+		g_dMenuToSelectTimer = g_dElapsedTime + 0.25;
+		setArrowSelect = false;
 		g_eGameState = S_SELECT;
 	}
 
@@ -191,16 +195,12 @@ void gameplay()		// gameplay logic
 {
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter(); // moves the character, collision detection, physics, etc sound can be played here too.
-<<<<<<< HEAD
-=======
-	cut();
->>>>>>> 01eaa9c4b79f80ee5e3274c41fa5150337d41cf6
+	Cut();
 	pointSystem(); // Points added
 	bonusKey(); // checks for bonus key
 	treeAxeCheck(); // checks for axe
 	doorSwitchFive(); // switch for level 5
 }
-
 
 void moveCharacter()
 {
@@ -280,7 +280,7 @@ void moveCharacter()
 				bSomethingHappened = true;
 			}
 		}
-		if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != 'T')
+		else if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != 'T')
 		{
 			g_sChar.m_cLocation.X++;
 			bSomethingHappened = true;
@@ -337,6 +337,7 @@ void treeAxeCheck(){
 	{
 		Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] = ' ';
 		treeAxe = true;
+		AxeUses = 3;
 	}
 }
 	
@@ -475,11 +476,10 @@ void renderArrow()
 		g_Console.writeToBuffer(arrow, ">");
 		setArrowMenu = true;
 	}
-
 	else if (setArrowSelect == false && g_eGameState == S_SELECT)
 	{
 		arrow.X = 25;
-		arrow.Y = 18;
+		arrow.Y = 16;
 		g_Console.writeToBuffer(arrow, ">");
 		setArrowSelect = true;
 	}
@@ -564,6 +564,7 @@ void renderPauseScreen(){
 		}
 		pauseControls();
 }
+
 void moveArrow()
 {
 	bool bSomethingHappened = false;
@@ -575,7 +576,6 @@ void moveArrow()
 		arrow.Y--;
 		bSomethingHappened = true;
 		g_Console.writeToBuffer(arrow, ">");
-
 	}
 	if (g_abKeyPressed[K_DOWN] && arrow.Y < 19 && g_eGameState == S_SPLASHSCREEN)
 	{
@@ -584,14 +584,14 @@ void moveArrow()
 		g_Console.writeToBuffer(arrow, ">");
 	}
 
-	if (g_abKeyPressed[K_UP] && arrow.Y > 18 && g_eGameState == S_SELECT)
+	if (g_abKeyPressed[K_UP] && arrow.Y > 16 && g_eGameState == S_SELECT)
 	{
 		arrow.Y--;
 		bSomethingHappened = true;
 		g_Console.writeToBuffer(arrow, ">");
 
 	}
-	if (g_abKeyPressed[K_DOWN] && arrow.Y < 28 && g_eGameState == S_SELECT)
+	if (g_abKeyPressed[K_DOWN] && arrow.Y < 26 && g_eGameState == S_SELECT)
 	{
 		arrow.Y++;
 		bSomethingHappened = true;
@@ -616,66 +616,68 @@ void LevelClear()
 
 void SelectLevel()
 {
-	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 18) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
+	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 16) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 1;
 		g_eGameState = S_GAME;
 	}
 
-	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 19) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
+	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 17) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 2;
 		g_eGameState = S_GAME;
 	}
 
-	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 20) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
+	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 18) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 3;
 		g_eGameState = S_GAME;
 	}	
 	
-	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 21) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
+	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 19) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 4;
 		g_eGameState = S_GAME;
 	}
 
-	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 22) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
+	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 20) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 5;
 		g_eGameState = S_GAME;
 	}
 
-	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 23) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
+	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 21) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 6;
 		g_eGameState = S_GAME;
 	}
 
-	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 24) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
+	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 22) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 7;
 		g_eGameState = S_GAME;
 	}
 
-	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 25) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
+	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 23) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 8;
 		g_eGameState = S_GAME;
 	}
 
-	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 26) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
+	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 24) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 9;
 		g_eGameState = S_GAME;
 	}
-	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 27) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
+	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 25) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 10;
 		g_eGameState = S_GAME;
 	}
-	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 28) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
+	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 26) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
+		setArrowMenu = false;
+		g_dMenuToSelectTimer = g_dElapsedTime + 0.25;
 		g_eGameState = S_SPLASHSCREEN;
 	}
 	if ((g_eGameState == S_SELECT) && (g_abKeyPressed[K_ESCAPE]))
@@ -723,37 +725,49 @@ void renderInstructions()
 	}
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-void cut()
-=======
 void Cut()
->>>>>>> 0e5a0f9b8b17e456de6db2613cd2b1518f8250c7
-=======
-void cut()
->>>>>>> 01eaa9c4b79f80ee5e3274c41fa5150337d41cf6
 {
-	if ((g_abKeyPressed[K_C]) && (g_abKeyPressed[K_A] || g_abKeyPressed[K_LEFT]) && ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1]) == 'T')) 
+	bool bSomethingHappened = false;
+	if ((g_abKeyPressed[K_C]) && (g_abKeyPressed[K_A] || g_abKeyPressed[K_LEFT]) && ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1]) == 'T') && (treeAxe == true)) 
 	{
 			Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X-1] = ' ';
 			g_dTotalPoints += 70;
+			AxeUses--;
+			bSomethingHappened = true;
 	}
 
-	if ((g_abKeyPressed[K_C]) && (g_abKeyPressed[K_D] || g_abKeyPressed[K_RIGHT]) && ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1]) == 'T'))
+	if ((g_abKeyPressed[K_C]) && (g_abKeyPressed[K_D] || g_abKeyPressed[K_RIGHT]) && ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1]) == 'T') && (treeAxe == true))
 	{
 			Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X +1 ] = ' ';
 			g_dTotalPoints += 70;
+			AxeUses--;
+			bSomethingHappened = true;
 	}
 
-	if ((g_abKeyPressed[K_C]) && (g_abKeyPressed[K_W] || g_abKeyPressed[K_UP]) && ((Map[LevelSelection][g_sChar.m_cLocation.Y-1][g_sChar.m_cLocation.X ]) == 'T'))
+	if ((g_abKeyPressed[K_C]) && (g_abKeyPressed[K_W] || g_abKeyPressed[K_UP]) && ((Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X]) == 'T') && (treeAxe == true))
 	{
 			Map[LevelSelection][g_sChar.m_cLocation.Y-1][g_sChar.m_cLocation.X] = ' ';
 			g_dTotalPoints += 70;
+			AxeUses--;
+			bSomethingHappened = true;
 	}
 
-	if ((g_abKeyPressed[K_C]) && (g_abKeyPressed[K_S] || g_abKeyPressed[K_DOWN]) && ((Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X]) == 'T'))
+	if ((g_abKeyPressed[K_C]) && (g_abKeyPressed[K_S] || g_abKeyPressed[K_DOWN]) && ((Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X]) == 'T') && (treeAxe == true))
 	{
 		Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] = ' ';
 		g_dTotalPoints += 70;
+		AxeUses--;
+		bSomethingHappened = true;
+	}
+
+	if (bSomethingHappened)
+	{
+		// set the bounce time to some time in the future to prevent accidental triggers
+		g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
+	}
+
+	if (AxeUses == 0)
+	{
+		treeAxe = false;
 	}
 }
