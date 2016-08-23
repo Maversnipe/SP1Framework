@@ -18,7 +18,7 @@ bool setArrowMenu = false;
 bool setArrowSelect = false;
 int LevelSelection = 1;
 int AxeUses = 0;
-
+int Battery = 0;
 double  g_dElapsedTime;
 double g_dTimer;
 double g_dMenuToSelectTimer;
@@ -28,7 +28,11 @@ double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
 bool	bonusTimeKey;
 bool	treeAxe = false;
+<<<<<<< HEAD
 bool	onRock = false;
+=======
+bool    Batteryuse = false;
+>>>>>>> 5f313bcfaaf4314f7e2eb531fa4b13acb3d39548
 
 // Game specific variables here
 SGameChar   g_sChar;
@@ -107,6 +111,7 @@ void getInput(void)
 	g_abKeyPressed[K_D] = isKeyPressed(VK_D);
 	g_abKeyPressed[K_R] = isKeyPressed(VK_R);
 	g_abKeyPressed[K_C] = isKeyPressed(VK_C);
+	g_abKeyPressed[K_B] = isKeyPressed(VK_B);
 }
 
 //--------------------------------------------------------------
@@ -283,6 +288,33 @@ void restart()
 		g_dTotalPoints = 0;
 		g_eGameState=S_GAME;
 		break;
+	}
+}
+
+void light()
+{
+
+	if ((g_abKeyPressed[K_B]))
+	{
+       
+
+		Battery--;
+	}
+
+
+
+	if (Battery == 0)
+	{
+		Batteryuse = false;
+	}
+}
+void Checkbattery()
+{
+	if ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == (char)207)
+	{
+		Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] = ' ';
+		Batteryuse = true;
+		Battery = 3;
 	}
 }
 void splashScreenWait()    // waits for time to pass in splash screen

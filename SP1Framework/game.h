@@ -16,6 +16,7 @@ using namespace std;
 #define VK_TWO 0x32
 #define VK_R 0x52
 #define VK_C 0x43
+#define VK_B 0x42
 extern CStopWatch g_swTimer;
 extern bool g_bQuitGame;
 extern Console g_Console;
@@ -39,6 +40,7 @@ enum EKEYS
 	K_TWO,
 	K_R,
 	K_C,
+	K_B, 
 	K_COUNT // this is the last index code for checking the key.
 };
 
