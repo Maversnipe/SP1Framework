@@ -28,11 +28,8 @@ double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
 bool	bonusTimeKey;
 bool	treeAxe = false;
-<<<<<<< HEAD
 bool	onRock = false;
-=======
 bool    Batteryuse = false;
->>>>>>> 5f313bcfaaf4314f7e2eb531fa4b13acb3d39548
 
 // Game specific variables here
 SGameChar   g_sChar;
@@ -57,14 +54,8 @@ void init( void )
 	g_dTotalPoints = 0;
 	g_dMenuToSelectTimer = 0.0;
 	g_dDoorTime = 0.0;
-
     // sets the initial state for the game
     g_eGameState = S_SPLASHSCREEN;
-
-	Map[1][g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] = Map[1][5][2]; // Level One player spawn
-	Map[11][g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] = Map[11][10][20]; 
-	g_sChar.m_cLocation.X = 4;
-	g_sChar.m_cLocation.Y = 21;
     g_sChar.m_bActive = true;
     // sets the width, height and the font name to use in the console
     g_Console.setConsoleFont(0, 16, L"Arial");
@@ -130,7 +121,6 @@ void getInput(void)
 //--------------------------------------------------------------
 
 
-
 void update(double dt)
 {
     // get the delta time
@@ -154,11 +144,8 @@ void update(double dt)
 			break;
 		case S_INSTRUCTIONS: renderInstructions();
 			break;
-
 		case S_RESTART: restart();
 			break;
-	
-
 		case S_LEADERBOARD:renderleaderboard();
 			break;
 		case S_OPTION:renderOption();
@@ -193,11 +180,8 @@ void render()
 			break;
 		case S_INSTRUCTIONS: renderInstructions();
 			break;
-
 		case S_RESTART: restart();
 			break;
-		
-
 		case S_LEADERBOARD:renderleaderboard();
 			break;
 		case S_OPTION:renderOption();
@@ -293,15 +277,10 @@ void restart()
 
 void light()
 {
-
 	if ((g_abKeyPressed[K_B]))
 	{
-       
-
 		Battery--;
 	}
-
-
 
 	if (Battery == 0)
 	{
@@ -340,8 +319,6 @@ void splashScreenWait()    // waits for time to pass in splash screen
 	}
 }
 
-
-
 void gameplay()		// gameplay logic
 {
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
@@ -353,258 +330,258 @@ void gameplay()		// gameplay logic
 	doorSwitchFive(); // switch for level 5
 }
 
-void moveCharacter()
-{
-	bool bSomethingHappened = false;
-	if (g_dBounceTime > g_dElapsedTime)
-		return;
-
-	// Updating the location of the character based on the key press
-	// providing a beep sound whenver we shift the character
-	if (((g_abKeyPressed[K_W]) || (g_abKeyPressed[K_UP])) && (g_sChar.m_cLocation.Y > 0))//Move Up 
-	{
-		//Beep(1440, 30);
-		if (Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] == (char)233)
-		{
-			if (onRock == true && Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] == 'O')
-			{
-				Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] = (char)233;
-				Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] = 'O';
-				g_sChar.m_cLocation.Y--;
-				onRock = true;
-				bSomethingHappened = true;
-			}
-			else if (onRock == true && Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] == 'r')
-			{ //Pushing boulder into water while on boulder
-				Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] = 'O';
-				Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] = 'O';
-				g_sChar.m_cLocation.Y--;
-				onRock = false;
-				bSomethingHappened = true;
-			}
-			else if (onRock == false && Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] == 'O')
-			{ //Pushing boulder onto boulder while on land
-				Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] = (char)233;
-				Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] = ' ';
-				g_sChar.m_cLocation.Y--;
-				onRock = true;
-				bSomethingHappened = true;
-			}
-			else if (onRock == true && Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] == 'O')
-			{ //Pushing boulder onto boulder while on a boulder
-				Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] = (char)233;
-				Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] = 'O';
-				g_sChar.m_cLocation.Y--;
-				bSomethingHappened = true;
-			}
-			else if (onRock == false && Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] == 'r')
-			{ //Pushing boulder into water
-				Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] = 'O';
-				Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] = ' ';
-				g_sChar.m_cLocation.Y--;
-				bSomethingHappened = true;
-			}
-			else if (Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] != 'T' && Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] != 'r')
-			{ //Moving the boulder
-				Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] = (char)233;
-				Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] = ' ';
-				g_sChar.m_cLocation.Y--;
-				bSomethingHappened = true;
-			}
-		}
-		else if (Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != 'r' && Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != 'T')
-		{
-			g_sChar.m_cLocation.Y--;
-			bSomethingHappened = true;
-		}
-	}
-
-	if (((g_abKeyPressed[K_A]) || (g_abKeyPressed[K_LEFT])) && (g_sChar.m_cLocation.X > 0))//Move Left 
-	{
-		//Beep(1440, 30);
-		if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] == (char)233)
-		{
-			if (onRock == true && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] == 'O')
-			{
-				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] = (char)233;
-				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] = 'O';
-				g_sChar.m_cLocation.X--;
-				onRock = true;
-				bSomethingHappened = true;
-			}
-			else if (onRock == true && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] == 'r')
-			{ //Pushing boulder into water while on boulder
-				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] = 'O';
-				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] = 'O';
-				g_sChar.m_cLocation.X--;
-				onRock = false;
-				bSomethingHappened = true;
-			}
-			else if (onRock == false && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] == 'O')
-			{ //Pushing boulder onto boulder while on land
-				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] = (char)233;
-				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] = ' ';
-				g_sChar.m_cLocation.X--;
-				onRock = true;
-				bSomethingHappened = true;
-			}
-			else if (onRock == true && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] == 'O')
-			{ //Pushing boulder onto boulder while on a boulder
-				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] = (char)233;
-				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] = 'O';
-				g_sChar.m_cLocation.X--;
-				bSomethingHappened = true;
-			}
-			else if (onRock == false && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] == 'r')
-			{ //Pushing boulder into water
-				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] = 'O';
-				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] = ' ';
-				g_sChar.m_cLocation.X--;
-				bSomethingHappened = true;
-			}
-			else if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] != 'T' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] != 'r')
-			{ //Moving the boulder
-				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] = (char)233;
-				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] = ' ';
-				g_sChar.m_cLocation.X--;
-				bSomethingHappened = true;
-			}
-		}
-		else if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != 'T' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != 'r')
-		{
-			g_sChar.m_cLocation.X--;
-			bSomethingHappened = true;
-		}
-	}
-
-		if (((g_abKeyPressed[K_S]) || (g_abKeyPressed[K_DOWN])) && (g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1))//Move Down
-		{
-			//Beep(1440, 30);
-			if (Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] == (char)233)
-			{
-				if (onRock == true && Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] == 'O')
-				{
-					Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] = (char)233;
-					Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] = 'O';
-					g_sChar.m_cLocation.Y++;
-					onRock = true;
-					bSomethingHappened = true;
-				}
-				else if (onRock == true && Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] == 'r')
-				{ //Pushing boulder into water while on boulder
-					Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] = 'O';
-					Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] = 'O';
-					g_sChar.m_cLocation.Y++;
-					onRock = false;
-					bSomethingHappened = true;
-				}
-				else if (onRock == false && Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] == 'O')
-				{ //Pushing boulder onto boulder while on land
-					Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] = (char)233;
-					Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] = ' ';
-					g_sChar.m_cLocation.Y++;
-					onRock = true;
-					bSomethingHappened = true;
-				}
-				else if (onRock == true && Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] == 'O')
-				{ //Pushing boulder onto boulder while on a boulder
-					Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] = (char)233;
-					Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] = 'O';
-					g_sChar.m_cLocation.Y++;
-					bSomethingHappened = true;
-				}
-				else if (onRock == false && Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] == 'r')
-				{ //Pushing boulder into water
-					Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] = 'O';
-					Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] = ' ';
-					g_sChar.m_cLocation.Y++;
-					bSomethingHappened = true;
-				}
-				else if (Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] != 'T' && Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] != 'r')
-				{ //Moving the boulder
-					Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] = (char)233;
-					Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] = ' ';
-					g_sChar.m_cLocation.Y++;
-					bSomethingHappened = true;
-				}
-			}
-				else if ((Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != '=') && (Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != '|') && (Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != 'T') && ((Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != 'r')))
-				{
-					g_sChar.m_cLocation.Y++;
-					bSomethingHappened = true;
-				}
-			}
-
-			if (((g_abKeyPressed[K_D]) || (g_abKeyPressed[K_RIGHT])) && (g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1))//Move Right
-			{
-				//Beep(1440, 30);
-				if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] == (char)233)
-				{
-					if (onRock == true && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] == 'O')
-					{
-						Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] = (char)233;
-						Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] = 'O';
-						g_sChar.m_cLocation.X++;
-						onRock = true;
-						bSomethingHappened = true;
-					}
-					else if (onRock == true && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] == 'r')
-					{ //Pushing boulder into water while on boulder
-						Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] = 'O';
-						Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] = 'O';
-						g_sChar.m_cLocation.X++;
-						onRock = false;
-						bSomethingHappened = true;
-					}
-					else if (onRock == false && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] == 'O')
-					{ //Pushing boulder onto boulder while on land
-						Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] = (char)233;
-						Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] = ' ';
-						g_sChar.m_cLocation.X++;
-						onRock = true;
-						bSomethingHappened = true;
-					}
-					else if (onRock == true && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] == 'O')
-					{ //Pushing boulder onto boulder while on a boulder
-						Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] = (char)233;
-						Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] = 'O';
-						g_sChar.m_cLocation.X++;
-						bSomethingHappened = true;
-					}
-					else if (onRock == false && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] == 'r')
-					{ //Pushing boulder into water
-						Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] = 'O';
-						Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] = ' ';
-						g_sChar.m_cLocation.X++;
-						bSomethingHappened = true;
-					}
-					else if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] != 'T' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] != 'r')
-					{ //Moving the boulder
-						Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] = (char)233;
-						Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] = ' ';
-						g_sChar.m_cLocation.X++;
-						bSomethingHappened = true;
-					}
-				}
-				else if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != 'T' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != 'r')
-				{
-					g_sChar.m_cLocation.X++;
-					bSomethingHappened = true;
-				}
-			}
-
-			if (g_abKeyPressed[K_SPACE])
-			{
-				g_sChar.m_bActive = !g_sChar.m_bActive;
-				bSomethingHappened = true;
-			}
-
-			if (bSomethingHappened)
-			{
-				// set the bounce time to some time in the future to prevent accidental triggers
-				g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
-			}
-		}
+//void moveCharacter()
+//{
+//	bool bSomethingHappened = false;
+//	if (g_dBounceTime > g_dElapsedTime)
+//		return;
+//
+//	// Updating the location of the character based on the key press
+//	// providing a beep sound whenver we shift the character
+//	if (((g_abKeyPressed[K_W]) || (g_abKeyPressed[K_UP])) && (g_sChar.m_cLocation.Y > 0))//Move Up 
+//	{
+//		//Beep(1440, 30);
+//		if (Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] == (char)233)
+//		{
+//			if (onRock == true && Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] == 'O')
+//			{
+//				Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] = (char)233;
+//				Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] = 'O';
+//				g_sChar.m_cLocation.Y--;
+//				onRock = true;
+//				bSomethingHappened = true;
+//			}
+//			else if (onRock == true && Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] == 'r')
+//			{ //Pushing boulder into water while on boulder
+//				Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] = 'O';
+//				Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] = 'O';
+//				g_sChar.m_cLocation.Y--;
+//				onRock = false;
+//				bSomethingHappened = true;
+//			}
+//			else if (onRock == false && Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] == 'O')
+//			{ //Pushing boulder onto boulder while on land
+//				Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] = (char)233;
+//				Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] = ' ';
+//				g_sChar.m_cLocation.Y--;
+//				onRock = true;
+//				bSomethingHappened = true;
+//			}
+//			else if (onRock == true && Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] == 'O')
+//			{ //Pushing boulder onto boulder while on a boulder
+//				Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] = (char)233;
+//				Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] = 'O';
+//				g_sChar.m_cLocation.Y--;
+//				bSomethingHappened = true;
+//			}
+//			else if (onRock == false && Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] == 'r')
+//			{ //Pushing boulder into water
+//				Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] = 'O';
+//				Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] = ' ';
+//				g_sChar.m_cLocation.Y--;
+//				bSomethingHappened = true;
+//			}
+//			else if (Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] != 'T' && Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] != 'r')
+//			{ //Moving the boulder
+//				Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] = (char)233;
+//				Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] = ' ';
+//				g_sChar.m_cLocation.Y--;
+//				bSomethingHappened = true;
+//			}
+//		}
+//		else if (Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != 'r' && Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != 'T')
+//		{
+//			g_sChar.m_cLocation.Y--;
+//			bSomethingHappened = true;
+//		}
+//	}
+//
+//	if (((g_abKeyPressed[K_A]) || (g_abKeyPressed[K_LEFT])) && (g_sChar.m_cLocation.X > 0))//Move Left 
+//	{
+//		//Beep(1440, 30);
+//		if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] == (char)233)
+//		{
+//			if (onRock == true && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] == 'O')
+//			{
+//				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] = (char)233;
+//				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] = 'O';
+//				g_sChar.m_cLocation.X--;
+//				onRock = true;
+//				bSomethingHappened = true;
+//			}
+//			else if (onRock == true && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] == 'r')
+//			{ //Pushing boulder into water while on boulder
+//				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] = 'O';
+//				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] = 'O';
+//				g_sChar.m_cLocation.X--;
+//				onRock = false;
+//				bSomethingHappened = true;
+//			}
+//			else if (onRock == false && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] == 'O')
+//			{ //Pushing boulder onto boulder while on land
+//				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] = (char)233;
+//				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] = ' ';
+//				g_sChar.m_cLocation.X--;
+//				onRock = true;
+//				bSomethingHappened = true;
+//			}
+//			else if (onRock == true && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] == 'O')
+//			{ //Pushing boulder onto boulder while on a boulder
+//				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] = (char)233;
+//				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] = 'O';
+//				g_sChar.m_cLocation.X--;
+//				bSomethingHappened = true;
+//			}
+//			else if (onRock == false && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] == 'r')
+//			{ //Pushing boulder into water
+//				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] = 'O';
+//				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] = ' ';
+//				g_sChar.m_cLocation.X--;
+//				bSomethingHappened = true;
+//			}
+//			else if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] != 'T' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] != 'r')
+//			{ //Moving the boulder
+//				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] = (char)233;
+//				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] = ' ';
+//				g_sChar.m_cLocation.X--;
+//				bSomethingHappened = true;
+//			}
+//		}
+//		else if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != 'T' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != 'r')
+//		{
+//			g_sChar.m_cLocation.X--;
+//			bSomethingHappened = true;
+//		}
+//	}
+//
+//		if (((g_abKeyPressed[K_S]) || (g_abKeyPressed[K_DOWN])) && (g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1))//Move Down
+//		{
+//			//Beep(1440, 30);
+//			if (Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] == (char)233)
+//			{
+//				if (onRock == true && Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] == 'O')
+//				{
+//					Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] = (char)233;
+//					Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] = 'O';
+//					g_sChar.m_cLocation.Y++;
+//					onRock = true;
+//					bSomethingHappened = true;
+//				}
+//				else if (onRock == true && Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] == 'r')
+//				{ //Pushing boulder into water while on boulder
+//					Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] = 'O';
+//					Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] = 'O';
+//					g_sChar.m_cLocation.Y++;
+//					onRock = false;
+//					bSomethingHappened = true;
+//				}
+//				else if (onRock == false && Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] == 'O')
+//				{ //Pushing boulder onto boulder while on land
+//					Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] = (char)233;
+//					Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] = ' ';
+//					g_sChar.m_cLocation.Y++;
+//					onRock = true;
+//					bSomethingHappened = true;
+//				}
+//				else if (onRock == true && Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] == 'O')
+//				{ //Pushing boulder onto boulder while on a boulder
+//					Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] = (char)233;
+//					Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] = 'O';
+//					g_sChar.m_cLocation.Y++;
+//					bSomethingHappened = true;
+//				}
+//				else if (onRock == false && Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] == 'r')
+//				{ //Pushing boulder into water
+//					Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] = 'O';
+//					Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] = ' ';
+//					g_sChar.m_cLocation.Y++;
+//					bSomethingHappened = true;
+//				}
+//				else if (Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] != 'T' && Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] != 'r')
+//				{ //Moving the boulder
+//					Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] = (char)233;
+//					Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] = ' ';
+//					g_sChar.m_cLocation.Y++;
+//					bSomethingHappened = true;
+//				}
+//			}
+//				else if ((Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != '=') && (Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != '|') && (Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != 'T') && ((Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != 'r')))
+//				{
+//					g_sChar.m_cLocation.Y++;
+//					bSomethingHappened = true;
+//				}
+//			}
+//
+//			if (((g_abKeyPressed[K_D]) || (g_abKeyPressed[K_RIGHT])) && (g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1))//Move Right
+//			{
+//				//Beep(1440, 30);
+//				if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] == (char)233)
+//				{
+//					if (onRock == true && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] == 'O')
+//					{
+//						Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] = (char)233;
+//						Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] = 'O';
+//						g_sChar.m_cLocation.X++;
+//						onRock = true;
+//						bSomethingHappened = true;
+//					}
+//					else if (onRock == true && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] == 'r')
+//					{ //Pushing boulder into water while on boulder
+//						Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] = 'O';
+//						Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] = 'O';
+//						g_sChar.m_cLocation.X++;
+//						onRock = false;
+//						bSomethingHappened = true;
+//					}
+//					else if (onRock == false && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] == 'O')
+//					{ //Pushing boulder onto boulder while on land
+//						Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] = (char)233;
+//						Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] = ' ';
+//						g_sChar.m_cLocation.X++;
+//						onRock = true;
+//						bSomethingHappened = true;
+//					}
+//					else if (onRock == true && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] == 'O')
+//					{ //Pushing boulder onto boulder while on a boulder
+//						Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] = (char)233;
+//						Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] = 'O';
+//						g_sChar.m_cLocation.X++;
+//						bSomethingHappened = true;
+//					}
+//					else if (onRock == false && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] == 'r')
+//					{ //Pushing boulder into water
+//						Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] = 'O';
+//						Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] = ' ';
+//						g_sChar.m_cLocation.X++;
+//						bSomethingHappened = true;
+//					}
+//					else if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] != 'T' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] != 'r')
+//					{ //Moving the boulder
+//						Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] = (char)233;
+//						Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] = ' ';
+//						g_sChar.m_cLocation.X++;
+//						bSomethingHappened = true;
+//					}
+//				}
+//				else if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != 'T' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != 'r')
+//				{
+//					g_sChar.m_cLocation.X++;
+//					bSomethingHappened = true;
+//				}
+//			}
+//
+//			if (g_abKeyPressed[K_SPACE])
+//			{
+//				g_sChar.m_bActive = !g_sChar.m_bActive;
+//				bSomethingHappened = true;
+//			}
+//
+//			if (bSomethingHappened)
+//			{
+//				// set the bounce time to some time in the future to prevent accidental triggers
+//				g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
+//			}
+//		}
 
 void pointSystem()
 {
@@ -926,7 +903,10 @@ void moveArrow()
 void LevelClear()
 {
 	if (LevelSelection == 1 && (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == char(158)))
+	{
 		LevelSelection = 2;
+		charSpawn();
+	}
 	if (LevelSelection == 11 && (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == 'B'))
 		LevelSelection = 1;
 	if (LevelSelection == 1 && (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == '2' && bonusTimeKey == true))
@@ -938,18 +918,21 @@ void SelectLevel()
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 16) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 1;
+		charSpawn();
 		g_eGameState = S_GAME;
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 17) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 2;
+		charSpawn();
 		g_eGameState = S_GAME;
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 18) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 3;
+		charSpawn();
 		g_eGameState = S_GAME;
 	}	
 	

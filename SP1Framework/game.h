@@ -52,10 +52,8 @@ enum EGAMESTATES
 	S_GAME,
 	S_SELECT,
 	S_INSTRUCTIONS,
-
 	S_RESTART,
 	S_COUNT,
-	
 	S_LEADERBOARD,
 	S_OPTION
 
@@ -105,7 +103,7 @@ void bonusKey();
 void Cut();
 void treeAxeCheck();
 void renderInstructions();
-
+void charSpawn();
 void restart();
 
 

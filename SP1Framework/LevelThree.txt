@@ -1,4 +1,4 @@
-﻿iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
+iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
 iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
 iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
 iii====================================================
@@ -9,10 +9,10 @@ iii|iiiiiiiii|iiiiii|iiiiiiiiiiiiiiii|iiiiiiiiiiiiiiii|
 iii|iiii1iiii|ixi|iiiiiiiiiiiiiiiiiii|iiiiii1iiiiiiiii|
 iii|iiiiiiiii|iii|iiiiiiii==|==iiiiii|iiiiiiiiiiiiiiii|
 iii|iiiiiixiiiiiiiiiiiiiiix|iiiiiiiii|rrrrrrrriiiiiiii|
-iii|iiiiiiiiiiirrrrxriiii==|iiiiiiiirrrrrrrrrrrxrriiii|
-iii|iiiirrrrrrrrrrrrrrxriiiiiirrrrrrrrrrrrrrrrrrxrrrrr|
-iii|iirrrrrrrrrrrrrrrrrrxrrrrrrrrrrrrrrrrrrrrrrrxrrrrr|
-iii|irrrrrrrrrrrrrrrrrrrxxrrrrrrrrrrrrrrrrrrrrrrxrrrrr|
+iii|iiiiiiiiiiirrrrOriiii==|iiiiiiiirrrrrrrrrrrOrriiii|
+iii|iiiirrrrrrrrrrrrrrOriiiiiirrrrrrrrrrrrrrrrrrOrrrrr|
+iii|iirrrrrrrrrrrrrrrrrrOrrrrrrrrrrrrrrrrrrrrrrrOrrrrr|
+iii|irrrrrrrrrrrrrrrrrrrOOrrrrrrrrrrrrrrrrrrrrrrOrrrrr|
 iiirrrrrrrrrrrrrrrrrrrTTTTTTTTTTTTTTTTTTTTTTTTTTrrrrrr|
 iiirrrrrriiiiiiiiiTTTTTiiiiiiiiiiiiiiiiTTTTTiiiiiiiiii|
 iiirrrrTTiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiTTT|
