@@ -50,9 +50,13 @@ enum EGAMESTATES
 	S_GAME,
 	S_SELECT,
 	S_INSTRUCTIONS,
+
 	S_RESTART,
 	S_COUNT,
 	
+	S_LEADERBOARD,
+	S_OPTION
+
 };
 
 
@@ -101,5 +105,9 @@ void treeAxeCheck();
 void renderInstructions();
 
 void restart();
+
+
+void renderleaderboard();
+void renderOption();
 
 #endif // _GAME_H
