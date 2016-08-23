@@ -49,8 +49,10 @@ enum EGAMESTATES
 	S_PAUSE,
 	S_GAME,
 	S_SELECT,
-	S_COUNT,
 	S_INSTRUCTIONS,
+	S_RESTART,
+	S_COUNT,
+	
 };
 
 
@@ -97,5 +99,7 @@ void bonusKey();
 void Cut();
 void treeAxeCheck();
 void renderInstructions();
+
+void restart();
 
 #endif // _GAME_H

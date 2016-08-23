@@ -120,6 +120,9 @@ void getInput(void)
 // Input    : dt = deltatime
 // Output   : void
 //--------------------------------------------------------------
+
+
+
 void update(double dt)
 {
     // get the delta time
@@ -143,6 +146,9 @@ void update(double dt)
 			break;
 		case S_INSTRUCTIONS: renderInstructions();
 			break;
+		case S_RESTART: restart();
+			break;
+	
     }
 }
 //--------------------------------------------------------------
@@ -172,16 +178,57 @@ void render()
 			break;
 		case S_INSTRUCTIONS: renderInstructions();
 			break;
+		case S_RESTART: restart();
+			break;
+		
     }  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
 }
 void restart()
 {
-	if (g_abKeyPressed[K_R])
+	switch (LevelSelection)
 	{
-		g_dTimer = 0.0;
-		g_dTotalPoints = 0;
-		g_eGameState = S_SPLASHSCREEN;
+	case 1: 
+		LevelOne();
+	g_eGameState=S_GAME;
+	break;
+	case 2:
+		LevelTwo();
+	g_eGameState=S_GAME;
+	break;
+	case 3:
+		LevelThree();
+	g_eGameState=S_GAME;
+	break;
+	case 4:
+		LevelFour();
+	g_eGameState=S_GAME;
+	break;
+	case 5:
+		LevelFive();
+	g_eGameState=S_GAME;
+	break;
+	case 6:
+		LevelSix();
+	g_eGameState=S_GAME;
+	break;
+	case 7:
+		LevelSeven();
+	g_eGameState=S_GAME;
+	break;
+	case 8:
+		LevelEight();
+	g_eGameState=S_GAME;
+	break;
+	case 9:
+		LevelNine();
+	g_eGameState=S_GAME;
+	break;
+	case 10:
+		LevelTen();
+	g_eGameState=S_GAME;
+	break;
+
 	}
 }
 void splashScreenWait()    // waits for time to pass in splash screen
@@ -199,6 +246,8 @@ void splashScreenWait()    // waits for time to pass in splash screen
 	}
 }
 
+
+
 void gameplay()		// gameplay logic
 {
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
@@ -208,7 +257,6 @@ void gameplay()		// gameplay logic
 	bonusKey(); // checks for bonus key
 	treeAxeCheck(); // checks for axe
 	doorSwitchFive(); // switch for level 5
-	restart();
 }
 
 void moveCharacter()
@@ -554,9 +602,16 @@ void pauseControls(){
 		g_dTotalPoints = 0;
 		g_eGameState = S_SPLASHSCREEN;
 	}
+	if (g_abKeyPressed[K_R])
+	{
+		g_dTimer = 0.0;
+		g_dTotalPoints = 0;
+		g_eGameState = S_RESTART;
+	}
 }
 
-void renderPauseScreen(){
+void renderPauseScreen()
+{
 		COORD c = g_Console.getConsoleSize();
 		c.Y = 7;
 		c.X = 15;
