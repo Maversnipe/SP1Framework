@@ -20,3 +20,4 @@ void LevelTen();
 void BonusRoom();
 void renderSelectLevel();
 void doorSwitchFive();
+void spikes_on();

@@ -20,7 +20,16 @@ void LevelOne()
 			{
 				File >> Map[1][Rows][Columns];
 			}
+
+			for (int Rows = 0; Rows < 24; Rows++){
+				for (int Columns = 0; Columns < 55; Columns++){
+					if (Map[1][Rows][Columns] == 'X'){
+						void spikes_on();
+						}
+					}
+				}
 		}
+
 		File.close();
 	}
 }

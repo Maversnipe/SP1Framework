@@ -22,6 +22,7 @@ int AxeUses = 0;
 double  g_dElapsedTime;
 double g_dTimer;
 double g_dMenuToSelectTimer;
+double g_dDoorTime;
 int g_dTotalPoints;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
@@ -50,6 +51,7 @@ void init( void )
     g_dBounceTime = 0.0;
 	g_dTotalPoints = 0;
 	g_dMenuToSelectTimer = 0.0;
+	g_dDoorTime = 0.0;
 
     // sets the initial state for the game
     g_eGameState = S_SPLASHSCREEN;
@@ -460,6 +462,11 @@ void renderMap()
 				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x0E);
 			}
 
+			if (Map[LevelSelection][rows][columns] == '1' || Map[LevelSelection][rows][columns] == '2' || Map[LevelSelection][rows][columns] == '5' || Map[LevelSelection][rows][columns] == 'A')
+			{
+				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x0A);
+			}
+
 			if (Map[LevelSelection][rows][columns] == '+' || Map[LevelSelection][rows][columns] == (char)158)
 			{
 				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x07);
@@ -730,6 +737,30 @@ void renderInstructions()
 	}
 
 	if (g_abKeyPressed[K_ESCAPE] && (g_eGameState == S_INSTRUCTIONS)){
+		g_eGameState = S_SPLASHSCREEN;
+	}
+}
+
+void renderLeaderboard()
+{
+	COORD c = g_Console.getConsoleSize();
+	c.Y = 0;
+	c.X = 0;
+
+	string sym;
+	ifstream myfile("Leaderboard.txt");
+
+	if (myfile.is_open())
+	{
+		while (getline(myfile, sym))
+		{
+			g_Console.writeToBuffer(c, sym, 0x07);
+			c.Y++;
+		}
+		myfile.close();
+	}
+
+	if (g_abKeyPressed[K_ESCAPE]){
 		g_eGameState = S_SPLASHSCREEN;
 	}
 }
