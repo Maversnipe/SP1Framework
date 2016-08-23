@@ -8,13 +8,14 @@
 |                \___/ |__|    |__|  |____|\___/ |__|__| \___|                 |
 |                                                                              |
 |                                                                              |
-|                          Press 'Esc' to return to main menu                  |
+|                       Press 'Esc' to return to Main Menu                     |
 |                                                                              |
 |                                                                              |
 |                                                                              |
 |                               Reset Leaderboard                              |
-|                            Change Character colour                           |
+|                             Change Character colour                          |
 |                                    Credits                                   |
+|                                                                              |
 |                                                                              |
 |                                                                              |
 |                                                                              |

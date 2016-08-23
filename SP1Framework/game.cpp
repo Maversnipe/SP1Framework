@@ -16,6 +16,7 @@ char Map[20][100][100];
 COORD arrow;
 bool setArrowMenu = false;
 bool setArrowSelect = false;
+bool setArrowOption = false;
 int LevelSelection = 1;
 int AxeUses = 0;
 
@@ -147,6 +148,8 @@ void update(double dt)
 			break;
 		case S_OPTION:renderOption();
 			break;
+		case S_CREDITS:renderCredits();
+			break;
     }
 }
 //--------------------------------------------------------------
@@ -179,6 +182,8 @@ void render()
 		case S_LEADERBOARD:renderleaderboard();
 			break;
 		case S_OPTION:renderOption();
+			break;
+		case S_CREDITS:renderCredits();
     }  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
 }
@@ -199,19 +204,22 @@ void splashScreenWait()    // waits for time to pass in splash screen
 		setArrowSelect = false;
 		g_eGameState = S_SELECT;
 	}
+	if (g_eGameState == S_SPLASHSCREEN && g_abKeyPressed[K_ENTER] && arrow.Y == 16 && g_dElapsedTime >= g_dMenuToSelectTimer)//options
+	{
+		g_eGameState = S_OPTION;
+		g_dMenuToSelectTimer = g_dElapsedTime + 0.25;
+	}
 
-	if ((g_eGameState == S_SPLASHSCREEN) && (g_abKeyPressed[K_ENTER]) && (arrow.Y == 17)) // Instructions
+	if ((g_eGameState == S_SPLASHSCREEN) && (g_abKeyPressed[K_ENTER]) && (arrow.Y == 17) && g_dElapsedTime >= g_dMenuToSelectTimer) // Instructions
 	{
 		g_eGameState = S_INSTRUCTIONS;
 	}
-	if (g_eGameState == S_SPLASHSCREEN && g_abKeyPressed[K_ENTER] && arrow.Y == 18 && g_dElapsedTime >= g_dMenuToSelectTimer)
+	if (g_eGameState == S_SPLASHSCREEN && g_abKeyPressed[K_ENTER] && arrow.Y == 18 && g_dElapsedTime >= g_dMenuToSelectTimer) //leaderboard
 	{
 		g_eGameState = S_LEADERBOARD;
 	}
-	if (g_eGameState == S_SPLASHSCREEN && g_abKeyPressed[K_ENTER] && arrow.Y == 16 && g_dElapsedTime >= g_dMenuToSelectTimer)
-	{
-		g_eGameState = S_OPTION;
-	}
+	setArrowOption = false;
+	setArrowSelect = false;
 }
 
 void gameplay()		// gameplay logic
@@ -418,6 +426,8 @@ void renderSplashScreen()  // renders the splash screen
 
 	renderArrow();
 	moveArrow();
+	setArrowOption = false;
+	setArrowSelect = false;
 
 	if ((g_eGameState == S_SPLASHSCREEN) && (g_abKeyPressed[K_ENTER]) && (arrow.Y == 19)){
 		g_bQuitGame = true;
@@ -506,6 +516,13 @@ void renderArrow()
 		arrow.Y = 16;
 		g_Console.writeToBuffer(arrow, ">");
 		setArrowSelect = true;
+	}
+	else if (setArrowOption == false && g_eGameState == S_OPTION)
+	{
+		arrow.X = 25;
+		arrow.Y = 14;
+		g_Console.writeToBuffer(arrow, ">");
+		setArrowOption = true;
 	}
 	// Draw the location of the character
 	WORD charColor = 0x06;
@@ -616,6 +633,19 @@ void moveArrow()
 
 	}
 	if (g_abKeyPressed[K_DOWN] && arrow.Y < 26 && g_eGameState == S_SELECT)
+	{
+		arrow.Y++;
+		bSomethingHappened = true;
+		g_Console.writeToBuffer(arrow, ">");
+	}
+	if (g_abKeyPressed[K_UP] && arrow.Y > 14 && g_eGameState == S_OPTION)//reset leaderboard
+	{
+		arrow.Y--;
+		bSomethingHappened = true;
+		g_Console.writeToBuffer(arrow, ">");
+
+	}
+	if (g_abKeyPressed[K_DOWN] && arrow.Y < 16 && g_eGameState == S_OPTION)//credits
 	{
 		arrow.Y++;
 		bSomethingHappened = true;
@@ -771,6 +801,28 @@ void renderleaderboard()
 		g_eGameState = S_SPLASHSCREEN;
 	}
 }
+void renderCredits()
+{
+	COORD c = g_Console.getConsoleSize();
+	c.Y = 0;
+	c.X = 0;
+
+	string sym;
+	ifstream myfile("credits.txt");
+
+	if (myfile.is_open())
+	{
+		while (getline(myfile, sym))
+		{
+			g_Console.writeToBuffer(c, sym, 0x07);
+			c.Y++;
+		}
+		myfile.close();
+	}
+	if (g_abKeyPressed[K_ESCAPE] && (g_eGameState == S_CREDITS)){
+		g_eGameState = S_SPLASHSCREEN;
+	}
+}
 void renderOption()
 {
 	COORD c = g_Console.getConsoleSize();
@@ -793,6 +845,14 @@ void renderOption()
 	if (g_abKeyPressed[K_ESCAPE] && (g_eGameState == S_OPTION)){
 		g_eGameState = S_SPLASHSCREEN;
 	}
+	if (g_abKeyPressed[K_ENTER] && (g_eGameState == S_OPTION) && arrow.Y == 16 && g_dElapsedTime>=g_dMenuToSelectTimer){//if things doesnt work use plan B
+
+		g_eGameState = S_CREDITS;
+	}
+	setArrowSelect = false;
+	renderArrow();
+	moveArrow();
+	setArrowMenu = false;
 }
 
 void Cut()
