@@ -52,7 +52,7 @@ enum EGAMESTATES
 	S_COUNT,
 	S_INSTRUCTIONS,
 	S_LEADERBOARD,
-	S_OPTIONS,
+	S_OPTION
 };
 
 
@@ -99,5 +99,6 @@ void bonusKey();
 void Cut();
 void treeAxeCheck();
 void renderInstructions();
-
+void renderleaderboard();
+void renderOption();
 #endif // _GAME_H
