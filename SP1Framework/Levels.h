@@ -1,6 +1,7 @@
 #include <string>
 #include "game.h"
 #include "Framework\console.h"
+#include "Framework\timer.h"
 #include <iostream>
 #include <iomanip>
 #include <sstream>
@@ -19,5 +20,5 @@ void LevelNine();
 void LevelTen();
 void BonusRoom();
 void renderSelectLevel();
-void doorSwitchFive();
+void doorSwitch();
 void spikes_on();

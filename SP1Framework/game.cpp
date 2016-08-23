@@ -23,6 +23,7 @@ double  g_dElapsedTime;
 double g_dTimer;
 double g_dMenuToSelectTimer;
 double g_dDoorTime;
+double g_dSpikeTime;
 int g_dTotalPoints;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
@@ -52,6 +53,7 @@ void init( void )
 	g_dTotalPoints = 0;
 	g_dMenuToSelectTimer = 0.0;
 	g_dDoorTime = 0.0;
+	g_dSpikeTime = 0.0;
 
     // sets the initial state for the game
     g_eGameState = S_SPLASHSCREEN;
@@ -151,8 +153,6 @@ void update(double dt)
 
 		case S_RESTART: restart();
 			break;
-	
-
 		case S_LEADERBOARD:renderleaderboard();
 			break;
 		case S_OPTION:renderOption();
@@ -317,7 +317,22 @@ void gameplay()		// gameplay logic
 	pointSystem(); // Points added
 	bonusKey(); // checks for bonus key
 	treeAxeCheck(); // checks for axe
-	doorSwitchFive(); // switch for level 5
+	doorSwitch(); // switch for level 5
+}
+
+void doorSwitch(){
+	if ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == '&')
+	{
+		for (int Rows = 0; Rows < 24; Rows++)
+		{
+			for (int Columns = 0; Columns < 55; Columns++)
+			{
+				if ((Map[LevelSelection][Rows][Columns]) == '#'){
+					Map[LevelSelection][Rows][Columns] = (char)158;
+				}
+			}
+		}
+	}
 }
 
 void moveCharacter()
@@ -455,7 +470,7 @@ void treeAxeCheck(){
 	{
 		Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] = ' ';
 		treeAxe = true;
-		AxeUses = 3;
+		AxeUses += 3;
 	}
 }
 	
@@ -488,6 +503,17 @@ void titleText() {
 		}
 		myfile.close();
 	}
+
+	string art;
+	ifstream temple("templeArt.txt");
+
+	if (temple.is_open()){
+		while (getline(temple, art)) {
+			g_Console.writeToBuffer(c.X - 2, c.Y + 3, art, 0x0B);
+			c.Y++;
+		}
+		temple.close();
+	}
 }
 
 void renderSplashScreen()  // renders the splash screen
@@ -495,19 +521,19 @@ void renderSplashScreen()  // renders the splash screen
 	titleText();
     COORD c = g_Console.getConsoleSize();
     c.Y = c.Y / 2;
-    c.X = c.X / 2 - 6;
+    c.X = 50;
     g_Console.writeToBuffer(c, "Start Game", 0x07);
     c.Y += 1;
-    c.X = g_Console.getConsoleSize().X / 2 - 6;
+	c.X = 50;
 	g_Console.writeToBuffer(c, "Options", 0x07);
 	c.Y += 1;
-	c.X = g_Console.getConsoleSize().X / 2 - 6;
+	c.X = 50;
 	g_Console.writeToBuffer(c, "Instructions", 0x07);
 	c.Y += 1;
-	c.X = g_Console.getConsoleSize().X / 2 - 6;
+	c.X = 50;
 	g_Console.writeToBuffer(c, "Leaderboard", 0x07);
 	c.Y += 1;
-	c.X = g_Console.getConsoleSize().X / 2 - 6;
+	c.X = 50;
 	g_Console.writeToBuffer(c, "Quit Game", 0x07);
 
 	renderArrow();
@@ -594,7 +620,7 @@ void renderArrow()
 {
 	if (setArrowMenu == false && g_eGameState == S_SPLASHSCREEN)
 	{
-		arrow.X = 25;
+		arrow.X = 44;
 		arrow.Y = 15;
 		g_Console.writeToBuffer(arrow, ">");
 		setArrowMenu = true;
@@ -636,6 +662,13 @@ void renderFramerate()
 	c.Y = 1;
 	g_Console.writeToBuffer(c, ss.str());
 
+	// displays level
+	ss.str("");
+	ss << "Level: " << LevelSelection;
+	c.X = 45;
+	c.Y = 1;
+	g_Console.writeToBuffer(c, ss.str());
+
 	if (bonusTimeKey == true){
 		c.X = 5;
 		c.Y = 25;
@@ -666,6 +699,8 @@ void pauseControls(){
 	if (g_abKeyPressed[K_SPACE]){
 		g_dTimer = 0.0;
 		g_dTotalPoints = 0;
+		treeAxe = false;
+		bonusTimeKey = false;
 		g_eGameState = S_SPLASHSCREEN;
 	}
 	if (g_abKeyPressed[K_R])
@@ -736,12 +771,14 @@ void moveArrow()
 
 void LevelClear()
 {
-	if (LevelSelection == 1 && (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == char(158)))
-		LevelSelection = 2;
+	if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == char(158))
+		LevelSelection += 1;
 	if (LevelSelection == 11 && (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == 'B'))
-		LevelSelection = 1;
-	if (LevelSelection == 1 && (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == '2' && bonusTimeKey == true))
+		LevelSelection = 2;
+	if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == 'b' && bonusTimeKey == true){
 		LevelSelection = 11;
+		bonusTimeKey = false;
+	}
 }
 
 void SelectLevel()
