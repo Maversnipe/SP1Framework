@@ -16,9 +16,10 @@ char Map[20][100][100];
 COORD arrow;
 bool setArrowMenu = false;
 bool setArrowSelect = false;
+bool setArrowOption = false;
 int LevelSelection = 1;
 int AxeUses = 0;
-
+int Battery = 0;
 double  g_dElapsedTime;
 double g_dTimer;
 double g_dMenuToSelectTimer;
@@ -29,6 +30,8 @@ double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
 bool	bonusTimeKey;
 bool	treeAxe = false;
+bool	onRock = false;
+bool    Batteryuse = false;
 
 // Game specific variables here
 SGameChar   g_sChar;
@@ -53,15 +56,9 @@ void init( void )
 	g_dTotalPoints = 0;
 	g_dMenuToSelectTimer = 0.0;
 	g_dDoorTime = 0.0;
-	g_dSpikeTime = 0.0;
 
     // sets the initial state for the game
     g_eGameState = S_SPLASHSCREEN;
-
-	Map[1][g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] = Map[1][5][2]; // Level One player spawn
-	Map[11][g_sChar.m_cLocation.X][g_sChar.m_cLocation.Y] = Map[11][10][20]; 
-	g_sChar.m_cLocation.X = 4;
-	g_sChar.m_cLocation.Y = 21;
     g_sChar.m_bActive = true;
     // sets the width, height and the font name to use in the console
     g_Console.setConsoleFont(0, 16, L"Arial");
@@ -108,6 +105,7 @@ void getInput(void)
 	g_abKeyPressed[K_D] = isKeyPressed(VK_D);
 	g_abKeyPressed[K_R] = isKeyPressed(VK_R);
 	g_abKeyPressed[K_C] = isKeyPressed(VK_C);
+	g_abKeyPressed[K_B] = isKeyPressed(VK_B);
 }
 
 //--------------------------------------------------------------
@@ -126,7 +124,6 @@ void getInput(void)
 //--------------------------------------------------------------
 
 
-
 void update(double dt)
 {
     // get the delta time
@@ -138,10 +135,10 @@ void update(double dt)
 			g_dTimer += dt;
 		}
 
-    switch (g_eGameState)
-    {
-        case S_SPLASHSCREEN : splashScreenWait(); // game logic for the splash screen
-            break;
+		switch (g_eGameState)
+		{
+		case S_SPLASHSCREEN: splashScreenWait(); // game logic for the splash screen
+			break;
 		case S_GAME: gameplay(); // gameplay logic when we are in the game
 			break;
 		case S_PAUSE: renderPauseScreen();
@@ -150,15 +147,16 @@ void update(double dt)
 			break;
 		case S_INSTRUCTIONS: renderInstructions();
 			break;
-
 		case S_RESTART: restart();
 			break;
 		case S_LEADERBOARD:renderleaderboard();
 			break;
 		case S_OPTION:renderOption();
 			break;
+		case S_CREDITS:renderCredits();
+			break;
+		}
 
-    }
 }
 //--------------------------------------------------------------
 // Purpose  : Render function is to update the console screen
@@ -187,15 +185,13 @@ void render()
 			break;
 		case S_INSTRUCTIONS: renderInstructions();
 			break;
-
 		case S_RESTART: restart();
 			break;
-		
-
 		case S_LEADERBOARD:renderleaderboard();
 			break;
 		case S_OPTION:renderOption();
-
+			break;
+		case S_CREDITS:renderCredits();
     }  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
 }
@@ -206,6 +202,7 @@ void restart()
 	case 1: 
 		LevelOne();
 		g_eGameState=S_GAME;
+		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
 		g_dTotalPoints = 0;
@@ -214,6 +211,7 @@ void restart()
 	case 2:
 		LevelTwo();
 		g_eGameState = S_GAME;
+		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
 		g_dTotalPoints = 0;
@@ -222,6 +220,7 @@ void restart()
 	case 3:
 		LevelThree();
 		g_eGameState = S_GAME;
+		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
 		g_dTotalPoints = 0;
@@ -230,6 +229,7 @@ void restart()
 	case 4:
 		LevelFour();
 		g_eGameState = S_GAME;
+		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
 		g_dTotalPoints = 0;
@@ -238,6 +238,7 @@ void restart()
 	case 5:
 		LevelFive();
 		g_eGameState=S_GAME;
+		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
 		g_dTotalPoints = 0;
@@ -246,6 +247,7 @@ void restart()
 	case 6:
 		LevelSix();
 		g_eGameState = S_GAME;
+		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
 		g_dTotalPoints = 0;
@@ -254,6 +256,7 @@ void restart()
 	case 7:
 		LevelSeven();
 		g_eGameState = S_GAME;
+		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
 		g_dTotalPoints = 0;
@@ -262,6 +265,7 @@ void restart()
 	case 8:
 		LevelEight();
 		g_eGameState = S_GAME;
+		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
 		g_dTotalPoints = 0;
@@ -269,19 +273,43 @@ void restart()
 
 	case 9:
 		LevelNine();
+		g_eGameState = S_GAME;
+		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
 		g_dTotalPoints = 0;
-		g_eGameState=S_GAME;
 		break;
 
 	case 10:
 		LevelTen();
+		g_eGameState = S_GAME;
+		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
 		g_dTotalPoints = 0;
-		g_eGameState=S_GAME;
 		break;
+	}
+}
+
+void light()
+{
+	if ((g_abKeyPressed[K_B]))
+	{
+		Battery--;
+	}
+
+	if (Battery == 0)
+	{
+		Batteryuse = false;
+	}
+}
+void Checkbattery()
+{
+	if ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == (char)207)
+	{
+		Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] = ' ';
+		Batteryuse = true;
+		Battery = 3;
 	}
 }
 void splashScreenWait()    // waits for time to pass in splash screen
@@ -292,22 +320,23 @@ void splashScreenWait()    // waits for time to pass in splash screen
 		setArrowSelect = false;
 		g_eGameState = S_SELECT;
 	}
+	if (g_eGameState == S_SPLASHSCREEN && g_abKeyPressed[K_ENTER] && arrow.Y == 16 && g_dElapsedTime >= g_dMenuToSelectTimer)//options
+	{
+		g_eGameState = S_OPTION;
+		g_dMenuToSelectTimer = g_dElapsedTime + 0.25;
+	}
 
-	if ((g_eGameState == S_SPLASHSCREEN) && (g_abKeyPressed[K_ENTER]) && (arrow.Y == 17)) // Instructions
+	if ((g_eGameState == S_SPLASHSCREEN) && (g_abKeyPressed[K_ENTER]) && (arrow.Y == 17) && g_dElapsedTime >= g_dMenuToSelectTimer) // Instructions
 	{
 		g_eGameState = S_INSTRUCTIONS;
 	}
-	if (g_eGameState == S_SPLASHSCREEN && g_abKeyPressed[K_ENTER] && arrow.Y == 18 && g_dElapsedTime >= g_dMenuToSelectTimer)
+	if (g_eGameState == S_SPLASHSCREEN && g_abKeyPressed[K_ENTER] && arrow.Y == 18 && g_dElapsedTime >= g_dMenuToSelectTimer) //leaderboard
 	{
 		g_eGameState = S_LEADERBOARD;
 	}
-	if (g_eGameState == S_SPLASHSCREEN && g_abKeyPressed[K_ENTER] && arrow.Y == 16 && g_dElapsedTime >= g_dMenuToSelectTimer)
-	{
-		g_eGameState = S_OPTION;
-	}
+	setArrowOption = false;
+	setArrowSelect = false;
 }
-
-
 
 void gameplay()		// gameplay logic
 {
@@ -333,103 +362,6 @@ void doorSwitch(){
 			}
 		}
 	}
-}
-
-void moveCharacter()
-{
-	bool bSomethingHappened = false;
-	if (g_dBounceTime > g_dElapsedTime)
-		return;
-
-	// Updating the location of the character based on the key press
-	// providing a beep sound whenver we shift the character
-	if (((g_abKeyPressed[K_W]) || (g_abKeyPressed[K_UP])) && (g_sChar.m_cLocation.Y > 0))//Move Up [W] Key
-	{
-		//Beep(1440, 30);
-		if (Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] == (char)233)
-		{
-			if (Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] != 'T')
-			{
-				Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] = (char)233;
-				Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] = ' ';
-				g_sChar.m_cLocation.Y--;
-				bSomethingHappened = true;
-			}
-		}
-		else if (Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != 'r' && Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != 'T')
-		{
-			g_sChar.m_cLocation.Y--;
-			bSomethingHappened = true;
-		}
-	}
-	if (((g_abKeyPressed[K_A]) || (g_abKeyPressed[K_LEFT])) && (g_sChar.m_cLocation.X > 0))//Move Left [A] Key
-	{
-		//Beep(1440, 30);
-		if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] == (char)233)
-		{
-			if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] != 'T')
-			{
-				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] = (char)233;
-				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] = ' ';
-				g_sChar.m_cLocation.X--;
-				bSomethingHappened = true;
-			}
-		}
-		else if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X-1] != 'T')
-		{
-			g_sChar.m_cLocation.X--;
-			bSomethingHappened = true;
-		}
-	}
-	if (((g_abKeyPressed[K_S]) || (g_abKeyPressed[K_DOWN])) && (g_sChar.m_cLocation.Y < g_Console.getConsoleSize().Y - 1))//Move Down [S] Key
-	{
-		//Beep(1440, 30);
-		if (Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] == (char)233)
-		{
-			if (Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] != 'T')
-			{
-				Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] = (char)233;
-				Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] = ' ';
-				g_sChar.m_cLocation.Y++;
-				bSomethingHappened = true;
-			}
-		}
-		else if ((Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != '=') && (Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != '|') && (Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != 'T'))
-		{
-			g_sChar.m_cLocation.Y++;
-			bSomethingHappened = true;
-		}
-	}
-	if (((g_abKeyPressed[K_D]) || (g_abKeyPressed[K_RIGHT])) && (g_sChar.m_cLocation.X < g_Console.getConsoleSize().X - 1))//Move Right [D] Key
-	{
-		//Beep(1440, 30);
-		if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] == (char)233)
-		{
-			if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] != 'T')
-			{
-				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] = (char)233;
-				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] = ' ';
-				g_sChar.m_cLocation.X++;
-				bSomethingHappened = true;
-			}
-		}
-		else if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != '=' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != '|' && Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != 'T')
-		{
-			g_sChar.m_cLocation.X++;
-			bSomethingHappened = true;
-		}
-	}
-    if (g_abKeyPressed[K_SPACE])
-    {
-        g_sChar.m_bActive = !g_sChar.m_bActive;
-        bSomethingHappened = true;
-    }
-	
-    if (bSomethingHappened)
-    {
-        // set the bounce time to some time in the future to prevent accidental triggers
-		g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
-    }
 }
 
 void pointSystem()
@@ -538,6 +470,8 @@ void renderSplashScreen()  // renders the splash screen
 
 	renderArrow();
 	moveArrow();
+	setArrowOption = false;
+	setArrowSelect = false;
 
 	if ((g_eGameState == S_SPLASHSCREEN) && (g_abKeyPressed[K_ENTER]) && (arrow.Y == 19)){
 		g_bQuitGame = true;
@@ -631,6 +565,13 @@ void renderArrow()
 		arrow.Y = 16;
 		g_Console.writeToBuffer(arrow, ">");
 		setArrowSelect = true;
+	}
+	else if (setArrowOption == false && g_eGameState == S_OPTION)
+	{
+		arrow.X = 25;
+		arrow.Y = 14;
+		g_Console.writeToBuffer(arrow, ">");
+		setArrowOption = true;
 	}
 	// Draw the location of the character
 	WORD charColor = 0x06;
@@ -762,6 +703,19 @@ void moveArrow()
 		bSomethingHappened = true;
 		g_Console.writeToBuffer(arrow, ">");
 	}
+	if (g_abKeyPressed[K_UP] && arrow.Y > 14 && g_eGameState == S_OPTION)//reset leaderboard
+	{
+		arrow.Y--;
+		bSomethingHappened = true;
+		g_Console.writeToBuffer(arrow, ">");
+
+	}
+	if (g_abKeyPressed[K_DOWN] && arrow.Y < 16 && g_eGameState == S_OPTION)//credits
+	{
+		arrow.Y++;
+		bSomethingHappened = true;
+		g_Console.writeToBuffer(arrow, ">");
+	}
 	if (bSomethingHappened)
 	{
 		// set the bounce time to some time in the future to prevent accidental triggers
@@ -786,18 +740,21 @@ void SelectLevel()
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 16) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 1;
+		charSpawn();
 		g_eGameState = S_GAME;
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 17) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 2;
+		charSpawn();
 		g_eGameState = S_GAME;
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 18) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 3;
+		charSpawn();
 		g_eGameState = S_GAME;
 	}	
 	
@@ -914,6 +871,28 @@ void renderleaderboard()
 		g_eGameState = S_SPLASHSCREEN;
 	}
 }
+void renderCredits()
+{
+	COORD c = g_Console.getConsoleSize();
+	c.Y = 0;
+	c.X = 0;
+
+	string sym;
+	ifstream myfile("credits.txt");
+
+	if (myfile.is_open())
+	{
+		while (getline(myfile, sym))
+		{
+			g_Console.writeToBuffer(c, sym, 0x07);
+			c.Y++;
+		}
+		myfile.close();
+	}
+	if (g_abKeyPressed[K_ESCAPE] && (g_eGameState == S_CREDITS)){
+		g_eGameState = S_SPLASHSCREEN;
+	}
+}
 void renderOption()
 {
 	COORD c = g_Console.getConsoleSize();
@@ -936,6 +915,14 @@ void renderOption()
 	if (g_abKeyPressed[K_ESCAPE] && (g_eGameState == S_OPTION)){
 		g_eGameState = S_SPLASHSCREEN;
 	}
+	if (g_abKeyPressed[K_ENTER] && (g_eGameState == S_OPTION) && arrow.Y == 16 && g_dElapsedTime>=g_dMenuToSelectTimer){//if things doesnt work use plan B
+
+		g_eGameState = S_CREDITS;
+	}
+	setArrowSelect = false;
+	renderArrow();
+	moveArrow();
+	setArrowMenu = false;
 }
 
 void renderLeaderboard()

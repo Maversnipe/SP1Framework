@@ -8,3 +8,4 @@
 
         Press ENTER to return to the GAME
       Press SPACE to return to the MAIN MENU
+          Press R to restart the level
