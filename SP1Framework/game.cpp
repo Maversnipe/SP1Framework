@@ -29,11 +29,8 @@ double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
 bool	bonusTimeKey;
 bool	treeAxe = false;
-<<<<<<< HEAD
 bool	onRock = false;
-=======
 bool    Batteryuse = false;
->>>>>>> 5f313bcfaaf4314f7e2eb531fa4b13acb3d39548
 
 // Game specific variables here
 SGameChar   g_sChar;
@@ -164,12 +161,9 @@ void update(double dt)
 			break;
 		case S_OPTION:renderOption();
 			break;
-<<<<<<< HEAD
 		case S_CREDITS:renderCredits();
 			break;
-=======
 
->>>>>>> 0e7e2d127f94286dc9ebf83d546a6f0e70d732ea
     }
 }
 //--------------------------------------------------------------
@@ -199,20 +193,14 @@ void render()
 			break;
 		case S_INSTRUCTIONS: renderInstructions();
 			break;
-
 		case S_RESTART: restart();
 			break;
-		
-
 		case S_LEADERBOARD:renderleaderboard();
 			break;
 		case S_OPTION:renderOption();
-<<<<<<< HEAD
 			break;
 		case S_CREDITS:renderCredits();
-=======
 
->>>>>>> 0e7e2d127f94286dc9ebf83d546a6f0e70d732ea
     }  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
 }
