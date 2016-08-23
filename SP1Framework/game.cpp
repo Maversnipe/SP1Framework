@@ -143,6 +143,10 @@ void update(double dt)
 			break;
 		case S_INSTRUCTIONS: renderInstructions();
 			break;
+		case S_LEADERBOARD:renderleaderboard();
+			break;
+		case S_OPTION:renderOption();
+			break;
     }
 }
 //--------------------------------------------------------------
@@ -172,6 +176,9 @@ void render()
 			break;
 		case S_INSTRUCTIONS: renderInstructions();
 			break;
+		case S_LEADERBOARD:renderleaderboard();
+			break;
+		case S_OPTION:renderOption();
     }  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
 }
@@ -188,6 +195,14 @@ void splashScreenWait()    // waits for time to pass in splash screen
 	if ((g_eGameState == S_SPLASHSCREEN) && (g_abKeyPressed[K_ENTER]) && (arrow.Y == 17)) // Instructions
 	{
 		g_eGameState = S_INSTRUCTIONS;
+	}
+	if (g_eGameState == S_SPLASHSCREEN && g_abKeyPressed[K_ENTER] && arrow.Y == 18 && g_dElapsedTime >= g_dMenuToSelectTimer)
+	{
+		g_eGameState = S_LEADERBOARD;
+	}
+	if (g_eGameState == S_SPLASHSCREEN && g_abKeyPressed[K_ENTER] && arrow.Y == 16 && g_dElapsedTime >= g_dMenuToSelectTimer)
+	{
+		g_eGameState = S_OPTION;
 	}
 }
 
@@ -721,6 +736,52 @@ void renderInstructions()
 	}
 
 	if (g_abKeyPressed[K_ESCAPE] && (g_eGameState == S_INSTRUCTIONS)){
+		g_eGameState = S_SPLASHSCREEN;
+	}
+}
+void renderleaderboard()
+{
+	COORD c = g_Console.getConsoleSize();
+	c.Y = 0;
+	c.X = 0;
+
+	string sym;
+	ifstream myfile("Leaderboard.txt");
+
+	if (myfile.is_open())
+	{
+		while (getline(myfile, sym))
+		{
+			g_Console.writeToBuffer(c, sym, 0x07);
+			c.Y++;
+		}
+		myfile.close();
+	}
+
+	if (g_abKeyPressed[K_ESCAPE] && (g_eGameState == S_LEADERBOARD)){
+		g_eGameState = S_SPLASHSCREEN;
+	}
+}
+void renderOption()
+{
+	COORD c = g_Console.getConsoleSize();
+	c.Y = 0;
+	c.X = 0;
+
+	string sym;
+	ifstream myfile("options.txt");
+
+	if (myfile.is_open())
+	{
+		while (getline(myfile, sym))
+		{
+			g_Console.writeToBuffer(c, sym, 0x07);
+			c.Y++;
+		}
+		myfile.close();
+	}
+
+	if (g_abKeyPressed[K_ESCAPE] && (g_eGameState == S_OPTION)){
 		g_eGameState = S_SPLASHSCREEN;
 	}
 }
