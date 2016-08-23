@@ -16,6 +16,7 @@ using namespace std;
 #define VK_TWO 0x32
 #define VK_R 0x52
 #define VK_C 0x43
+#define VK_B 0x42
 extern CStopWatch g_swTimer;
 extern bool g_bQuitGame;
 extern Console g_Console;
@@ -39,6 +40,7 @@ enum EKEYS
 	K_TWO,
 	K_R,
 	K_C,
+	K_B, 
 	K_COUNT // this is the last index code for checking the key.
 };
 
@@ -49,11 +51,19 @@ enum EGAMESTATES
 	S_PAUSE,
 	S_GAME,
 	S_SELECT,
-	S_COUNT,
 	S_INSTRUCTIONS,
+
+	S_RESTART,
+	S_COUNT,
+	
 	S_LEADERBOARD,
+<<<<<<< HEAD
 	S_OPTION,
 	S_CREDITS,
+=======
+	S_OPTION
+
+>>>>>>> 0e7e2d127f94286dc9ebf83d546a6f0e70d732ea
 };
 
 
@@ -100,7 +110,15 @@ void bonusKey();
 void Cut();
 void treeAxeCheck();
 void renderInstructions();
+
+void restart();
+
+
 void renderleaderboard();
 void renderOption();
+<<<<<<< HEAD
 void renderCredits();
+=======
+
+>>>>>>> 0e7e2d127f94286dc9ebf83d546a6f0e70d732ea
 #endif // _GAME_H
