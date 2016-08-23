@@ -2,8 +2,7 @@
 extern char Map[20][100][100];
 extern double g_dElapsedTime;
 extern double  g_dBounceTime;
-extern struct SGameChar;
-extern SGameChar g_sChar;
+extern struct SGameChar g_sChar;
 extern bool g_abKeyPressed[K_COUNT];
 extern int LevelSelection;
 extern bool onRock;

@@ -1,7 +1,6 @@
 #include "game.h"
 extern int LevelSelection;
-extern struct SGameChar;
-extern SGameChar g_sChar;
+extern struct SGameChar g_sChar;
 
 void charSpawn()
 {

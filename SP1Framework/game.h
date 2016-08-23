@@ -55,13 +55,8 @@ enum EGAMESTATES
 	S_RESTART,
 	S_COUNT,
 	S_LEADERBOARD,
-<<<<<<< HEAD
 	S_OPTION,
 	S_CREDITS,
-=======
-	S_OPTION
-
->>>>>>> 0e7e2d127f94286dc9ebf83d546a6f0e70d732ea
 };
 
 
@@ -110,13 +105,8 @@ void treeAxeCheck();
 void renderInstructions();
 void charSpawn();
 void restart();
-
-
 void renderleaderboard();
 void renderOption();
-<<<<<<< HEAD
 void renderCredits();
-=======
 
->>>>>>> 0e7e2d127f94286dc9ebf83d546a6f0e70d732ea
 #endif // _GAME_H
