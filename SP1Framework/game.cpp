@@ -205,45 +205,83 @@ void restart()
 	{
 	case 1: 
 		LevelOne();
-	g_eGameState=S_GAME;
-	break;
+		g_eGameState=S_GAME;
+		treeAxe = false;
+		bonusTimeKey = false;
+		g_dTotalPoints = 0;
+		break;
+
 	case 2:
 		LevelTwo();
-	g_eGameState=S_GAME;
-	break;
+		g_eGameState = S_GAME;
+		treeAxe = false;
+		bonusTimeKey = false;
+		g_dTotalPoints = 0;
+		break;
+
 	case 3:
 		LevelThree();
-	g_eGameState=S_GAME;
-	break;
+		g_eGameState = S_GAME;
+		treeAxe = false;
+		bonusTimeKey = false;
+		g_dTotalPoints = 0;
+		break;
+
 	case 4:
 		LevelFour();
-	g_eGameState=S_GAME;
-	break;
+		g_eGameState = S_GAME;
+		treeAxe = false;
+		bonusTimeKey = false;
+		g_dTotalPoints = 0;
+		break;
+
 	case 5:
 		LevelFive();
-	g_eGameState=S_GAME;
-	break;
+		g_eGameState=S_GAME;
+		treeAxe = false;
+		bonusTimeKey = false;
+		g_dTotalPoints = 0;
+		break;
+
 	case 6:
 		LevelSix();
-	g_eGameState=S_GAME;
-	break;
+		g_eGameState = S_GAME;
+		treeAxe = false;
+		bonusTimeKey = false;
+		g_dTotalPoints = 0;
+		break;
+
 	case 7:
 		LevelSeven();
-	g_eGameState=S_GAME;
-	break;
+		g_eGameState = S_GAME;
+		treeAxe = false;
+		bonusTimeKey = false;
+		g_dTotalPoints = 0;
+		break;
+
 	case 8:
 		LevelEight();
-	g_eGameState=S_GAME;
-	break;
+		g_eGameState = S_GAME;
+		treeAxe = false;
+		bonusTimeKey = false;
+		g_dTotalPoints = 0;
+		break;
+
 	case 9:
 		LevelNine();
-	g_eGameState=S_GAME;
-	break;
+		treeAxe = false;
+		bonusTimeKey = false;
+		g_dTotalPoints = 0;
+		g_eGameState=S_GAME;
+		break;
+
 	case 10:
 		LevelTen();
-	g_eGameState=S_GAME;
-	break;
-
+		treeAxe = false;
+		bonusTimeKey = false;
+		g_dTotalPoints = 0;
+		g_eGameState=S_GAME;
+		break;
 	}
 }
 void splashScreenWait()    // waits for time to pass in splash screen
