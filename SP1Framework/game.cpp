@@ -154,6 +154,7 @@ void update(double dt)
 		case S_CREDITS:renderCredits();
 			break;
 		}
+
 }
 //--------------------------------------------------------------
 // Purpose  : Render function is to update the console screen
