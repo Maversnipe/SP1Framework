@@ -726,9 +726,15 @@ void moveArrow()
 void LevelClear()
 {
 	if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == char(158))
+	{
 		LevelSelection += 1;
+		charSpawn();
+	}
 	if (LevelSelection == 11 && (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == 'B'))
-		LevelSelection = 2;
+	{
+		LevelSelection = 5;
+		charSpawn();
+	}
 	if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == 'b' && bonusTimeKey == true){
 		LevelSelection = 11;
 		bonusTimeKey = false;
