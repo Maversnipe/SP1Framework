@@ -175,7 +175,15 @@ void render()
     }  // renders debug information, frame rate, elapsed time, etc
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
 }
-
+void restart()
+{
+	if (g_abKeyPressed[K_R])
+	{
+		g_dTimer = 0.0;
+		g_dTotalPoints = 0;
+		g_eGameState = S_SPLASHSCREEN;
+	}
+}
 void splashScreenWait()    // waits for time to pass in splash screen
 {
 	if ((g_eGameState == S_SPLASHSCREEN) && (g_abKeyPressed[K_ENTER]) && (arrow.Y == 15) && g_dElapsedTime >= g_dMenuToSelectTimer) // Press Enter to start game
@@ -200,6 +208,7 @@ void gameplay()		// gameplay logic
 	bonusKey(); // checks for bonus key
 	treeAxeCheck(); // checks for axe
 	doorSwitchFive(); // switch for level 5
+	restart();
 }
 
 void moveCharacter()
