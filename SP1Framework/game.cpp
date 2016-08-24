@@ -141,19 +141,19 @@ void update(double dt)
 			break;
 		case S_GAME: gameplay(); // gameplay logic when we are in the game
 			break;
-		case S_PAUSE: renderPauseScreen();
+		case S_PAUSE: renderPauseScreen(); // logic for the pause screen
 			break;
-		case S_SELECT:renderSelectLevel();
+		case S_SELECT:renderSelectLevel(); // screen that follows starting the game, to pick your level
 			break;
-		case S_INSTRUCTIONS: renderInstructions();
+		case S_INSTRUCTIONS: renderInstructions(); // screen that shows game instructions
 			break;
-		case S_RESTART: restart();
+		case S_RESTART: restart(); // logic for restarting the game
 			break;
-		case S_LEADERBOARD:renderleaderboard();
+		case S_LEADERBOARD:renderleaderboard(); // logic for the leaderboard
 			break;
-		case S_OPTION:renderOption();
+		case S_OPTION:renderOption(); // logic for the options
 			break;
-		case S_CREDITS:renderCredits();
+		case S_CREDITS:renderCredits(); // credits screen
 			break;
 		}
 
@@ -192,14 +192,15 @@ void render()
 		case S_OPTION:renderOption();
 			break;
 		case S_CREDITS:renderCredits();
-    }  // renders debug information, frame rate, elapsed time, etc
+    }  // renders everything required for the screens
     renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
 }
 void restart()
 {
+	// restart function for the game, checks for the level so the game will know which level to restart at
 	switch (LevelSelection)
 	{
-	case 1: 
+	case 1: // level one
 		LevelOne();
 		g_eGameState=S_GAME;
 		charSpawn();
@@ -208,7 +209,7 @@ void restart()
 		g_dTotalPoints = 0;
 		break;
 
-	case 2:
+	case 2: // level two
 		LevelTwo();
 		g_eGameState = S_GAME;
 		charSpawn();
@@ -217,7 +218,7 @@ void restart()
 		g_dTotalPoints = 0;
 		break;
 
-	case 3:
+	case 3: // level three
 		LevelThree();
 		g_eGameState = S_GAME;
 		charSpawn();
@@ -226,7 +227,7 @@ void restart()
 		g_dTotalPoints = 0;
 		break;
 
-	case 4:
+	case 4: // level four
 		LevelFour();
 		g_eGameState = S_GAME;
 		charSpawn();
@@ -235,7 +236,7 @@ void restart()
 		g_dTotalPoints = 0;
 		break;
 
-	case 5:
+	case 5: // level five
 		LevelFive();
 		g_eGameState=S_GAME;
 		charSpawn();
@@ -244,7 +245,7 @@ void restart()
 		g_dTotalPoints = 0;
 		break;
 
-	case 6:
+	case 6: // level six
 		LevelSix();
 		g_eGameState = S_GAME;
 		charSpawn();
@@ -253,7 +254,7 @@ void restart()
 		g_dTotalPoints = 0;
 		break;
 
-	case 7:
+	case 7: // level seven
 		LevelSeven();
 		g_eGameState = S_GAME;
 		charSpawn();
@@ -262,7 +263,7 @@ void restart()
 		g_dTotalPoints = 0;
 		break;
 
-	case 8:
+	case 8: // level eight
 		LevelEight();
 		g_eGameState = S_GAME;
 		charSpawn();
@@ -271,7 +272,7 @@ void restart()
 		g_dTotalPoints = 0;
 		break;
 
-	case 9:
+	case 9: // level nine
 		LevelNine();
 		g_eGameState = S_GAME;
 		charSpawn();
@@ -280,7 +281,7 @@ void restart()
 		g_dTotalPoints = 0;
 		break;
 
-	case 10:
+	case 10: // level ten
 		LevelTen();
 		g_eGameState = S_GAME;
 		charSpawn();
@@ -293,6 +294,7 @@ void restart()
 
 void light()
 {
+	// code for the torchlight
 	if ((g_abKeyPressed[K_B]))
 	{
 		Battery--;
@@ -305,6 +307,7 @@ void light()
 }
 void Checkbattery()
 {
+	// this is for the battery lights available in the map
 	if ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == (char)207)
 	{
 		Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] = ' ';
@@ -312,18 +315,18 @@ void Checkbattery()
 		Battery = 3;
 	}
 }
-void splashScreenWait()    // waits for time to pass in splash screen
+void splashScreenWait() // checks the player input on the splash screen
 {
-	if ((g_eGameState == S_SPLASHSCREEN) && (g_abKeyPressed[K_ENTER]) && (arrow.Y == 15) && g_dElapsedTime >= g_dMenuToSelectTimer) // Press Enter to start game
+	if ((g_eGameState == S_SPLASHSCREEN) && (g_abKeyPressed[K_ENTER]) && (arrow.Y == 15) && g_dElapsedTime >= g_dMenuToSelectTimer) // Level Selection
 	{
-		g_dMenuToSelectTimer = g_dElapsedTime + 0.25;
+		g_dMenuToSelectTimer = g_dElapsedTime + 0.25; // 0.25s delay in order to avoid sending player to level one automatically
 		setArrowSelect = false;
 		g_eGameState = S_SELECT;
 	}
-	if (g_eGameState == S_SPLASHSCREEN && g_abKeyPressed[K_ENTER] && arrow.Y == 16 && g_dElapsedTime >= g_dMenuToSelectTimer)//options
+	if (g_eGameState == S_SPLASHSCREEN && g_abKeyPressed[K_ENTER] && arrow.Y == 16 && g_dElapsedTime >= g_dMenuToSelectTimer) // options
 	{
 		g_eGameState = S_OPTION;
-		g_dMenuToSelectTimer = g_dElapsedTime + 0.25;
+		g_dMenuToSelectTimer = g_dElapsedTime + 0.25; // 0.25s delay in order to avoid making player change an option immediately
 	}
 
 	if ((g_eGameState == S_SPLASHSCREEN) && (g_abKeyPressed[K_ENTER]) && (arrow.Y == 17) && g_dElapsedTime >= g_dMenuToSelectTimer) // Instructions
@@ -334,6 +337,7 @@ void splashScreenWait()    // waits for time to pass in splash screen
 	{
 		g_eGameState = S_LEADERBOARD;
 	}
+	// preventing the arrows from sending the player to an unknown spot when coming back to screen
 	setArrowOption = false;
 	setArrowSelect = false;
 }
@@ -346,18 +350,18 @@ void gameplay()		// gameplay logic
 	pointSystem(); // Points added
 	bonusKey(); // checks for bonus key
 	treeAxeCheck(); // checks for axe
-	doorSwitch(); // switch for level 5
+	doorSwitch(); // door switch to open doors
 }
 
 void doorSwitch(){
-	if ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == '&')
+	if ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == '&') // checks if player is on the switch
 	{
 		for (int Rows = 0; Rows < 24; Rows++)
 		{
 			for (int Columns = 0; Columns < 55; Columns++)
 			{
 				if ((Map[LevelSelection][Rows][Columns]) == '#'){
-					Map[LevelSelection][Rows][Columns] = (char)158;
+					Map[LevelSelection][Rows][Columns] = (char)158; // tries to find the locked door, then changes every instance of it into the exit
 				}
 			}
 		}
@@ -365,6 +369,7 @@ void doorSwitch(){
 }
 
 void pointSystem()
+// checks to see if player is on point pick up spots, then turns it into nothing and adds total points
 {
 	if ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == '1')
 	{
@@ -389,6 +394,7 @@ void pointSystem()
 }
 
 void bonusKey(){
+	// checks to see if player is on the point of the key, then sets bool to true and clears it.
 	if ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == '+')
 	{
 		Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] = ' ';
@@ -398,6 +404,7 @@ void bonusKey(){
 }
 
 void treeAxeCheck(){
+	// checks to see if player is on the point of the axe, then sets bool to true and clears it.
 	if ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == (char)210)
 	{
 		Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] = ' ';
@@ -421,12 +428,13 @@ void clearScreen()
 }
 
 void titleText() {
+	// to print out text files on the splash screen
 	COORD c = g_Console.getConsoleSize();
 	c.Y = 4;
 	c.X = 7;
 
 	string sym;
-	ifstream myfile("GameTitle.txt");
+	ifstream myfile("GameTitle.txt"); // calls .txt file to print
 
 	if (myfile.is_open()){
 		while (getline(myfile, sym)) {
@@ -434,10 +442,10 @@ void titleText() {
 			c.Y++;
 		}
 		myfile.close();
-	}
+	} // creates a loop to read the file line by line, then closes it.
 
 	string art;
-	ifstream temple("templeArt.txt");
+	ifstream temple("templeArt.txt"); // ascii art .txt file
 
 	if (temple.is_open()){
 		while (getline(temple, art)) {
@@ -445,7 +453,7 @@ void titleText() {
 			c.Y++;
 		}
 		temple.close();
-	}
+	} // creates loop to print out the art line by line, then closes it.
 }
 
 void renderSplashScreen()  // renders the splash screen
@@ -472,9 +480,10 @@ void renderSplashScreen()  // renders the splash screen
 	moveArrow();
 	setArrowOption = false;
 	setArrowSelect = false;
+	// renders the arrow for the splash and level select screens
 
 	if ((g_eGameState == S_SPLASHSCREEN) && (g_abKeyPressed[K_ENTER]) && (arrow.Y == 19)){
-		g_bQuitGame = true;
+		g_bQuitGame = true; // quits game if arrow is on "Quit Game"
 	}
 }
 
@@ -495,7 +504,7 @@ void renderMap()
 	COORD c;
 	c.X = 0;
 	c.Y = 0;
-
+	// prints the maps, all called in LevelXXX.cpp files
 	for (int rows = 0; rows < 25; rows++)
 	{
 		c.Y = rows;
@@ -503,22 +512,22 @@ void renderMap()
 		{
 			if (Map[LevelSelection][rows][columns] == 'i')
 			{
-				Map[LevelSelection][rows][columns] = ' ';
+				Map[LevelSelection][rows][columns] = ' '; // turns all 'i's in the .txt files to blank spaces to walk on.
 			}
 
 			if (Map[LevelSelection][rows][columns] == 'L')
 			{
-				Map[LevelSelection][rows][columns] = (char)158;
+				Map[LevelSelection][rows][columns] = (char)158; // turns all 'L's in the .txt files to level clear special character.
 			}
 
 			if (Map[LevelSelection][rows][columns] == 'x')
 			{
-				Map[LevelSelection][rows][columns] = (char)233;
+				Map[LevelSelection][rows][columns] = (char)233; // turns all 'x's in the .txt files to boulders to push around.
 			}
 
 			if (Map[LevelSelection][rows][columns] == 'm')
 			{
-				Map[LevelSelection][rows][columns] = (char)210;
+				Map[LevelSelection][rows][columns] = (char)210; // turns all 'm's in the .txt files to axe special character.
 			}
 
 			c.X = columns;
@@ -526,23 +535,33 @@ void renderMap()
 
 			if (Map[LevelSelection][rows][columns] == '1' || Map[LevelSelection][rows][columns] == '2' || Map[LevelSelection][rows][columns] == '5' || Map[LevelSelection][rows][columns] == 'A')
 			{
-				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x0E);
+				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x0E); // turns all point symbols to a different colour
 			}
 
-			if (Map[LevelSelection][rows][columns] == '1' || Map[LevelSelection][rows][columns] == '2' || Map[LevelSelection][rows][columns] == '5' || Map[LevelSelection][rows][columns] == 'A')
+			if (Map[LevelSelection][rows][columns] == 'r')
 			{
-				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x0A);
+				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x0B); // turns the river to blue
 			}
 
-			if (Map[LevelSelection][rows][columns] == '+' || Map[LevelSelection][rows][columns] == (char)158)
+			if (Map[LevelSelection][rows][columns] == '+' || Map[LevelSelection][rows][columns] == (char)158 || Map[LevelSelection][rows][columns] == (char)210 || Map[LevelSelection][rows][columns] == 'b')
 			{
-				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x07);
+				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x07); // turns bonus key, exit and axe to a different colour
+			}
+
+			if (Map[LevelSelection][rows][columns] == 'O' || Map[LevelSelection][rows][columns] == 'o' || Map[LevelSelection][rows][columns] == (char)233)
+			{
+				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x08); // turns bonus key, exit and axe to a different colour
+			}
+
+			if (Map[LevelSelection][rows][columns] == 'B')
+			{
+				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x02); // turns bonus door into another colour
 			}
 		}
 	}
-	LevelClear();
+	LevelClear(); // calls the function to check if player has arrived at the level clear character
 	setArrowOption = false;
-	setArrowSelect = false;
+	setArrowSelect = false; // resets arrows to make sure player doesn't end up at strange places on main screen
 }
 
 void renderCharacter()
@@ -554,6 +573,7 @@ void renderCharacter()
 
 void renderArrow()
 {
+	// this renders the arrow that appears on the splashscreen
 	if (setArrowMenu == false && g_eGameState == S_SPLASHSCREEN)
 	{
 		arrow.X = 44;
@@ -561,13 +581,16 @@ void renderArrow()
 		g_Console.writeToBuffer(arrow, ">");
 		setArrowMenu = true;
 	}
+
+	// this renders the arrow that appears on the select screen
 	else if (setArrowSelect == false && g_eGameState == S_SELECT)
 	{
-		arrow.X = 25;
+		arrow.X = 33;
 		arrow.Y = 16;
 		g_Console.writeToBuffer(arrow, ">");
 		setArrowSelect = true;
 	}
+	// this renders the arrow that appears on the option screen
 	else if (setArrowOption == false && g_eGameState == S_OPTION)
 	{
 		arrow.X = 25;
@@ -575,7 +598,7 @@ void renderArrow()
 		g_Console.writeToBuffer(arrow, ">");
 		setArrowOption = true;
 	}
-	// Draw the location of the character
+	// Draws the arrow
 	WORD charColor = 0x06;
 	g_Console.writeToBuffer(arrow, ">", charColor);
 }
@@ -616,15 +639,25 @@ void renderFramerate()
 		c.X = 5;
 		c.Y = 25;
 		ss.str("");
-		ss << "Bonus Key   1x use";
+		ss << "Bonus Key   1x use"; // tells player that they have the bonus key
 		g_Console.writeToBuffer(c, ss.str());
+		
+		for (int Rows = 0; Rows < 24; Rows++)
+		{
+			for (int Columns = 0; Columns < 55; Columns++)
+			{
+				if ((Map[LevelSelection][Rows][Columns]) == 'b'){
+					Map[LevelSelection][Rows][Columns] = 'B'; // changes the capitalisation of the bonus room door when key is true
+				}
+			}
+		}
 	}
 
 	if (treeAxe == true){
 		c.X = 30;
 		c.Y = 25;
 		ss.str("");
-		ss << "Tree Axe   " << AxeUses << "x uses";
+		ss << "Tree Axe   " << AxeUses << "x uses"; // shows the amount of remaining uses for the axe
 		g_Console.writeToBuffer(c, ss.str());
 	}
 }
@@ -635,11 +668,14 @@ void renderToScreen()
 }
 
 void pauseControls(){
+	// controls the player can use on the pause screen
 	if (g_abKeyPressed[K_ENTER]){
+		// enter brings player back to game
 		g_eGameState = S_GAME;
 	}
 
 	if (g_abKeyPressed[K_SPACE]){
+		// space resets everything, then brings player back to the splash screen
 		g_dTimer = 0.0;
 		g_dTotalPoints = 0;
 		treeAxe = false;
@@ -648,18 +684,22 @@ void pauseControls(){
 	}
 	if (g_abKeyPressed[K_R])
 	{
-		g_dTimer = 0.0;
+		// r resets everything but the timer, then restarts the level.
 		g_dTotalPoints = 0;
+		treeAxe = false;
+		bonusTimeKey = false;
 		g_eGameState = S_RESTART;
 	}
 }
 
 void renderPauseScreen()
 {
+	// calls coordinate for pause screen
 		COORD c = g_Console.getConsoleSize();
 		c.Y = 7;
 		c.X = 15;
 
+		// reads pausescreen.txt and writes it line by line
 		string sym;
 		ifstream myfile("PauseScreen.txt");
 
@@ -679,6 +719,7 @@ void moveArrow()
 	if (g_dBounceTime > g_dElapsedTime)
 		return;
 
+	// checks the keys and moves accordingly to the key pressed and position of arrow
 	if (g_abKeyPressed[K_UP] && arrow.Y > 15 && g_eGameState == S_SPLASHSCREEN)
 	{
 		arrow.Y--;
@@ -727,17 +768,18 @@ void moveArrow()
 
 void LevelClear()
 {
-	if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == char(158))
+	// these conditions check if player has to be moved to another map
+	if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == char(158)) // checks if player has reached the point to clear level
 	{
 		LevelSelection += 1;
 		charSpawn();
 	}
-	if (LevelSelection == 11 && (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == 'B'))
+	if (LevelSelection == 11 && (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == 'B')) // checks if player is in bonus room and decided to leave
 	{
 		LevelSelection = 5;
 		charSpawn();
 	}
-	if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == 'b' && bonusTimeKey == true){
+	if (Map[LevelSelection != 11][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == 'B' && bonusTimeKey == true){ // checks if player is not in bonus room and has reached the bonus room door
 		LevelSelection = 11;
 		bonusTimeKey = false;
 	}
@@ -745,6 +787,7 @@ void LevelClear()
 
 void SelectLevel()
 {
+	// checks for enter key pressed and position of arrow, then brings player to the chosen level and starts the game
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 16) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 1;
@@ -769,41 +812,48 @@ void SelectLevel()
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 19) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 4;
+		charSpawn();
 		g_eGameState = S_GAME;
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 20) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 5;
+		charSpawn();
 		g_eGameState = S_GAME;
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 21) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 6;
+		charSpawn();
 		g_eGameState = S_GAME;
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 22) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 7;
+		charSpawn();
 		g_eGameState = S_GAME;
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 23) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 8;
+		charSpawn();
 		g_eGameState = S_GAME;
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 24) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 9;
+		charSpawn();
 		g_eGameState = S_GAME;
 	}
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 25) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 10;
+		charSpawn();
 		g_eGameState = S_GAME;
 	}
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 26) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
@@ -812,16 +862,19 @@ void SelectLevel()
 		g_dMenuToSelectTimer = g_dElapsedTime + 0.25;
 		g_eGameState = S_SPLASHSCREEN;
 	}
+	// if player hits escape on select screen, game will close
 	if ((g_eGameState == S_SELECT) && (g_abKeyPressed[K_ESCAPE]))
 	{
 		g_bQuitGame = true;
 	}
+	// sets arrow to false again to make sure it doesn't spawn at weird places after
 	setArrowMenu = false;
 	setArrowOption = false;
 }
 
 void LoadMaps()
 {
+	// calls the map functions
 	LevelOne();
 	LevelTwo();
 	LevelThree();
@@ -841,6 +894,7 @@ void renderInstructions()
 	c.Y = 0;
 	c.X = 0;
 
+	// reads and writes instructions.txt for the instructions screen
 	string sym;
 	ifstream myfile("instructions.txt");
 
@@ -853,7 +907,7 @@ void renderInstructions()
 		}
 		myfile.close();
 	}
-
+	// goes back to splash screen if escape is pressed
 	if (g_abKeyPressed[K_ESCAPE] && (g_eGameState == S_INSTRUCTIONS)){
 		g_eGameState = S_SPLASHSCREEN;
 	}
@@ -864,6 +918,7 @@ void renderleaderboard()
 	c.Y = 0;
 	c.X = 0;
 
+	// reads and writes leaderboard.txt for the leaderboard screen
 	string sym;
 	ifstream myfile("Leaderboard.txt");
 
@@ -877,6 +932,7 @@ void renderleaderboard()
 		myfile.close();
 	}
 
+	// goes back to splash screen if escape is pressed
 	if (g_abKeyPressed[K_ESCAPE] && (g_eGameState == S_LEADERBOARD)){
 		g_eGameState = S_SPLASHSCREEN;
 	}
@@ -887,6 +943,7 @@ void renderCredits()
 	c.Y = 0;
 	c.X = 0;
 
+	// reads and writes credits.txt for the leaderboard screen
 	string sym;
 	ifstream myfile("credits.txt");
 
@@ -899,6 +956,8 @@ void renderCredits()
 		}
 		myfile.close();
 	}
+
+	// goes back to splash screen if escape is pressed
 	if (g_abKeyPressed[K_ESCAPE] && (g_eGameState == S_CREDITS)){
 		g_eGameState = S_SPLASHSCREEN;
 	}
@@ -909,6 +968,7 @@ void renderOption()
 	c.Y = 0;
 	c.X = 0;
 
+	// reads and writes options.txt for the options screen
 	string sym;
 	ifstream myfile("options.txt");
 
@@ -922,13 +982,16 @@ void renderOption()
 		myfile.close();
 	}
 
+	// goes back to splash screen if escape is pressed
 	if (g_abKeyPressed[K_ESCAPE] && (g_eGameState == S_OPTION)){
 		g_eGameState = S_SPLASHSCREEN;
 	}
+	// checks for arrow location, then takes player to credit screen
 	if (g_abKeyPressed[K_ENTER] && (g_eGameState == S_OPTION) && arrow.Y == 16 && g_dElapsedTime>=g_dMenuToSelectTimer){//if things doesnt work use plan B
 
 		g_eGameState = S_CREDITS;
 	}
+	// turns all the other arrow choices false so it will work to only reach the range in options
 	setArrowSelect = false;
 	renderArrow();
 	moveArrow();
@@ -936,6 +999,7 @@ void renderOption()
 }
 void Cut()
 {
+	// the function to be able to cut trees down.
 	bool bSomethingHappened = false;
 	if ((g_abKeyPressed[K_C]) && (g_abKeyPressed[K_A] || g_abKeyPressed[K_LEFT]) && ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1]) == 'T') && (treeAxe == true)) 
 	{
@@ -944,6 +1008,7 @@ void Cut()
 			AxeUses--;
 			bSomethingHappened = true;
 	}
+	// requiures player to press two buttons near a tree in order to cut it. player gains 70 points for cutting it.
 
 	if ((g_abKeyPressed[K_C]) && (g_abKeyPressed[K_D] || g_abKeyPressed[K_RIGHT]) && ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1]) == 'T') && (treeAxe == true))
 	{
@@ -975,6 +1040,7 @@ void Cut()
 		g_dBounceTime = g_dElapsedTime + 0.125; // 125ms should be enough
 	}
 
+	// if tree runs out of uses, the text will disappear.
 	if (AxeUses == 0)
 	{
 		treeAxe = false;
