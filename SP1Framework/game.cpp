@@ -330,6 +330,7 @@ void gameplay()		// gameplay logic
 {
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter(); // moves the character, collision detection, physics, etc sound can be played here too.
+	AiMovement();
 	Cut();
 	pointSystem(); // Points added
 	bonusKey(); // checks for bonus key
@@ -483,6 +484,7 @@ void renderGame()
 {
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
+	AiRender();
 }
 
 void renderMap()
@@ -750,6 +752,7 @@ void SelectLevel()
 	{
 		LevelSelection = 1;
 		charSpawn();
+		AiSpawn();
 		g_eGameState = S_GAME;
 	}
 
@@ -770,41 +773,48 @@ void SelectLevel()
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 19) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 4;
+		charSpawn();
 		g_eGameState = S_GAME;
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 20) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 5;
+		charSpawn();
 		g_eGameState = S_GAME;
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 21) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 6;
+		charSpawn();
 		g_eGameState = S_GAME;
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 22) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 7;
+		charSpawn();
 		g_eGameState = S_GAME;
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 23) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 8;
+		charSpawn();
 		g_eGameState = S_GAME;
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 24) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 9;
+		charSpawn();
 		g_eGameState = S_GAME;
 	}
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 25) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 10;
+		charSpawn();
 		g_eGameState = S_GAME;
 	}
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 26) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
