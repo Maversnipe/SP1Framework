@@ -17,6 +17,9 @@ void charSpawn()
 	case 3:
 	case 4:
 	case 5:
+		g_sChar.m_cLocation.X = 5;
+		g_sChar.m_cLocation.Y = 5;
+		break;
 	case 6:
 	case 7:
 	case 8:

@@ -542,6 +542,8 @@ void renderMap()
 		}
 	}
 	LevelClear();
+	setArrowOption = false;
+	setArrowSelect = false;
 }
 
 void renderCharacter()
@@ -727,9 +729,15 @@ void moveArrow()
 void LevelClear()
 {
 	if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == char(158))
+	{
 		LevelSelection += 1;
+		charSpawn();
+	}
 	if (LevelSelection == 11 && (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == 'B'))
-		LevelSelection = 2;
+	{
+		LevelSelection = 5;
+		charSpawn();
+	}
 	if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == 'b' && bonusTimeKey == true){
 		LevelSelection = 11;
 		bonusTimeKey = false;
@@ -809,6 +817,8 @@ void SelectLevel()
 	{
 		g_bQuitGame = true;
 	}
+	setArrowMenu = false;
+	setArrowOption = false;
 }
 
 void LoadMaps()
@@ -925,31 +935,6 @@ void renderOption()
 	moveArrow();
 	setArrowMenu = false;
 }
-
-void renderLeaderboard()
-{
-	COORD c = g_Console.getConsoleSize();
-	c.Y = 0;
-	c.X = 0;
-
-	string sym;
-	ifstream myfile("Leaderboard.txt");
-
-	if (myfile.is_open())
-	{
-		while (getline(myfile, sym))
-		{
-			g_Console.writeToBuffer(c, sym, 0x07);
-			c.Y++;
-		}
-		myfile.close();
-	}
-
-	if (g_abKeyPressed[K_ESCAPE]){
-		g_eGameState = S_SPLASHSCREEN;
-	}
-}
-
 void Cut()
 {
 	bool bSomethingHappened = false;
