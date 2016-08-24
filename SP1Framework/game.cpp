@@ -35,6 +35,7 @@ bool    g_abKeyPressed[K_COUNT];
 bool	bonusTimeKey;
 bool	treeAxe = false;
 bool	onRock = false;
+int SavedPoints = 0;
 
 
 // Game specific variables here
@@ -209,108 +210,51 @@ void restart()
 	{
 	case 1: // level one
 		LevelOne();
-		g_eGameState=S_GAME;
-		charSpawn();
-		treeAxe = false;
-		AxeUses = 0;
-		bonusTimeKey = false;
-		g_dTotalPoints = 0;
 		break;
 
 	case 2: // level two
 		LevelTwo();
-		g_eGameState = S_GAME;
-		charSpawn();
-		treeAxe = false;
-		bonusTimeKey = false;
-		AxeUses = 0;
-		g_dTotalPoints = 0;
 		break;
 
 	case 3: // level three
 		LevelThree();
-		g_eGameState = S_GAME;
-		charSpawn();
-		treeAxe = false;
-		bonusTimeKey = false;
-		AxeUses = 0;
-		g_dTotalPoints = 0;
 		break;
 
 	case 4: // level four
 		LevelFour();
-		g_eGameState = S_GAME;
-		charSpawn();
-		treeAxe = false;
-		bonusTimeKey = false;
-		AxeUses = 0;
-		g_dTotalPoints = 0;
 		break;
 
 	case 5: // level five
 		LevelFive();
-		g_eGameState=S_GAME;
-		charSpawn();
-		treeAxe = false;
-		bonusTimeKey = false;
-		AxeUses = 0;
-		g_dTotalPoints = 0;
 		break;
 
 	case 6: // level six
 		LevelSix();
-		g_eGameState = S_GAME;
-		charSpawn();
-		treeAxe = false;
-		bonusTimeKey = false;
-		AxeUses = 0;
-		g_dTotalPoints = 0;
 		break;
 
 	case 7: // level seven
 		LevelSeven();
-		g_eGameState = S_GAME;
-		charSpawn();
-		treeAxe = false;
-		bonusTimeKey = false;
-		AxeUses = 0;
-		g_dTotalPoints = 0;
 		break;
 
 	case 8: // level eight
 		LevelEight();
-		g_eGameState = S_GAME;
-		charSpawn();
-		treeAxe = false;
-		bonusTimeKey = false;
-		AxeUses = 0;
-		g_dTotalPoints = 0;
 		break;
 
 	case 9: // level nine
 		LevelNine();
-		g_eGameState = S_GAME;
-		charSpawn();
-		treeAxe = false;
-		bonusTimeKey = false;
-		AxeUses = 0;
-		g_dTotalPoints = 0;
 		break;
 
 	case 10: // level ten
 		LevelTen();
-		g_eGameState = S_GAME;
-		charSpawn();
-		treeAxe = false;
-		bonusTimeKey = false;
-		AxeUses = 0;
-		g_dTotalPoints = 0;
 		break;
 	}
+	g_eGameState = S_GAME;
+	charSpawn();
+	treeAxe = false;
+	AxeUses = 0;
+	bonusTimeKey = false;
+	g_dTotalPoints = SavedPoints;
 }
-
-
-
 
 void splashScreenWait() // checks the player input on the splash screen
 {
@@ -367,8 +311,6 @@ void doorSwitch(){
 		}
 	}
 }
-
-
 
 void spikes_on()
 {
@@ -716,8 +658,12 @@ void pauseControls(){
 		// space resets everything, then brings player back to the splash screen
 		g_dTimer = 0.0;
 		g_dTotalPoints = 0;
+		SavedPoints = 0;
+		charSpawn();
 		treeAxe = false;
+		AxeUses = 0;
 		bonusTimeKey = false;
+		LoadMaps();
 		g_eGameState = S_SPLASHSCREEN;
 	}
 	if (g_abKeyPressed[K_R])
@@ -810,6 +756,7 @@ void LevelClear()
 	if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == char(158)) // checks if player has reached the point to clear level
 	{
 		LevelSelection += 1;
+		SavedPoints += g_dTotalPoints;
 		charSpawn();
 	}
 	if (LevelSelection == 11 && (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == 'b')) // checks if player is in bonus room and decided to leave
