@@ -226,7 +226,7 @@ void restart()
 		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
-		AxeUses == 0;
+		AxeUses = 0;
 		g_dTotalPoints = 0;
 		break;
 
@@ -236,7 +236,7 @@ void restart()
 		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
-		AxeUses == 0;
+		AxeUses = 0;
 		g_dTotalPoints = 0;
 		break;
 
@@ -246,7 +246,7 @@ void restart()
 		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
-		AxeUses == 0;
+		AxeUses = 0;
 		g_dTotalPoints = 0;
 		break;
 
@@ -256,7 +256,7 @@ void restart()
 		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
-		AxeUses == 0;
+		AxeUses = 0;
 		g_dTotalPoints = 0;
 		break;
 
@@ -266,7 +266,7 @@ void restart()
 		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
-		AxeUses == 0;
+		AxeUses = 0;
 		g_dTotalPoints = 0;
 		break;
 
@@ -276,7 +276,7 @@ void restart()
 		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
-		AxeUses == 0;
+		AxeUses = 0;
 		g_dTotalPoints = 0;
 		break;
 
@@ -286,7 +286,7 @@ void restart()
 		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
-		AxeUses == 0;
+		AxeUses = 0;
 		g_dTotalPoints = 0;
 		break;
 
@@ -296,7 +296,7 @@ void restart()
 		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
-		AxeUses == 0;
+		AxeUses = 0;
 		g_dTotalPoints = 0;
 		break;
 	}
