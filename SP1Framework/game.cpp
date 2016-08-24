@@ -26,6 +26,10 @@ double g_dMenuToSelectTimer;
 double g_dDoorTime;
 double g_dSpikeTime;
 int g_dTotalPoints;
+int g_dHighestPoints = 0;
+int g_dLastPoints = 0;
+double	g_dShortestTime = 0.0;
+double	g_dLastTime = 0.0;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
 bool	bonusTimeKey;
@@ -339,6 +343,7 @@ void gameplay()		// gameplay logic
 {
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter(); // moves the character, collision detection, physics, etc sound can be played here too.
+	AiMovement();
 	Cut();
 	pointSystem(); // Points added
 	bonusKey(); // checks for bonus key
@@ -496,6 +501,7 @@ void renderGame()
 {
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
+	AiRender();
 }
 
 void light()
@@ -824,6 +830,7 @@ void SelectLevel()
 	{
 		LevelSelection = 1;
 		charSpawn();
+		AiSpawn();
 		g_eGameState = S_GAME;
 	}
 
@@ -944,11 +951,40 @@ void renderInstructions()
 		g_eGameState = S_SPLASHSCREEN;
 	}
 }
+
+void Records(){
+	if (g_dTotalPoints > g_dHighestPoints){
+		g_dHighestPoints = g_dTotalPoints;
+	}
+
+	if (g_dShortestTime < g_dElapsedTime){
+		g_dShortestTime = g_dElapsedTime;
+	}
+
+	g_dLastTime = g_dElapsedTime;
+	g_dLastPoints = g_dTotalPoints;
+}
+
 void renderleaderboard()
 {
 	COORD c = g_Console.getConsoleSize();
-	c.Y = 0;
-	c.X = 0;
+	c.Y = 5;
+	c.X = 10;
+
+	ostringstream high;
+	ostringstream last;
+	ostringstream mes;
+	high.str("");
+	high << "HIGHEST SCORE: " << g_dHighestPoints << "    SHORTEST TIME: " << (int)g_dShortestTime; // shows the highest score + shortest time
+	g_Console.writeToBuffer(c.X + 9, c.Y + 9, high.str(), 0x07);
+
+	last.str("");
+	last << "PREVIOUS SCORE: " << g_dLastPoints << "    LAST TIME: " << (int)g_dLastTime; // shows the highest score + shortest time
+	g_Console.writeToBuffer(c.X + 10, c.Y + 14, last.str(), 0x07);
+
+	mes.str("");
+	mes << "Press 'ESC' to return to the MAIN MENU";
+	g_Console.writeToBuffer(c.X + 8, c.Y + 19, mes.str(), 0x07);
 
 	// reads and writes leaderboard.txt for the leaderboard screen
 	string sym;
