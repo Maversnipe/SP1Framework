@@ -205,6 +205,7 @@ void restart()
 		g_eGameState=S_GAME;
 		charSpawn();
 		treeAxe = false;
+		AxeUses = 0;
 		bonusTimeKey = false;
 		g_dTotalPoints = 0;
 		break;
@@ -215,6 +216,7 @@ void restart()
 		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
+		AxeUses = 0;
 		g_dTotalPoints = 0;
 		break;
 
@@ -224,6 +226,7 @@ void restart()
 		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
+		AxeUses == 0;
 		g_dTotalPoints = 0;
 		break;
 
@@ -233,6 +236,7 @@ void restart()
 		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
+		AxeUses == 0;
 		g_dTotalPoints = 0;
 		break;
 
@@ -242,6 +246,7 @@ void restart()
 		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
+		AxeUses == 0;
 		g_dTotalPoints = 0;
 		break;
 
@@ -251,6 +256,7 @@ void restart()
 		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
+		AxeUses == 0;
 		g_dTotalPoints = 0;
 		break;
 
@@ -260,6 +266,7 @@ void restart()
 		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
+		AxeUses == 0;
 		g_dTotalPoints = 0;
 		break;
 
@@ -269,6 +276,7 @@ void restart()
 		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
+		AxeUses == 0;
 		g_dTotalPoints = 0;
 		break;
 
@@ -278,6 +286,7 @@ void restart()
 		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
+		AxeUses == 0;
 		g_dTotalPoints = 0;
 		break;
 
@@ -287,11 +296,11 @@ void restart()
 		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
+		AxeUses == 0;
 		g_dTotalPoints = 0;
 		break;
 	}
 }
-
 void light()
 {
 	// code for the torchlight
@@ -305,6 +314,7 @@ void light()
 		Batteryuse = false;
 	}
 }
+
 void Checkbattery()
 {
 	// this is for the battery lights available in the map
@@ -315,6 +325,7 @@ void Checkbattery()
 		Battery = 3;
 	}
 }
+
 void splashScreenWait() // checks the player input on the splash screen
 {
 	if ((g_eGameState == S_SPLASHSCREEN) && (g_abKeyPressed[K_ENTER]) && (arrow.Y == 15) && g_dElapsedTime >= g_dMenuToSelectTimer) // Level Selection
@@ -351,6 +362,8 @@ void gameplay()		// gameplay logic
 	bonusKey(); // checks for bonus key
 	treeAxeCheck(); // checks for axe
 	doorSwitch(); // door switch to open doors
+	spikes_on();
+	//light();
 }
 
 void doorSwitch(){
@@ -365,6 +378,16 @@ void doorSwitch(){
 				}
 			}
 		}
+	}
+}
+
+
+
+void spikes_on()
+{
+	if ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == 'X')
+	{
+		restart();
 	}
 }
 
@@ -1046,3 +1069,22 @@ void Cut()
 		treeAxe = false;
 	}
 }
+
+
+//void light()
+//{
+//	COORD c = g_Console.getConsoleSize();
+//	c.X = g_sChar.m_cLocation.X;
+//	c.Y = g_sChar.m_cLocation.Y;
+//	if ((g_abKeyPressed[K_B]))
+//	{
+//		if (Map[LevelSelection][g_sChar.m_cLocation.Y + 3][g_sChar.m_cLocation.X + 3] == ' ' || Map[LevelSelection][g_sChar.m_cLocation.Y - 3][g_sChar.m_cLocation.X - 3] == ' ')
+//		{
+//			g_Console.writeToBuffer(c,Map[LevelSelection][g_sChar.m_cLocation.Y + 3][g_sChar.m_cLocation.X + 3], " ", 0xCE);
+//			g_Console.writeToBuffer(c,Map[LevelSelection][g_sChar.m_cLocation.Y - 3][g_sChar.m_cLocation.X - 3], " " ,0xCE);
+//		}
+//	}
+//
+//
+//}
+
