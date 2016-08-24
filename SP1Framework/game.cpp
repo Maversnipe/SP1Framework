@@ -291,18 +291,6 @@ void restart()
 	}
 }
 
-void light()
-{
-	if ((g_abKeyPressed[K_B]))
-	{
-		Battery--;
-	}
-
-	if (Battery == 0)
-	{
-		Batteryuse = false;
-	}
-}
 void Checkbattery()
 {
 	if ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == (char)207)
@@ -347,6 +335,9 @@ void gameplay()		// gameplay logic
 	bonusKey(); // checks for bonus key
 	treeAxeCheck(); // checks for axe
 	doorSwitch(); // switch for level 5
+	spikes_on();
+	//light();
+
 }
 
 void doorSwitch(){
@@ -361,6 +352,16 @@ void doorSwitch(){
 				}
 			}
 		}
+	}
+}
+
+
+
+void spikes_on()
+{
+	if ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == 'X')
+	{
+		restart();
 	}
 }
 
@@ -995,3 +996,22 @@ void Cut()
 		treeAxe = false;
 	}
 }
+
+
+//void light()
+//{
+//	COORD c = g_Console.getConsoleSize();
+//	c.X = g_sChar.m_cLocation.X;
+//	c.Y = g_sChar.m_cLocation.Y;
+//	if ((g_abKeyPressed[K_B]))
+//	{
+//		if (Map[LevelSelection][g_sChar.m_cLocation.Y + 3][g_sChar.m_cLocation.X + 3] == ' ' || Map[LevelSelection][g_sChar.m_cLocation.Y - 3][g_sChar.m_cLocation.X - 3] == ' ')
+//		{
+//			g_Console.writeToBuffer(c,Map[LevelSelection][g_sChar.m_cLocation.Y + 3][g_sChar.m_cLocation.X + 3], " ", 0xCE);
+//			g_Console.writeToBuffer(c,Map[LevelSelection][g_sChar.m_cLocation.Y - 3][g_sChar.m_cLocation.X - 3], " " ,0xCE);
+//		}
+//	}
+//
+//
+//}
+
