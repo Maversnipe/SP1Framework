@@ -361,6 +361,7 @@ void gameplay()		// gameplay logic
 {
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter(); // moves the character, collision detection, physics, etc sound can be played here too.
+	AiMovement();
 	Cut();
 	pointSystem(); // Points added
 	bonusKey(); // checks for bonus key
@@ -518,6 +519,7 @@ void renderGame()
 {
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
+	AiRender();
 }
 
 void renderMap()
@@ -819,6 +821,7 @@ void SelectLevel()
 	{
 		LevelSelection = 1;
 		charSpawn();
+		AiSpawn();
 		g_eGameState = S_GAME;
 	}
 
