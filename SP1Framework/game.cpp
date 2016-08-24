@@ -204,6 +204,7 @@ void restart()
 		g_eGameState=S_GAME;
 		charSpawn();
 		treeAxe = false;
+		AxeUses = 0;
 		bonusTimeKey = false;
 		g_dTotalPoints = 0;
 		break;
@@ -214,6 +215,7 @@ void restart()
 		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
+		AxeUses = 0;
 		g_dTotalPoints = 0;
 		break;
 
@@ -223,6 +225,7 @@ void restart()
 		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
+		AxeUses == 0;
 		g_dTotalPoints = 0;
 		break;
 
@@ -232,6 +235,7 @@ void restart()
 		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
+		AxeUses == 0;
 		g_dTotalPoints = 0;
 		break;
 
@@ -241,6 +245,7 @@ void restart()
 		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
+		AxeUses == 0;
 		g_dTotalPoints = 0;
 		break;
 
@@ -250,6 +255,7 @@ void restart()
 		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
+		AxeUses == 0;
 		g_dTotalPoints = 0;
 		break;
 
@@ -259,6 +265,7 @@ void restart()
 		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
+		AxeUses == 0;
 		g_dTotalPoints = 0;
 		break;
 
@@ -268,6 +275,7 @@ void restart()
 		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
+		AxeUses == 0;
 		g_dTotalPoints = 0;
 		break;
 
@@ -277,6 +285,7 @@ void restart()
 		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
+		AxeUses == 0;
 		g_dTotalPoints = 0;
 		break;
 
@@ -286,6 +295,7 @@ void restart()
 		charSpawn();
 		treeAxe = false;
 		bonusTimeKey = false;
+		AxeUses == 0;
 		g_dTotalPoints = 0;
 		break;
 	}
