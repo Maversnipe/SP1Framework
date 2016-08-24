@@ -519,7 +519,7 @@ void light()
 				g_Console.writeToBuffer(c, " ", 0xC0);
 				c.X -= 2;
 				g_Console.writeToBuffer(c, " ", 0xCE);
-				c.Y -= 1;
+				c.Y -= 2;
 				g_Console.writeToBuffer(c, " ", 0xCE);
 
 			
