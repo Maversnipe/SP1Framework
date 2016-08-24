@@ -5,6 +5,7 @@
 #include "Framework\timer.h"
 #include <string>
 #include "Levels.h"
+#include "AI.h"
 
 using namespace std;
 
@@ -67,7 +68,7 @@ struct SGameChar
     bool  m_bActive;
 };
 
-struct Enemy
+struct EnemyChar
 {
 	COORD m_cLocation;
 };
@@ -108,5 +109,6 @@ void restart();
 void renderleaderboard();
 void renderOption();
 void renderCredits();
+void light();
 
 #endif // _GAME_H

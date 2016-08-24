@@ -1,4 +1,5 @@
-#include <iostream>
 #include "game.h"
 
-void EnemyAI();
+void AiMovement();
+void AiRender();
+void AiSpawn();

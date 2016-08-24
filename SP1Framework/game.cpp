@@ -26,12 +26,16 @@ double g_dMenuToSelectTimer;
 double g_dDoorTime;
 double g_dSpikeTime;
 int g_dTotalPoints;
+int g_dHighestPoints = 0;
+int g_dLastPoints = 0;
+double	g_dShortestTime = 0.0;
+double	g_dLastTime = 0.0;
 double  g_dDeltaTime;
 bool    g_abKeyPressed[K_COUNT];
 bool	bonusTimeKey;
 bool	treeAxe = false;
 bool	onRock = false;
-bool    Batteryuse = false;
+
 
 // Game specific variables here
 SGameChar   g_sChar;
@@ -193,7 +197,10 @@ void render()
 			break;
 		case S_CREDITS:renderCredits();
     }  // renders everything required for the screens
-    renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
+
+	light();
+    renderToScreen();
+	// dump the contents of the buffer to the screen, one frame worth of game
 }
 void restart()
 {
@@ -301,30 +308,9 @@ void restart()
 		break;
 	}
 }
-void light()
-{
-	// code for the torchlight
-	if ((g_abKeyPressed[K_B]))
-	{
-		Battery--;
-	}
 
-	if (Battery == 0)
-	{
-		Batteryuse = false;
-	}
-}
 
-void Checkbattery()
-{
-	// this is for the battery lights available in the map
-	if ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == (char)207)
-	{
-		Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] = ' ';
-		Batteryuse = true;
-		Battery = 3;
-	}
-}
+
 
 void splashScreenWait() // checks the player input on the splash screen
 {
@@ -357,13 +343,14 @@ void gameplay()		// gameplay logic
 {
     processUserInput(); // checks if you should change states or do something else with the game, e.g. pause, exit
     moveCharacter(); // moves the character, collision detection, physics, etc sound can be played here too.
+	AiMovement();
 	Cut();
 	pointSystem(); // Points added
 	bonusKey(); // checks for bonus key
 	treeAxeCheck(); // checks for axe
 	doorSwitch(); // door switch to open doors
 	spikes_on();
-	//light();
+	
 }
 
 void doorSwitch(){
@@ -514,7 +501,33 @@ void renderGame()
 {
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
+	AiRender();
 }
+
+void light()
+{
+	COORD c;
+	c.X = g_sChar.m_cLocation.X;
+	c.Y = g_sChar.m_cLocation.Y;
+	if (g_abKeyPressed[K_B])
+	{
+			if ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == ' ') || (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == ' '))
+			{
+				c.X += 1;
+				g_Console.writeToBuffer(c, " ", 0xC0);
+				c.Y += 1;
+				g_Console.writeToBuffer(c, " ", 0xC0);
+				c.X -= 2;
+				g_Console.writeToBuffer(c, " ", 0xCE);
+				c.Y -= 1;
+				g_Console.writeToBuffer(c, " ", 0xCE);
+
+			
+			}
+		}
+	
+}
+
 
 void renderMap()
 {
@@ -580,6 +593,8 @@ void renderMap()
 			{
 				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x02); // turns bonus door into another colour
 			}
+			
+		 
 		}
 	}
 	LevelClear(); // calls the function to check if player has arrived at the level clear character
@@ -815,6 +830,7 @@ void SelectLevel()
 	{
 		LevelSelection = 1;
 		charSpawn();
+		AiSpawn();
 		g_eGameState = S_GAME;
 	}
 
@@ -935,11 +951,40 @@ void renderInstructions()
 		g_eGameState = S_SPLASHSCREEN;
 	}
 }
+
+void Records(){
+	if (g_dTotalPoints > g_dHighestPoints){
+		g_dHighestPoints = g_dTotalPoints;
+	}
+
+	if (g_dShortestTime < g_dElapsedTime){
+		g_dShortestTime = g_dElapsedTime;
+	}
+
+	g_dLastTime = g_dElapsedTime;
+	g_dLastPoints = g_dTotalPoints;
+}
+
 void renderleaderboard()
 {
 	COORD c = g_Console.getConsoleSize();
-	c.Y = 0;
-	c.X = 0;
+	c.Y = 5;
+	c.X = 10;
+
+	ostringstream high;
+	ostringstream last;
+	ostringstream mes;
+	high.str("");
+	high << "HIGHEST SCORE: " << g_dHighestPoints << "    SHORTEST TIME: " << (int)g_dShortestTime; // shows the highest score + shortest time
+	g_Console.writeToBuffer(c.X + 9, c.Y + 9, high.str(), 0x07);
+
+	last.str("");
+	last << "PREVIOUS SCORE: " << g_dLastPoints << "    LAST TIME: " << (int)g_dLastTime; // shows the highest score + shortest time
+	g_Console.writeToBuffer(c.X + 10, c.Y + 14, last.str(), 0x07);
+
+	mes.str("");
+	mes << "Press 'ESC' to return to the MAIN MENU";
+	g_Console.writeToBuffer(c.X + 8, c.Y + 19, mes.str(), 0x07);
 
 	// reads and writes leaderboard.txt for the leaderboard screen
 	string sym;
@@ -1069,22 +1114,4 @@ void Cut()
 		treeAxe = false;
 	}
 }
-
-
-//void light()
-//{
-//	COORD c = g_Console.getConsoleSize();
-//	c.X = g_sChar.m_cLocation.X;
-//	c.Y = g_sChar.m_cLocation.Y;
-//	if ((g_abKeyPressed[K_B]))
-//	{
-//		if (Map[LevelSelection][g_sChar.m_cLocation.Y + 3][g_sChar.m_cLocation.X + 3] == ' ' || Map[LevelSelection][g_sChar.m_cLocation.Y - 3][g_sChar.m_cLocation.X - 3] == ' ')
-//		{
-//			g_Console.writeToBuffer(c,Map[LevelSelection][g_sChar.m_cLocation.Y + 3][g_sChar.m_cLocation.X + 3], " ", 0xCE);
-//			g_Console.writeToBuffer(c,Map[LevelSelection][g_sChar.m_cLocation.Y - 3][g_sChar.m_cLocation.X - 3], " " ,0xCE);
-//		}
-//	}
-//
-//
-//}
 
