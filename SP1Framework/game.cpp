@@ -797,12 +797,12 @@ void LevelClear()
 		LevelSelection += 1;
 		charSpawn();
 	}
-	if (LevelSelection == 11 && (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == 'B')) // checks if player is in bonus room and decided to leave
+	if (LevelSelection == 11 && (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == 'b')) // checks if player is in bonus room and decided to leave
 	{
 		LevelSelection = 5;
 		charSpawn();
 	}
-	if (Map[LevelSelection != 11][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == 'B' && bonusTimeKey == true){ // checks if player is not in bonus room and has reached the bonus room door
+	if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == 'B' && bonusTimeKey == true){ // checks if player is not in bonus room and has reached the bonus room door
 		LevelSelection = 11;
 		bonusTimeKey = false;
 	}
