@@ -108,5 +108,6 @@ void restart();
 void renderleaderboard();
 void renderOption();
 void renderCredits();
+void light();
 
 #endif // _GAME_H

@@ -31,7 +31,7 @@ bool    g_abKeyPressed[K_COUNT];
 bool	bonusTimeKey;
 bool	treeAxe = false;
 bool	onRock = false;
-bool    Batteryuse = false;
+
 
 // Game specific variables here
 SGameChar   g_sChar;
@@ -193,7 +193,10 @@ void render()
 			break;
 		case S_CREDITS:renderCredits();
     }  // renders everything required for the screens
-    renderToScreen();   // dump the contents of the buffer to the screen, one frame worth of game
+
+	light();
+    renderToScreen();
+	// dump the contents of the buffer to the screen, one frame worth of game
 }
 void restart()
 {
@@ -301,30 +304,9 @@ void restart()
 		break;
 	}
 }
-void light()
-{
-	// code for the torchlight
-	if ((g_abKeyPressed[K_B]))
-	{
-		Battery--;
-	}
 
-	if (Battery == 0)
-	{
-		Batteryuse = false;
-	}
-}
 
-void Checkbattery()
-{
-	// this is for the battery lights available in the map
-	if ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == (char)207)
-	{
-		Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] = ' ';
-		Batteryuse = true;
-		Battery = 3;
-	}
-}
+
 
 void splashScreenWait() // checks the player input on the splash screen
 {
@@ -363,7 +345,7 @@ void gameplay()		// gameplay logic
 	treeAxeCheck(); // checks for axe
 	doorSwitch(); // door switch to open doors
 	spikes_on();
-	//light();
+	
 }
 
 void doorSwitch(){
@@ -516,6 +498,31 @@ void renderGame()
     renderCharacter();  // renders the character into the buffer
 }
 
+void light()
+{
+	COORD c;
+	c.X = g_sChar.m_cLocation.X;
+	c.Y = g_sChar.m_cLocation.Y;
+	if (g_abKeyPressed[K_B])
+	{
+			if ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == ' ') || (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == ' '))
+			{
+				c.X += 1;
+				g_Console.writeToBuffer(c, " ", 0xC0);
+				c.Y += 1;
+				g_Console.writeToBuffer(c, " ", 0xC0);
+				c.X -= 2;
+				g_Console.writeToBuffer(c, " ", 0xCE);
+				c.Y -= 1;
+				g_Console.writeToBuffer(c, " ", 0xCE);
+
+			
+			}
+		}
+	
+}
+
+
 void renderMap()
 {
     // Set up sample colours, and output shadings
@@ -580,6 +587,8 @@ void renderMap()
 			{
 				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x02); // turns bonus door into another colour
 			}
+			
+		 
 		}
 	}
 	LevelClear(); // calls the function to check if player has arrived at the level clear character
@@ -1069,22 +1078,4 @@ void Cut()
 		treeAxe = false;
 	}
 }
-
-
-//void light()
-//{
-//	COORD c = g_Console.getConsoleSize();
-//	c.X = g_sChar.m_cLocation.X;
-//	c.Y = g_sChar.m_cLocation.Y;
-//	if ((g_abKeyPressed[K_B]))
-//	{
-//		if (Map[LevelSelection][g_sChar.m_cLocation.Y + 3][g_sChar.m_cLocation.X + 3] == ' ' || Map[LevelSelection][g_sChar.m_cLocation.Y - 3][g_sChar.m_cLocation.X - 3] == ' ')
-//		{
-//			g_Console.writeToBuffer(c,Map[LevelSelection][g_sChar.m_cLocation.Y + 3][g_sChar.m_cLocation.X + 3], " ", 0xCE);
-//			g_Console.writeToBuffer(c,Map[LevelSelection][g_sChar.m_cLocation.Y - 3][g_sChar.m_cLocation.X - 3], " " ,0xCE);
-//		}
-//	}
-//
-//
-//}
 
