@@ -3,16 +3,17 @@
            | |  _ __  ___| |_ _ __ _   _  ___| |_ _  ___  _ __  ___ 
            | | | '_ \/ __| __| '__| | | |/ __| __| |/ _ \| '_ \/ __|
           _| |_| | | \__ | |_| |  | |_| | (__| |_| | (_) | | | \__ \
-         |_____|_| |_|___/\__|_|   \__,_|\___|\__|_|\___/|_| |_|___/  
+         |_____|_| |_|___/\__|_|   \__,_|\___|\__|_|\___/|_| |_|___/
                             ESC TO LEAVE SCREEN                     
                                                                     
                   Key movement: W,A,S,D or Arrow Keypads.
-                  C to Cut.
+                  C + Arrow to Cut.
                   Escape to enter the pause menu during the levels. 
                   All point items are in yellow.
+                  Press B to turn on your torch.
 
                   [space] - Walkable tiles
-                  X -  Spikes are on, players cannot walk through.
+                  X, $: Obstacles you must avoid.
 
                   1 - Gives 100 pts 
                   2 - Gives 200 pts 
@@ -21,7 +22,6 @@
                   r - Water Tiles, players can't walk on these tiles.
                   (char)225 - Treasure Room Entrance
                   (char)233 - Boulder
-                  (char)224 - 1000pts (Bonus Room Only)
+                  A - 1000pts (Bonus Room Only)
                   T - Trees
                   (char)210 - Axe/Hatchet
-                  o - Player Character
