@@ -204,8 +204,7 @@ void render()
 			break;
 		case S_CREDITS:renderCredits();
 			break;
-		case S_STORY:
-			renderStory();
+		case S_STORY: renderStory();
 			break;
 		case S_GAMEOVER:rendergameover();
 			break;
@@ -264,6 +263,7 @@ void restart()
 	}
 	g_eGameState = S_GAME;
 	charSpawn();
+	AiSpawn();
 	treeAxe = false;
 	AxeUses = 0;
 	bonusTimeKey = false;
@@ -456,7 +456,10 @@ void renderGame()
 {
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
-	AiRender();			// renders AI into the buffer
+	if ((LevelSelection == 4) || (LevelSelection == 9) || (LevelSelection == 10))
+	{
+		AiRender();			// renders AI into the buffer
+	}
 }
 
 
@@ -527,6 +530,7 @@ void renderStory(){
 
 		if (g_abKeyPressed[K_SPACE]){
 			charSpawn();
+			AiSpawn();
 			g_eGameState = S_GAME;
 		}
 
@@ -746,6 +750,7 @@ void pauseControls(){
 		g_dTotalPoints = 0;
 		SavedPoints = 0;
 		charSpawn();
+		AiSpawn();
 		treeAxe = false;
 		AxeUses = 0;
 		bonusTimeKey = false;
@@ -841,10 +846,10 @@ void LevelClear()
 	// these conditions check if player has to be moved to another map
 	if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == char(158)) // checks if player has reached the point to clear level
 	{
-		clearScreen();
 		LevelSelection += 1;
 		SavedPoints += g_dTotalPoints;
 		g_eGameState = S_STORY;
+		AiSpawn();
 		charSpawn();
 	}
 
