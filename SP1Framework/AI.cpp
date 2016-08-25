@@ -109,10 +109,26 @@ void AiMovement()
 			{
 				enemyMoveTime = g_dElapsedTime + 0.2;
 			}
-
-			if (Enemy[i].m_cLocation.Y == g_sChar.m_cLocation.Y && Enemy[i].m_cLocation.X == g_sChar.m_cLocation.X)
+			if ((LevelSelection == 4) || (LevelSelection == 9) || (LevelSelection == 10))
 			{
-				g_eGameState = S_GAMEOVER2;
+				if (Enemy[1].m_cLocation.Y == g_sChar.m_cLocation.Y && Enemy[1].m_cLocation.X == g_sChar.m_cLocation.X)
+				{
+					g_eGameState = S_GAMEOVER2;
+				}
+			}
+			if ((LevelSelection == 9) || (LevelSelection == 10))
+			{
+				if (Enemy[2].m_cLocation.Y == g_sChar.m_cLocation.Y && Enemy[2].m_cLocation.X == g_sChar.m_cLocation.X)
+				{
+					g_eGameState = S_GAMEOVER2;
+				}
+			}
+			if (LevelSelection == 10)
+			{
+				if (Enemy[2].m_cLocation.Y == g_sChar.m_cLocation.Y && Enemy[2].m_cLocation.X == g_sChar.m_cLocation.X)
+				{
+					g_eGameState = S_GAMEOVER2;
+				}
 			}
 		}
 	}
