@@ -106,7 +106,7 @@ void treeAxeCheck();
 void renderInstructions();
 void charSpawn();
 void restart();
-void renderleaderboard();
+void renderLeaderboard();
 void renderOption();
 void renderCredits();
 void light();

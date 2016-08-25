@@ -154,7 +154,7 @@ void update(double dt)
 			break;
 		case S_RESTART: restart(); // logic for restarting the game
 			break;
-		case S_LEADERBOARD:renderleaderboard(); // logic for the leaderboard
+		case S_LEADERBOARD:renderLeaderboard(); // logic for the leaderboard
 			break;
 		case S_OPTION:renderOption(); // logic for the options
 			break;
@@ -192,7 +192,7 @@ void render()
 			break;
 		case S_RESTART: restart();
 			break;
-		case S_LEADERBOARD:renderleaderboard();
+		case S_LEADERBOARD:renderLeaderboard();
 			break;
 		case S_OPTION:renderOption();
 			break;
@@ -294,7 +294,6 @@ void gameplay()		// gameplay logic
 	treeAxeCheck(); // checks for axe
 	doorSwitch(); // door switch to open doors
 	spikes_on();
-	
 }
 
 void doorSwitch(){
@@ -755,9 +754,10 @@ void LevelClear()
 	// these conditions check if player has to be moved to another map
 	if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == char(158)) // checks if player has reached the point to clear level
 	{
+		clearScreen();
 		LevelSelection += 1;
 		SavedPoints += g_dTotalPoints;
-		charSpawn();
+		//charSpawn();
 	}
 	if (LevelSelection == 11 && (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == 'b')) // checks if player is in bonus room and decided to leave
 	{
@@ -912,7 +912,7 @@ void Records(){
 	g_dLastPoints = g_dTotalPoints;
 }
 
-void renderleaderboard()
+void renderLeaderboard()
 {
 	COORD c = g_Console.getConsoleSize();
 	c.Y = 5;
