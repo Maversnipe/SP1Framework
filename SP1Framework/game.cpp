@@ -161,6 +161,7 @@ void update(double dt)
 		case S_CREDITS:renderCredits(); // credits screen
 			break;
 		case S_STORY:renderStory();
+			break;
 		case S_GAMEOVER:rendergameover();
 			break;
 		case S_GAMEOVER2:rendergameover2();
@@ -203,8 +204,7 @@ void render()
 			break;
 		case S_CREDITS:renderCredits();
 			break;
-		case S_STORY:
-			renderStory();
+		case S_STORY: renderStory();
 			break;
 		case S_GAMEOVER:rendergameover();
 			break;
@@ -835,7 +835,6 @@ void LevelClear()
 	// these conditions check if player has to be moved to another map
 	if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == char(158)) // checks if player has reached the point to clear level
 	{
-		clearScreen();
 		LevelSelection += 1;
 		SavedPoints += g_dTotalPoints;
 		g_eGameState = S_STORY;

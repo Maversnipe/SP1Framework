@@ -124,7 +124,7 @@ void AiSpawn()
 {
 	switch (LevelSelection)
 	{
-	case 1:
+	case 4:
 		Enemy.m_cLocation.X = 30;
 		Enemy.m_cLocation.Y = 4;
 		break;
