@@ -4,7 +4,6 @@ iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
 ii|=|==|==|==|==|==|==|===|==|==|===|==|==|==|==|==|==|
 ii|#i|iiiiiiiiiiiiiiiiiiii|5i|iiiii|ii|iiii1|iiiiiiiii|
 ii|ii|ii|==|==|==|ii|==|ii|ii|==|==|ii|ii|==|ii|==|===|
-ii|iiii|ii|ii|iiiiiiii|iiiii|iiiiiiiiiii|iiiii|iiiiiii|
 ii|ii|==|i2|==|ii|==|==|ii|==|ii|ii|ii|ii|ii|==|ii|===|
 ii|ii|iiiii|iiiii|iiiiiiii|iiiii|iiiii|iiiii|ii|iiiiii|
 ii|ii|ii|==|ii|==|ii|ii|==|ii|==|==|==|==|ii|ii|==|iii|
