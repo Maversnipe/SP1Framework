@@ -60,6 +60,8 @@ enum EGAMESTATES
 	S_OPTION,
 	S_CREDITS,
 	S_STORY,
+	S_GAMEOVER,
+	S_GAMEOVER2,
 };
 
 
@@ -93,6 +95,7 @@ void renderMap();           // renders the map to the buffer first
 void renderCharacter();     // renders the character into the buffer
 void renderFramerate();     // renders debug information, frame rate, elapsed time, etc
 void renderToScreen();      // dump the contents of the buffer to the screen, one frame worth of game
+<<<<<<< HEAD
 void renderPauseScreen();	// renders the pause screen
 void renderArrow();			// renders the arrow that shows up on selection screens
 void moveArrow();			// moves the arrow that renders on selection screen
@@ -113,5 +116,25 @@ void renderOption();		// renders option screen
 void renderCredits();		// renders credit screen
 void light();				// light mechanic
 void renderStory();			// renders story
-
+void renderPauseScreen();
+void renderArrow();
+void moveArrow();
+void paused();
+void pauseScreenChoices();
+void LoadMaps();
+void pointSystem();
+void LevelClear();
+void SelectLevel();
+void bonusKey();
+void Cut();
+void treeAxeCheck();
+void renderInstructions();
+void charSpawn();
+void restart();
+void renderLeaderboard();
+void renderOption();
+void renderCredits();
+void light();
+void rendergameover();
+void rendergameover2();
 #endif // _GAME_H

@@ -108,6 +108,7 @@
     <ClCompile Include="StoryTen.cpp" />
     <ClCompile Include="StoryThree.cpp" />
     <ClCompile Include="StoryTwo.cpp" />
+    <ClCompile Include="Torchlight.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AI.h" />

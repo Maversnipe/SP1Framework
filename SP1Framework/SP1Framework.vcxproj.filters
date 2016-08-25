@@ -39,9 +39,6 @@
     <ClCompile Include="game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="spikes.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="AI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -119,6 +116,8 @@
     </ClCompile>
     <ClCompile Include="StoryEnd.cpp">
       <Filter>Source Files\Story</Filter>
+    <ClCompile Include="Torchlight.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
