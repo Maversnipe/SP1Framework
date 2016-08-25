@@ -606,9 +606,14 @@ void renderMap()
 				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x02); // turns bonus door into another colour
 			}
 
+			if (Map[LevelSelection][rows][columns] == 'X')
+			{
+				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x04); // turns bonus door into another colour
+			}
+
 			if (Map[LevelSelection][rows][columns] == '#' || Map[LevelSelection][rows][columns] == '&')
 			{
-				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x0C); // turns switch and door into another colour
+				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x05); // turns switch and door into another colour
 			}
 			
 		 
