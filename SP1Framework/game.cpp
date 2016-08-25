@@ -161,6 +161,7 @@ void update(double dt)
 		case S_CREDITS:renderCredits(); // credits screen
 			break;
 		case S_STORY:renderStory();
+			break;
 		case S_GAMEOVER:rendergameover();
 			break;
 		case S_GAMEOVER2:rendergameover2();
