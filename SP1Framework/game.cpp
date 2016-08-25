@@ -203,7 +203,9 @@ void render()
 			break;
 		case S_CREDITS:renderCredits();
 			break;
-		case S_STORY:renderStory();
+		case S_STORY:
+			renderStory();
+			break;
 		case S_GAMEOVER:rendergameover();
 			break;
 		case S_GAMEOVER2:rendergameover2();
@@ -571,7 +573,13 @@ void renderMap()
 			}
 
 			c.X = columns;
-			g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x0a);
+			if (LevelSelection == 9 || LevelSelection == 10){
+				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x00);
+			}
+
+			else {
+				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x0a);
+			}
 
 			if (Map[LevelSelection][rows][columns] == '1' || Map[LevelSelection][rows][columns] == '2' || Map[LevelSelection][rows][columns] == '5' || Map[LevelSelection][rows][columns] == 'A')
 			{
@@ -596,6 +604,11 @@ void renderMap()
 			if (Map[LevelSelection][rows][columns] == 'B')
 			{
 				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x02); // turns bonus door into another colour
+			}
+
+			if (Map[LevelSelection][rows][columns] == '#' || Map[LevelSelection][rows][columns] == '&')
+			{
+				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x0C); // turns switch and door into another colour
 			}
 			
 		 

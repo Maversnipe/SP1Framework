@@ -96,7 +96,6 @@
     <ClCompile Include="LevelThree.cpp" />
     <ClCompile Include="LevelTwo.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="spikes.cpp" />
     <ClCompile Include="StoryEight.cpp" />
     <ClCompile Include="StoryEnd.cpp" />
     <ClCompile Include="StoryFive.cpp" />
