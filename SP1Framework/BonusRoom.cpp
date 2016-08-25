@@ -16,11 +16,14 @@ void BonusRoom(){
 
 	if (File.is_open())
 	{
-		for (int Rows = 0; Rows < 25; Rows++)
+		for (int Levels = 11; Levels < 16; Levels++)
 		{
-			for (int Columns = 0; Columns < 55; Columns++)
+			for (int Rows = 0; Rows < 25; Rows++)
 			{
-				File >> Map[11][Rows][Columns];
+				for (int Columns = 0; Columns < 55; Columns++)
+				{
+					File >> Map[Levels][Rows][Columns];
+				}
 			}
 		}
 		File.close();

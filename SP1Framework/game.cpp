@@ -853,14 +853,51 @@ void LevelClear()
 		charSpawn();
 	}
 
-	if (LevelSelection == 11 && (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == 'b')) // checks if player is in bonus room and decided to leave
+	if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == 'b') // checks if player is in bonus room and decided to leave
 	{
-		LevelSelection = 2;
-		charSpawn();
+		switch (LevelSelection)
+		{
+		case 11:
+			LevelSelection = 2;
+			break;
+		case 12:
+			LevelSelection = 4;
+			break;
+		case 13:
+			LevelSelection = 6;
+			break;
+		case 14:
+			LevelSelection = 8;
+			break;
+		case 15:
+			LevelSelection = 10;
+			break;
+		}
 	}
 	if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == 'B' && bonusTimeKey == true){ // checks if player is not in bonus room and has reached the bonus room door
-		LevelSelection = 11;
-		bonusTimeKey = false;
+		switch (LevelSelection)
+		{
+		case 2:
+			LevelSelection = 11;
+			bonusTimeKey = false;
+			break;
+		case 4:
+			LevelSelection = 11;
+			bonusTimeKey = false;
+			break;
+		case 6:
+			LevelSelection = 11;
+			bonusTimeKey = false;
+			break;
+		case 8:
+			LevelSelection = 11;
+			bonusTimeKey = false;
+			break;
+		case 10:
+			LevelSelection = 11;
+			bonusTimeKey = false;
+			break;
+		}
 	}
 }
 
@@ -1218,4 +1255,3 @@ void Cut()
 		treeAxe = false;
 	}
 }
-
