@@ -609,7 +609,12 @@ void renderMap()
 
 			if (Map[LevelSelection][rows][columns] == 'X')
 			{
-				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x04); // turns bonus door into another colour
+				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x04); // turns spikes into another colour
+			}
+
+			if (Map[LevelSelection][rows][columns] == 'T')
+			{
+				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x0A); // trees for level 10
 			}
 
 			if (Map[LevelSelection][rows][columns] == '#' || Map[LevelSelection][rows][columns] == '&')
@@ -1107,11 +1112,20 @@ void rendergameover()
 
 	// goes back to splash screen if escape is pressed
 	if (g_abKeyPressed[K_ESCAPE] && (g_eGameState == S_GAMEOVER)){
+		g_dTotalPoints = 0;
+		g_dTimer = 0.0;
+		treeAxe = false;
+		AxeUses = 0;
+		bonusTimeKey = false;
 		g_eGameState = S_SPLASHSCREEN;
 	}
 	// checks for arrow location, then takes player to credit screen
 	if (g_abKeyPressed[K_R] && (g_eGameState == S_GAMEOVER))
 	{
+		g_dTotalPoints = 0;
+		treeAxe = false;
+		AxeUses = 0;
+		bonusTimeKey = false;
 		restart();
 	}
 }
@@ -1137,6 +1151,11 @@ void rendergameover2()
 
 	// goes back to splash screen if escape is pressed
 	if (g_abKeyPressed[K_ESCAPE] && (g_eGameState == S_GAMEOVER2)){
+		g_dTotalPoints = 0;
+		g_dTimer = 0.0;
+		treeAxe = false;
+		AxeUses = 0;
+		bonusTimeKey = false;
 		g_eGameState = S_SPLASHSCREEN;
 	}
 	// checks for arrow location, then takes player to credit screen
