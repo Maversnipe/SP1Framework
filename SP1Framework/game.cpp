@@ -160,6 +160,10 @@ void update(double dt)
 			break;
 		case S_CREDITS:renderCredits(); // credits screen
 			break;
+		case S_GAMEOVER:rendergameover();
+			break;
+		case S_GAMEOVER2:rendergameover2();
+			break;
 		}
 
 }
@@ -197,6 +201,11 @@ void render()
 		case S_OPTION:renderOption();
 			break;
 		case S_CREDITS:renderCredits();
+			break;
+		case S_GAMEOVER:rendergameover();
+			break;
+		case S_GAMEOVER2:rendergameover2();
+			break;
     }  // renders everything required for the screens
 
 	light();
@@ -315,7 +324,7 @@ void spikes_on()
 {
 	if ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == 'X')
 	{
-		restart();
+		g_eGameState = S_GAMEOVER;
 	}
 }
 
@@ -445,29 +454,7 @@ void renderGame()
 	AiRender();
 }
 
-void light()
-{
-	COORD c;
-	c.X = g_sChar.m_cLocation.X;
-	c.Y = g_sChar.m_cLocation.Y;
-	if (g_abKeyPressed[K_B])
-	{
-			if ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == ' ') || (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == ' '))
-			{
-				c.X += 1;
-				g_Console.writeToBuffer(c, " ", 0xC0);
-				c.Y += 1;
-				g_Console.writeToBuffer(c, " ", 0xC0);
-				c.X -= 2;
-				g_Console.writeToBuffer(c, " ", 0xCE);
-				c.Y -= 2;
-				g_Console.writeToBuffer(c, " ", 0xCE);
 
-			
-			}
-		}
-	
-}
 
 
 void renderMap()
@@ -1002,7 +989,7 @@ void renderOption()
 		g_eGameState = S_SPLASHSCREEN;
 	}
 	// checks for arrow location, then takes player to credit screen
-	if (g_abKeyPressed[K_ENTER] && (g_eGameState == S_OPTION) && arrow.Y == 16 && g_dElapsedTime>=g_dMenuToSelectTimer){//if things doesnt work use plan B
+	if (g_abKeyPressed[K_ENTER] && (g_eGameState == S_OPTION) && arrow.Y == 16 && g_dElapsedTime>=g_dMenuToSelectTimer){
 
 		g_eGameState = S_CREDITS;
 	}
@@ -1011,6 +998,66 @@ void renderOption()
 	renderArrow();
 	moveArrow();
 	setArrowMenu = false;
+}
+void rendergameover()
+{
+	COORD c = g_Console.getConsoleSize();
+	c.Y = 0;
+	c.X = 0;
+
+	// reads and writes options.txt for the options screen
+	string sym;
+	ifstream myfile("gameover.txt");
+
+	if (myfile.is_open())
+	{
+		while (getline(myfile, sym))
+		{
+			g_Console.writeToBuffer(c, sym, 0x07);
+			c.Y++;
+		}
+		myfile.close();
+	}
+
+	// goes back to splash screen if escape is pressed
+	if (g_abKeyPressed[K_ESCAPE] && (g_eGameState == S_GAMEOVER)){
+		g_eGameState = S_SPLASHSCREEN;
+	}
+	// checks for arrow location, then takes player to credit screen
+	if (g_abKeyPressed[K_R] && (g_eGameState == S_GAMEOVER))
+	{
+		restart();
+	}
+}
+void rendergameover2()
+{
+	COORD c = g_Console.getConsoleSize();
+	c.Y = 0;
+	c.X = 0;
+
+	// reads and writes options.txt for the options screen
+	string sym;
+	ifstream myfile("gameover2.txt");
+
+	if (myfile.is_open())
+	{
+		while (getline(myfile, sym))
+		{
+			g_Console.writeToBuffer(c, sym, 0x07);
+			c.Y++;
+		}
+		myfile.close();
+	}
+
+	// goes back to splash screen if escape is pressed
+	if (g_abKeyPressed[K_ESCAPE] && (g_eGameState == S_GAMEOVER2)){
+		g_eGameState = S_SPLASHSCREEN;
+	}
+	// checks for arrow location, then takes player to credit screen
+	if (g_abKeyPressed[K_R] && (g_eGameState == S_GAMEOVER2))
+	{
+		restart();
+	}
 }
 void Cut()
 {

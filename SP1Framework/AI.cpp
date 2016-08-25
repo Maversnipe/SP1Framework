@@ -1,5 +1,7 @@
 #include "AI.h"
+extern EGAMESTATES g_eGameState;
 EnemyChar Enemy;
+extern bool g_abKeyPressed[K_COUNT];
 extern SGameChar g_sChar;
 extern char Map[20][100][100];
 extern int LevelSelection;
@@ -107,7 +109,7 @@ void AiMovement()
 
 		if (Enemy.m_cLocation.Y == g_sChar.m_cLocation.Y && Enemy.m_cLocation.X == g_sChar.m_cLocation.X)
 		{
-			restart();
+			g_eGameState = S_GAMEOVER2;
 		}
 	}
 }
