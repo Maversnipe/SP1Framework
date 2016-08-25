@@ -160,6 +160,7 @@ void update(double dt)
 			break;
 		case S_CREDITS:renderCredits(); // credits screen
 			break;
+		case S_STORY:renderStory();
 		case S_GAMEOVER:rendergameover();
 			break;
 		case S_GAMEOVER2:rendergameover2();
@@ -202,6 +203,7 @@ void render()
 			break;
 		case S_CREDITS:renderCredits();
 			break;
+		case S_STORY:renderStory();
 		case S_GAMEOVER:rendergameover();
 			break;
 		case S_GAMEOVER2:rendergameover2();
@@ -451,11 +453,85 @@ void renderGame()
 {
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
-	AiRender();
+	AiRender();			// renders AI into the buffer
 }
 
 
 
+void renderStory(){
+	switch (LevelSelection)
+	{
+	case 1: // level one
+		StoryOne();
+		break;
+
+	case 2: // level two
+		StoryTwo();
+		break;
+
+	case 3: // level three
+		StoryThree();
+		break;
+
+	case 4: // level four
+		StoryFour();
+		break;
+
+	case 5: // level five
+		StoryFive();
+		break;
+
+	case 6: // level six
+		StorySix();
+		break;
+
+	case 7: // level seven
+		StorySeven();
+		break;
+
+	case 8: // level eight
+		StoryEight();
+		break;
+
+	case 9: // level nine
+		StoryNine();
+		break;
+
+	case 10: // level ten
+		StoryTen();
+		break;
+
+	case 11: // level ten
+		StoryEnd();
+		break;
+	}
+
+	if (LevelSelection < 11){
+		COORD c;
+		c.X = 25;
+		c.Y = 25;
+
+		ostringstream ss;
+		ss.str("");
+		ss << "Press SPACE to move on with the game...";
+		if (LevelSelection >= 1 || LevelSelection <= 4 || LevelSelection == 11){
+			g_Console.writeToBuffer(c, ss.str(), 0x2F);
+		}
+
+		if (LevelSelection >= 5 || LevelSelection <= 10){
+			g_Console.writeToBuffer(c, ss.str(), 0x1F);
+		}
+
+		if (g_abKeyPressed[K_SPACE]){
+			charSpawn();
+			g_eGameState = S_GAME;
+		}
+
+		if (g_abKeyPressed[K_ESCAPE]){
+			g_eGameState = S_PAUSE;
+		}
+	}
+}
 
 void renderMap()
 {
@@ -744,11 +820,13 @@ void LevelClear()
 		clearScreen();
 		LevelSelection += 1;
 		SavedPoints += g_dTotalPoints;
-		//charSpawn();
+		g_eGameState = S_STORY;
+		charSpawn();
 	}
+
 	if (LevelSelection == 11 && (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == 'b')) // checks if player is in bonus room and decided to leave
 	{
-		LevelSelection = 5;
+		LevelSelection = 2;
 		charSpawn();
 	}
 	if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == 'B' && bonusTimeKey == true){ // checks if player is not in bonus room and has reached the bonus room door
@@ -763,71 +841,60 @@ void SelectLevel()
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 16) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 1;
-		charSpawn();
-		AiSpawn();
-		g_eGameState = S_GAME;
+		g_eGameState = S_STORY;
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 17) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 2;
-		charSpawn();
-		g_eGameState = S_GAME;
+		g_eGameState = S_STORY;
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 18) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 3;
-		charSpawn();
-		g_eGameState = S_GAME;
+		g_eGameState = S_STORY;
 	}	
 	
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 19) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 4;
-		charSpawn();
-		g_eGameState = S_GAME;
+		g_eGameState = S_STORY;
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 20) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 5;
-		charSpawn();
-		g_eGameState = S_GAME;
+		g_eGameState = S_STORY;
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 21) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 6;
-		charSpawn();
-		g_eGameState = S_GAME;
+		g_eGameState = S_STORY;
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 22) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 7;
-		charSpawn();
-		g_eGameState = S_GAME;
+		g_eGameState = S_STORY;
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 23) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 8;
-		charSpawn();
-		g_eGameState = S_GAME;
+		g_eGameState = S_STORY;
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 24) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 9;
-		charSpawn();
-		g_eGameState = S_GAME;
+		g_eGameState = S_STORY;
 	}
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 25) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 10;
-		charSpawn();
-		g_eGameState = S_GAME;
+		g_eGameState = S_STORY;
 	}
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 26) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
