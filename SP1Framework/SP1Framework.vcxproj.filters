@@ -22,6 +22,9 @@
     <Filter Include="Source Files\Levels">
       <UniqueIdentifier>{5e53fca8-e19d-4583-bac5-620e222e00d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Story">
+      <UniqueIdentifier>{df59a85b-4ca4-49ca-9df2-1d6d3b4d0d77}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -84,6 +87,39 @@
     <ClCompile Include="characterSpawn.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="StoryOne.cpp">
+      <Filter>Source Files\Story</Filter>
+    </ClCompile>
+    <ClCompile Include="StoryTwo.cpp">
+      <Filter>Source Files\Story</Filter>
+    </ClCompile>
+    <ClCompile Include="StoryThree.cpp">
+      <Filter>Source Files\Story</Filter>
+    </ClCompile>
+    <ClCompile Include="StoryFour.cpp">
+      <Filter>Source Files\Story</Filter>
+    </ClCompile>
+    <ClCompile Include="StoryFive.cpp">
+      <Filter>Source Files\Story</Filter>
+    </ClCompile>
+    <ClCompile Include="StorySix.cpp">
+      <Filter>Source Files\Story</Filter>
+    </ClCompile>
+    <ClCompile Include="StorySeven.cpp">
+      <Filter>Source Files\Story</Filter>
+    </ClCompile>
+    <ClCompile Include="StoryEight.cpp">
+      <Filter>Source Files\Story</Filter>
+    </ClCompile>
+    <ClCompile Include="StoryNine.cpp">
+      <Filter>Source Files\Story</Filter>
+    </ClCompile>
+    <ClCompile Include="StoryTen.cpp">
+      <Filter>Source Files\Story</Filter>
+    </ClCompile>
+    <ClCompile Include="StoryEnd.cpp">
+      <Filter>Source Files\Story</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\console.h">
@@ -100,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="Levels.h">
       <Filter>Header Files\Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Story.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

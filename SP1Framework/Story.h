@@ -1,0 +1,22 @@
+#include <string>
+#include "game.h"
+#include "Framework\console.h"
+#include "Framework\timer.h"
+#include <iostream>
+#include <iomanip>
+#include <sstream>
+#include <fstream>
+#include <stdlib.h>
+#include "Levels.h"
+
+void StoryOne();
+void StoryTwo();
+void StoryThree();
+void StoryFour();
+void StoryFive();
+void StorySix();
+void StorySeven();
+void StoryEight();
+void StoryNine();
+void StoryTen();
+void StoryEnd();

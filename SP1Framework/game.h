@@ -5,6 +5,7 @@
 #include "Framework\timer.h"
 #include <string>
 #include "Levels.h"
+#include "Story.h"
 #include "AI.h"
 
 using namespace std;
@@ -58,6 +59,7 @@ enum EGAMESTATES
 	S_LEADERBOARD,
 	S_OPTION,
 	S_CREDITS,
+	S_STORY,
 };
 
 
@@ -91,24 +93,25 @@ void renderMap();           // renders the map to the buffer first
 void renderCharacter();     // renders the character into the buffer
 void renderFramerate();     // renders debug information, frame rate, elapsed time, etc
 void renderToScreen();      // dump the contents of the buffer to the screen, one frame worth of game
-void renderPauseScreen();
-void renderArrow();
-void moveArrow();
-void paused();
-void pauseScreenChoices();
-void LoadMaps();
-void pointSystem();
-void LevelClear();
-void SelectLevel();
-void bonusKey();
-void Cut();
-void treeAxeCheck();
-void renderInstructions();
-void charSpawn();
-void restart();
-void renderleaderboard();
-void renderOption();
-void renderCredits();
-void light();
+void renderPauseScreen();	// renders the pause screen
+void renderArrow();			// renders the arrow that shows up on selection screens
+void moveArrow();			// moves the arrow that renders on selection screen
+void paused();				// function when the game is paused
+void pauseScreenChoices();	// registers keys when game is paused
+void LoadMaps();			// writes the maps
+void pointSystem();			// point system for the game
+void LevelClear();			// logic when level is cleared
+void SelectLevel();			// screen to select level
+void bonusKey();			// checks for bonus key
+void Cut();					// mechanic to cut down trees
+void treeAxeCheck();		// checks for axe
+void renderInstructions();	// renders the game instructions
+void charSpawn();			// spawn point for character
+void restart();				// to restart the game
+void renderleaderboard();	// renders the leaderboard screen
+void renderOption();		// renders option screen
+void renderCredits();		// renders credit screen
+void light();				// light mechanic
+void renderStory();			// renders story
 
 #endif // _GAME_H

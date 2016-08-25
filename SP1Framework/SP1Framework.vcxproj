@@ -97,6 +97,17 @@
     <ClCompile Include="LevelTwo.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="spikes.cpp" />
+    <ClCompile Include="StoryEight.cpp" />
+    <ClCompile Include="StoryEnd.cpp" />
+    <ClCompile Include="StoryFive.cpp" />
+    <ClCompile Include="StoryFour.cpp" />
+    <ClCompile Include="StoryNine.cpp" />
+    <ClCompile Include="StoryOne.cpp" />
+    <ClCompile Include="StorySeven.cpp" />
+    <ClCompile Include="StorySix.cpp" />
+    <ClCompile Include="StoryTen.cpp" />
+    <ClCompile Include="StoryThree.cpp" />
+    <ClCompile Include="StoryTwo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AI.h" />
@@ -104,6 +115,7 @@
     <ClInclude Include="Framework\timer.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="Levels.h" />
+    <ClInclude Include="Story.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
