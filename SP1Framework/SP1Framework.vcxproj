@@ -96,7 +96,7 @@
     <ClCompile Include="LevelThree.cpp" />
     <ClCompile Include="LevelTwo.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="spikes.cpp" />
+    <ClCompile Include="Torchlight.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AI.h" />
