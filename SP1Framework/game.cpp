@@ -160,13 +160,10 @@ void update(double dt)
 			break;
 		case S_CREDITS:renderCredits(); // credits screen
 			break;
-<<<<<<< HEAD
 		case S_STORY:renderStory();
-=======
 		case S_GAMEOVER:rendergameover();
 			break;
 		case S_GAMEOVER2:rendergameover2();
->>>>>>> 869a148a7a141b5d9eb7c296c158c888fd41d037
 			break;
 		}
 
@@ -206,13 +203,10 @@ void render()
 			break;
 		case S_CREDITS:renderCredits();
 			break;
-<<<<<<< HEAD
 		case S_STORY:renderStory();
-=======
 		case S_GAMEOVER:rendergameover();
 			break;
 		case S_GAMEOVER2:rendergameover2();
->>>>>>> 869a148a7a141b5d9eb7c296c158c888fd41d037
 			break;
     }  // renders everything required for the screens
 
@@ -826,12 +820,8 @@ void LevelClear()
 		clearScreen();
 		LevelSelection += 1;
 		SavedPoints += g_dTotalPoints;
-<<<<<<< HEAD
 		g_eGameState = S_STORY;
 		charSpawn();
-=======
-		//charSpawn();
->>>>>>> 869a148a7a141b5d9eb7c296c158c888fd41d037
 	}
 
 	if (LevelSelection == 11 && (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == 'b')) // checks if player is in bonus room and decided to leave
