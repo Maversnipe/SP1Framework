@@ -446,29 +446,7 @@ void renderGame()
 	AiRender();
 }
 
-void light()
-{
-	COORD c;
-	c.X = g_sChar.m_cLocation.X;
-	c.Y = g_sChar.m_cLocation.Y;
-	if (g_abKeyPressed[K_B])
-	{
-			if ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == ' ') || (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == ' '))
-			{
-				c.X += 1;
-				g_Console.writeToBuffer(c, " ", 0xC0);
-				c.Y += 1;
-				g_Console.writeToBuffer(c, " ", 0xC0);
-				c.X -= 2;
-				g_Console.writeToBuffer(c, " ", 0xCE);
-				c.Y -= 2;
-				g_Console.writeToBuffer(c, " ", 0xCE);
 
-			
-			}
-		}
-	
-}
 
 
 void renderMap()
