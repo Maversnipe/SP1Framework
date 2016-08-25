@@ -598,10 +598,5 @@ void light()
 		g_Console.writeToBuffer(c.X + 2, c.Y - 2, "X", 0x7C);
 
 	}
-
-	
-
-
-  }
-	
+  }	
 }

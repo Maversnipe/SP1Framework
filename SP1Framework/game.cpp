@@ -263,6 +263,7 @@ void restart()
 	}
 	g_eGameState = S_GAME;
 	charSpawn();
+	AiSpawn();
 	treeAxe = false;
 	AxeUses = 0;
 	bonusTimeKey = false;
@@ -455,7 +456,10 @@ void renderGame()
 {
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
-	AiRender();			// renders AI into the buffer
+	if ((LevelSelection == 4) || (LevelSelection == 9) || (LevelSelection == 10))
+	{
+		AiRender();			// renders AI into the buffer
+	}
 }
 
 
@@ -526,6 +530,7 @@ void renderStory(){
 
 		if (g_abKeyPressed[K_SPACE]){
 			charSpawn();
+			AiSpawn();
 			g_eGameState = S_GAME;
 		}
 
@@ -740,6 +745,7 @@ void pauseControls(){
 		g_dTotalPoints = 0;
 		SavedPoints = 0;
 		charSpawn();
+		AiSpawn();
 		treeAxe = false;
 		AxeUses = 0;
 		bonusTimeKey = false;
@@ -838,6 +844,7 @@ void LevelClear()
 		LevelSelection += 1;
 		SavedPoints += g_dTotalPoints;
 		g_eGameState = S_STORY;
+		AiSpawn();
 		charSpawn();
 	}
 
