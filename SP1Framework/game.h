@@ -58,6 +58,8 @@ enum EGAMESTATES
 	S_LEADERBOARD,
 	S_OPTION,
 	S_CREDITS,
+	S_GAMEOVER,
+	S_GAMEOVER2,
 };
 
 
@@ -110,5 +112,6 @@ void renderleaderboard();
 void renderOption();
 void renderCredits();
 void light();
-
+void rendergameover();
+void rendergameover2();
 #endif // _GAME_H
