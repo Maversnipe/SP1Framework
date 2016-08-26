@@ -2,13 +2,14 @@
 extern char Map[20][100][100];
 extern struct SGameChar g_sChar;
 extern bool g_abKeyPressed[K_COUNT];
+extern EGAMESTATES g_eGameState;
 extern int LevelSelection;
 void light()
 {
 	COORD c;
 	c.X = g_sChar.m_cLocation.X;
 	c.Y = g_sChar.m_cLocation.Y;
-	if (g_abKeyPressed[K_B])
+	if ((g_abKeyPressed[K_B]) && ((g_eGameState != S_GAMEOVER) || (g_eGameState != S_GAMEOVER2)))
 	{
 		//down is +y , up is -y, left is -x , left is +x,
 

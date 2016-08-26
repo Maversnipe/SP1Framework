@@ -84,6 +84,7 @@
     <ClCompile Include="Framework\console.cpp" />
     <ClCompile Include="Framework\timer.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="Leaderboard.cpp" />
     <ClCompile Include="LevelEight.cpp" />
     <ClCompile Include="LevelFive.cpp" />
     <ClCompile Include="LevelFour.cpp" />

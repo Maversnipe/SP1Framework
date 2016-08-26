@@ -17,10 +17,11 @@ COORD arrow;
 bool setArrowMenu = false;
 bool setArrowSelect = false;
 bool setArrowOption = false;
+bool setArrowLeaderboard = false;
 int LevelSelection = 1;
 int AxeUses = 0;
 int Battery = 0;
-double  g_dElapsedTime;
+double g_dElapsedTime;
 double g_dTimer;
 double g_dMenuToSelectTimer;
 double g_dDoorTime;
@@ -31,11 +32,16 @@ int g_dLastPoints = 0;
 double	g_dShortestTime = 0.0;
 double	g_dLastTime = 0.0;
 double  g_dDeltaTime;
-bool    g_abKeyPressed[K_COUNT];
-bool	bonusTimeKey;
-bool	treeAxe = false;
-bool	onRock = false;
+bool g_abKeyPressed[K_COUNT];
+bool bonusTimeKey;
+bool treeAxe = false;
+bool onRock = false;
 int SavedPoints = 0;
+stringstream InputName;
+stringstream OverallPoints;
+stringstream OverallTime;
+int Points = 0;
+int Time = 0;
 
 
 // Game specific variables here
@@ -167,7 +173,6 @@ void update(double dt)
 		case S_GAMEOVER2:rendergameover2();
 			break;
 		}
-
 }
 //--------------------------------------------------------------
 // Purpose  : Render function is to update the console screen
@@ -275,7 +280,6 @@ void splashScreenWait() // checks the player input on the splash screen
 	if ((g_eGameState == S_SPLASHSCREEN) && (g_abKeyPressed[K_ENTER]) && (arrow.Y == 15) && g_dElapsedTime >= g_dMenuToSelectTimer) // Level Selection
 	{
 		g_dMenuToSelectTimer = g_dElapsedTime + 0.25; // 0.25s delay in order to avoid sending player to level one automatically
-		setArrowSelect = false;
 		g_eGameState = S_SELECT;
 	}
 	if (g_eGameState == S_SPLASHSCREEN && g_abKeyPressed[K_ENTER] && arrow.Y == 16 && g_dElapsedTime >= g_dMenuToSelectTimer) // options
@@ -295,6 +299,7 @@ void splashScreenWait() // checks the player input on the splash screen
 	// preventing the arrows from sending the player to an unknown spot when coming back to screen
 	setArrowOption = false;
 	setArrowSelect = false;
+	setArrowLeaderboard = false;
 }
 
 void gameplay()		// gameplay logic
@@ -450,6 +455,7 @@ void renderSplashScreen()  // renders the splash screen
 	moveArrow();
 	setArrowOption = false;
 	setArrowSelect = false;
+	setArrowLeaderboard = false;
 	// renders the arrow for the splash and level select screens
 
 	if ((g_eGameState == S_SPLASHSCREEN) && (g_abKeyPressed[K_ENTER]) && (arrow.Y == 19)){
@@ -641,7 +647,8 @@ void renderMap()
 	}
 	LevelClear(); // calls the function to check if player has arrived at the level clear character
 	setArrowOption = false;
-	setArrowSelect = false; // resets arrows to make sure player doesn't end up at strange places on main screen
+	setArrowSelect = false; 
+	setArrowLeaderboard = false; // resets arrows to make sure player doesn't end up at strange places on main screen
 }
 
 void renderCharacter()
@@ -677,6 +684,14 @@ void renderArrow()
 		arrow.Y = 14;
 		g_Console.writeToBuffer(arrow, ">");
 		setArrowOption = true;
+	}
+	// this renders the arrrow that appears on the leaderboard screen
+	else if (setArrowLeaderboard == false && g_eGameState == S_LEADERBOARD)
+	{
+		arrow.X = 25;
+		arrow.Y = 15;
+		g_Console.writeToBuffer(arrow, ">");
+		setArrowLeaderboard = true;
 	}
 	// Draws the arrow
 	WORD charColor = 0x06;
@@ -844,6 +859,18 @@ void moveArrow()
 		bSomethingHappened = true;
 		g_Console.writeToBuffer(arrow, ">");
 	}
+	if (g_abKeyPressed[K_UP] && arrow.Y > 15 && g_eGameState == S_LEADERBOARD)
+	{
+		arrow.Y--;
+		bSomethingHappened = true;
+		g_Console.writeToBuffer(arrow, ">");
+	}
+	if (g_abKeyPressed[K_DOWN] && arrow.Y < 16 && g_eGameState == S_LEADERBOARD)
+	{
+		arrow.Y++;
+		bSomethingHappened = true;
+		g_Console.writeToBuffer(arrow, ">");
+	}
 	if (bSomethingHappened)
 	{
 		// set the bounce time to some time in the future to prevent accidental triggers
@@ -892,19 +919,19 @@ void LevelClear()
 			bonusTimeKey = false;
 			break;
 		case 4:
-			LevelSelection = 11;
+			LevelSelection = 12;
 			bonusTimeKey = false;
 			break;
 		case 6:
-			LevelSelection = 11;
+			LevelSelection = 13;
 			bonusTimeKey = false;
 			break;
 		case 8:
-			LevelSelection = 11;
+			LevelSelection = 14;
 			bonusTimeKey = false;
 			break;
 		case 10:
-			LevelSelection = 11;
+			LevelSelection = 15;
 			bonusTimeKey = false;
 			break;
 		}
@@ -986,6 +1013,7 @@ void SelectLevel()
 	// sets arrow to false again to make sure it doesn't spawn at weird places after
 	setArrowMenu = false;
 	setArrowOption = false;
+	setArrowLeaderboard = false;
 }
 
 void LoadMaps()
@@ -1029,59 +1057,6 @@ void renderInstructions()
 	}
 }
 
-void Records(){
-	if (g_dTotalPoints > g_dHighestPoints){
-		g_dHighestPoints = g_dTotalPoints;
-	}
-
-	if (g_dShortestTime < g_dElapsedTime){
-		g_dShortestTime = g_dElapsedTime;
-	}
-
-	g_dLastTime = g_dElapsedTime;
-	g_dLastPoints = g_dTotalPoints;
-}
-
-void renderLeaderboard()
-{
-	COORD c = g_Console.getConsoleSize();
-	c.Y = 5;
-	c.X = 10;
-
-	ostringstream high;
-	ostringstream last;
-	ostringstream mes;
-	high.str("");
-	high << "HIGHEST SCORE: " << g_dHighestPoints << "    SHORTEST TIME: " << (int)g_dShortestTime; // shows the highest score + shortest time
-	g_Console.writeToBuffer(c.X + 9, c.Y + 9, high.str(), 0x07);
-
-	last.str("");
-	last << "PREVIOUS SCORE: " << g_dLastPoints << "    LAST TIME: " << (int)g_dLastTime; // shows the highest score + shortest time
-	g_Console.writeToBuffer(c.X + 10, c.Y + 14, last.str(), 0x07);
-
-	mes.str("");
-	mes << "Press 'ESC' to return to the MAIN MENU";
-	g_Console.writeToBuffer(c.X + 8, c.Y + 19, mes.str(), 0x07);
-
-	// reads and writes leaderboard.txt for the leaderboard screen
-	string sym;
-	ifstream myfile("Leaderboard.txt");
-
-	if (myfile.is_open())
-	{
-		while (getline(myfile, sym))
-		{
-			g_Console.writeToBuffer(c, sym, 0x07);
-			c.Y++;
-		}
-		myfile.close();
-	}
-
-	// goes back to splash screen if escape is pressed
-	if (g_abKeyPressed[K_ESCAPE] && (g_eGameState == S_LEADERBOARD)){
-		g_eGameState = S_SPLASHSCREEN;
-	}
-}
 void renderCredits()
 {
 	COORD c = g_Console.getConsoleSize();
@@ -1107,6 +1082,7 @@ void renderCredits()
 		g_eGameState = S_SPLASHSCREEN;
 	}
 }
+
 void renderOption()
 {
 	COORD c = g_Console.getConsoleSize();
@@ -1138,10 +1114,12 @@ void renderOption()
 	}
 	// turns all the other arrow choices false so it will work to only reach the range in options
 	setArrowSelect = false;
+	setArrowMenu = false;
+	setArrowLeaderboard = false;
 	renderArrow();
 	moveArrow();
-	setArrowMenu = false;
 }
+
 void rendergameover()
 {
 	COORD c = g_Console.getConsoleSize();
@@ -1171,7 +1149,7 @@ void rendergameover()
 		bonusTimeKey = false;
 		g_eGameState = S_SPLASHSCREEN;
 	}
-	// checks for arrow location, then takes player to credit screen
+	// restarts the level
 	if (g_abKeyPressed[K_R] && (g_eGameState == S_GAMEOVER))
 	{
 		g_dTotalPoints = 0;
