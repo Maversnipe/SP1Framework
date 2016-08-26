@@ -12,8 +12,7 @@
 |                                                                              |
 |                                                                              |
 |                                                                              |
-|                               Reset Leaderboard                              |
-|                             Change Character colour                          |
+|                               Reset Leaderboard                              |                                                                              |
 |                                    Credits                                   |
 |                                                                              |
 |                                                                              |
