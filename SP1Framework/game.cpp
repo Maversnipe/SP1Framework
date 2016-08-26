@@ -356,6 +356,11 @@ void pointSystem()
 		Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] = ' ';
 		g_dTotalPoints += 1000;
 	}
+	if ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == '.')
+	{
+		Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] = ' ';
+		g_dTotalPoints += 10;
+	}
 }
 
 void bonusKey(){
@@ -561,6 +566,10 @@ void renderMap()
 			{
 				Map[LevelSelection][rows][columns] = ' '; // turns all 'i's in the .txt files to blank spaces to walk on.
 			}
+			if (Map[LevelSelection][rows][columns] == '.')
+			{
+				Map[LevelSelection][rows][columns] = '.'; // turns all 'i's in the .txt files to blank spaces to walk on.
+			}
 
 			if (Map[LevelSelection][rows][columns] == 'L')
 			{
@@ -580,13 +589,14 @@ void renderMap()
 			c.X = columns;
 			if (LevelSelection == 9 || LevelSelection == 10){
 				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x00);
+				
 			}
 
 			else {
 				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x0a);
 			}
 
-			if (Map[LevelSelection][rows][columns] == '1' || Map[LevelSelection][rows][columns] == '2' || Map[LevelSelection][rows][columns] == '5' || Map[LevelSelection][rows][columns] == 'A')
+			if (Map[LevelSelection][rows][columns] == '1' || Map[LevelSelection][rows][columns] == '2' || Map[LevelSelection][rows][columns] == '5' || Map[LevelSelection][rows][columns] == 'A' || Map[LevelSelection][rows][columns] == '.')
 			{
 				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x0E); // turns all point symbols to a different colour
 			}

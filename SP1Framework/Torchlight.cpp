@@ -12,69 +12,222 @@ void light()
 	{
 		//down is +y , up is -y, left is -x , left is +x,
 
-		if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] == ' ')
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] == '.')
 		{
 			
-			g_Console.writeToBuffer(c.X+1,c.Y, " ", 0x7B);
+			g_Console.writeToBuffer(c.X+1,c.Y, ".", 0x7E);
 		}
 
 
-		if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] == ' ')
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] == '.')
 		{
 			
-			g_Console.writeToBuffer(c.X+2,c.Y, " ", 0x7B);
+			g_Console.writeToBuffer(c.X+2,c.Y, ".", 0x7E);
 		}
 
-		if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] == ' ')
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] == '.')
 		{
 			
-			g_Console.writeToBuffer(c.X-1,c.Y, " ", 0x7B);
+			g_Console.writeToBuffer(c.X-1,c.Y, ".", 0x7E);
 		}
 
-		if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] == ' ')
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] == '.')
 		{
 			
-			g_Console.writeToBuffer(c.X-2,c.Y, " ", 0x7B);
+			g_Console.writeToBuffer(c.X-2,c.Y, ".", 0x7E);
 		}
 
-		if (Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] == ' ')
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] == '.')
 		{
 			
-			g_Console.writeToBuffer(c.X,c.Y +1, " ", 0x7B);
+			g_Console.writeToBuffer(c.X,c.Y +1, ".", 0x7E);
 		}
 
-		if (Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] == ' ')
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] == '.')
 		{
 			
-			g_Console.writeToBuffer(c.X,c.Y+2, " ", 0x7B);
+			g_Console.writeToBuffer(c.X,c.Y+2, ".", 0x7E);
 		}
 
-		if (Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X ] == ' ')
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X ] == '.')
 		{
 			
-			g_Console.writeToBuffer(c.X,c.Y-1, " ", 0x7B);
+			g_Console.writeToBuffer(c.X,c.Y-1, ".", 0x7E);
 		}
 
-		if (Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X ] == ' ')
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X ] == '.')
 		{
 			
-			g_Console.writeToBuffer(c.X,c.Y-2, " ", 0x7B);
+			g_Console.writeToBuffer(c.X,c.Y-2, ".", 0x7E);
 		}
 
 		//square
 
 		//y+1
 
-		if (Map[LevelSelection][g_sChar.m_cLocation.Y+1][g_sChar.m_cLocation.X -1] == ' ')
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y+1][g_sChar.m_cLocation.X -1] == '.')
 		{
 
-			g_Console.writeToBuffer(c.X-1, c.Y+1, " ", 0x7B);
+			g_Console.writeToBuffer(c.X-1, c.Y+1, ".", 0x7E);
+		}
+
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X - 2] == '.')
+		{
+
+			g_Console.writeToBuffer(c.X -2 , c.Y + 1, ".", 0x7E);
+		}
+
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X + 1] == '.')
+		{
+
+			g_Console.writeToBuffer(c.X + 1, c.Y + 1, ".", 0x7E);
+		}
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X + 2] == '.')
+		{
+
+			g_Console.writeToBuffer(c.X + 2, c.Y + 1, ".", 0x7E);
+		}
+		//y-1
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X -1] == '.')
+		{
+
+			g_Console.writeToBuffer(c.X - 1, c.Y - 1, ".", 0x7E);
+		}
+
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X - 2] == '.')
+		{
+
+			g_Console.writeToBuffer(c.X - 2, c.Y - 1, ".", 0x7E);
+		}
+
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X + 1] == '.')
+		{
+
+			g_Console.writeToBuffer(c.X + 1, c.Y - 1, ".", 0x7E);
+		}
+   
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X + 2] == '.')
+		{
+
+			g_Console.writeToBuffer(c.X + 2, c.Y - 1, ".", 0x7E);
+		}
+
+		// y +2
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X + 2] == '.')
+		{
+
+			g_Console.writeToBuffer(c.X + 2, c.Y + 2, ".", 0x7E);
+		}
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X + 1] == '.')
+		{
+
+			g_Console.writeToBuffer(c.X +1, c.Y + 2, ".", 0x7E);
+		}
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X - 2] == '.')
+		{
+
+			g_Console.writeToBuffer(c.X - 2, c.Y + 2, ".", 0x7E);
+		}
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X - 1] == '.')
+		{
+
+			g_Console.writeToBuffer(c.X - 1, c.Y + 2, ".", 0x7E);
+		}
+
+		//y-2
+
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X -2] == '.')
+		{
+
+			g_Console.writeToBuffer(c.X - 2, c.Y -2, ".", 0x7E);
+		}
+
+
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X - 1] == '.')
+		{
+
+			g_Console.writeToBuffer(c.X - 1, c.Y - 2, ".", 0x7E);
+
+		}
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X + 1] == '.')
+		{
+
+			g_Console.writeToBuffer(c.X+1, c.Y - 2, ".", 0x7E);
+
+		}
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X + 2] == '.')
+		{
+
+			g_Console.writeToBuffer(c.X + 2, c.Y - 2, ".", 0x7E);
+
+		}
+
+		// Check if light is 'space'
+		//down is +y , up is -y, left is -x , left is +x,
+
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] == ' ')
+		{
+
+			g_Console.writeToBuffer(c.X + 1, c.Y, " ", 0x7B);
+		}
+
+
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] == ' ')
+		{
+
+			g_Console.writeToBuffer(c.X + 2, c.Y, " ", 0x7B);
+		}
+
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] == ' ')
+		{
+
+			g_Console.writeToBuffer(c.X - 1, c.Y, " ", 0x7B);
+		}
+
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] == ' ')
+		{
+
+			g_Console.writeToBuffer(c.X - 2, c.Y, " ", 0x7B);
+		}
+
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] == ' ')
+		{
+
+			g_Console.writeToBuffer(c.X, c.Y + 1, " ", 0x7B);
+		}
+
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] == ' ')
+		{
+
+			g_Console.writeToBuffer(c.X, c.Y + 2, " ", 0x7B);
+		}
+
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] == ' ')
+		{
+
+			g_Console.writeToBuffer(c.X, c.Y - 1, " ", 0x7B);
+		}
+
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] == ' ')
+		{
+
+			g_Console.writeToBuffer(c.X, c.Y - 2, " ", 0x7B);
+		}
+
+		//square
+
+		//y+1
+
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X - 1] == ' ')
+		{
+
+			g_Console.writeToBuffer(c.X - 1, c.Y + 1, " ", 0x7B);
 		}
 
 		if (Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X - 2] == ' ')
 		{
 
-			g_Console.writeToBuffer(c.X -2 , c.Y + 1, " ", 0x7B);
+			g_Console.writeToBuffer(c.X - 2, c.Y + 1, " ", 0x7B);
 		}
 
 		if (Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X + 1] == ' ')
@@ -88,7 +241,7 @@ void light()
 			g_Console.writeToBuffer(c.X + 2, c.Y + 1, " ", 0x7B);
 		}
 		//y-1
-		if (Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X -1] == ' ')
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X - 1] == ' ')
 		{
 
 			g_Console.writeToBuffer(c.X - 1, c.Y - 1, " ", 0x7B);
@@ -105,7 +258,7 @@ void light()
 
 			g_Console.writeToBuffer(c.X + 1, c.Y - 1, " ", 0x7B);
 		}
-   
+
 		if (Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X + 2] == ' ')
 		{
 
@@ -121,7 +274,7 @@ void light()
 		if (Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X + 1] == ' ')
 		{
 
-			g_Console.writeToBuffer(c.X +1, c.Y + 2, " ", 0x7B);
+			g_Console.writeToBuffer(c.X + 1, c.Y + 2, " ", 0x7B);
 		}
 		if (Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X - 2] == ' ')
 		{
@@ -136,10 +289,10 @@ void light()
 
 		//y-2
 
-		if (Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X -2] == ' ')
+		if (Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X - 2] == ' ')
 		{
 
-			g_Console.writeToBuffer(c.X - 2, c.Y -2, " ", 0x7B);
+			g_Console.writeToBuffer(c.X - 2, c.Y - 2, " ", 0x7B);
 		}
 
 
@@ -152,7 +305,7 @@ void light()
 		if (Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X + 1] == ' ')
 		{
 
-			g_Console.writeToBuffer(c.X+1, c.Y - 2, " ", 0x7B);
+			g_Console.writeToBuffer(c.X + 1, c.Y - 2, " ", 0x7B);
 
 		}
 		if (Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X + 2] == ' ')
