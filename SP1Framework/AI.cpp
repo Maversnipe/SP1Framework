@@ -161,21 +161,21 @@ void AiSpawn()
 		Enemy[0].m_cLocation.Y = 4;
 		break;
 	case 9:
-		Enemy[0].m_cLocation.X = 48;
-		Enemy[0].m_cLocation.Y = 20;
+		Enemy[0].m_cLocation.X = 36;
+		Enemy[0].m_cLocation.Y = 12;
 
-		Enemy[1].m_cLocation.X = 45;
-		Enemy[1].m_cLocation.Y = 8;
+		Enemy[1].m_cLocation.X = 27;
+		Enemy[1].m_cLocation.Y = 12;
 		break;
 	case 10:
-		Enemy[0].m_cLocation.X = 5;
-		Enemy[0].m_cLocation.Y = 6;
+		Enemy[0].m_cLocation.X = 36;
+		Enemy[0].m_cLocation.Y = 12;
 
-		Enemy[1].m_cLocation.X = 53;
-		Enemy[1].m_cLocation.Y = 20;
+		Enemy[1].m_cLocation.X = 27;
+		Enemy[1].m_cLocation.Y = 12;
 
-		Enemy[2].m_cLocation.X = 48;
-		Enemy[2].m_cLocation.Y = 5;
+		Enemy[2].m_cLocation.X = 51;
+		Enemy[2].m_cLocation.Y = 16;
 		break;
 	}
 }
