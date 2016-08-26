@@ -4,6 +4,8 @@
 #include <Windows.h>
 #include "Framework\timer.h"
 #include <string>
+#include <fstream>
+#include <sstream>
 #include "Levels.h"
 #include "Story.h"
 #include "AI.h"
@@ -55,13 +57,13 @@ enum EGAMESTATES
 	S_SELECT,
 	S_INSTRUCTIONS,
 	S_RESTART,
-	S_COUNT,
 	S_LEADERBOARD,
 	S_OPTION,
 	S_CREDITS,
 	S_STORY,
 	S_GAMEOVER,
 	S_GAMEOVER2,
+	S_COUNT,
 };
 
 
@@ -136,4 +138,7 @@ void renderCredits();
 void light();
 void rendergameover();
 void rendergameover2();
+void Highscore();
+void FastTime();
+void LeaderboardMenu();
 #endif // _GAME_H

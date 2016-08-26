@@ -109,6 +109,7 @@ void AiMovement()
 			{
 				enemyMoveTime = g_dElapsedTime + 0.2;
 			}
+
 			if ((LevelSelection == 4) || (LevelSelection == 9) || (LevelSelection == 10))
 			{
 				if (Enemy[1].m_cLocation.Y == g_sChar.m_cLocation.Y && Enemy[1].m_cLocation.X == g_sChar.m_cLocation.X)

@@ -1,6 +1,13 @@
 #include "Story.h"
+extern double g_dTimer;
+extern int g_dTotalPoints;
+extern int SavedPoints;
+extern int AxeUses;
+extern bool treeAxe;
+extern bool bonusTimeKey;
+extern stringstream OverallTime;
+extern stringstream OverallPoints;
 extern Console g_Console;
-#include <iostream>
 extern EGAMESTATES g_eGameState;
 extern bool g_abKeyPressed[K_COUNT];
 
@@ -37,7 +44,15 @@ void StoryEnd()
 	g_Console.writeToBuffer(c.X, c.Y + 4, ss.str(), 0x2F);
 
 	if (g_abKeyPressed[K_ENTER]){
-		charSpawn();
+		OverallTime << g_dTimer;
+		g_dTimer = 0.0;
+		OverallPoints << g_dTotalPoints;
+		g_dTotalPoints = 0;
+		SavedPoints = 0;
+		treeAxe = false;
+		AxeUses = 0;
+		bonusTimeKey = false;
+		LoadMaps();
 		g_eGameState = S_LEADERBOARD;
 	}
 
