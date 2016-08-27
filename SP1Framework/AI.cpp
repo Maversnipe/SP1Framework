@@ -30,7 +30,7 @@ void AiMovement()
 
 		if (detected == false)
 		{
-			srand(time(NULL));
+			srand((unsigned int)time(NULL));
 			randomMovement = rand() % 4 + 1;
 			bool bSomethingHappened = false;
 			if (enemyMoveTime > g_dElapsedTime)
