@@ -67,7 +67,7 @@ enum EGAMESTATES
 };
 
 
-// struct for the game character
+
 struct SGameChar
 {
     COORD m_cLocation;
@@ -132,7 +132,7 @@ void treeAxeCheck();
 void renderInstructions();
 void charSpawn();
 void restart();
-void renderLeaderboard();
+void leaderboard();
 void renderOption();
 void renderCredits();
 void light();
