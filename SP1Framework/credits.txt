@@ -1,7 +1,6 @@
 --------------------------------------------------------------------------------
 |                                                                              |
-|                       press 'Esc' to return to Main Menu                     |
-|                                                                              |
+|                       Press 'Esc' to return to Main Menu                     |
 |                  __  ____     ___  ___    ____  ______  _____                |
 |                 /  ]|    \   /  _]|   \  |    ||      |/ ___/                |
 |                /  / |  D  ) /  [_ |    \  |  | |      (   \_                 |
@@ -11,18 +10,19 @@
 |               \____||__|\_||_____||_____||____|  |__|   \___|                |
 |                                                                              |
 |                                                                              |                                                                        
-|                       programmed by:Lucas                                    |                                                                        
-|                                     Dawn                                     |                                                                        
-|                                     Rui Jing                                 |                                                                        
-|                                     Yong Han                                 |                                                                        
+|                       Programmed by: Lucas                                   |                                                                        
+|                                      Dawn                                    |                                                                        
+|                                      Rui Jing                                |                                                                        
+|                                      Yong Han                                |                                                                        
 |                                                                              |                                                                        
+|           Music Credits:                                                     |
+|               Game Music: HertzDevil (YT)                                    |
+|                Interdimensional Voyage of a Ghostly Passenger Ship           |
+|                Touhou OST 8-bit remix, original by ZUN                       |
 |                                                                              |
-|                                                                              |
-|                                                                              |
-|                                                                              |
-|                                                                              |
-|                                                                              |
-|                                                                              |
+|               Menu Music: thepsynergist (YT)                                 |
+|                Zelda Link to the Past - Hyrule Field                         |
+|                Gameboy 8-bit remix                                           |
 |                                                                              |
 |                                                                              |
 |                                                                              |

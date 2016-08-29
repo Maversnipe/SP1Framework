@@ -117,6 +117,7 @@ void AiMovement()
 				if (Enemy[0].m_cLocation.Y == g_sChar.m_cLocation.Y && Enemy[0].m_cLocation.X == g_sChar.m_cLocation.X)
 				{
 					g_eGameState = S_GAMEOVER2;
+					PlaySound(NULL, 0, 0);
 				}
 			}
 			if ((LevelSelection == 9) || (LevelSelection == 10))
@@ -124,6 +125,7 @@ void AiMovement()
 				if (Enemy[1].m_cLocation.Y == g_sChar.m_cLocation.Y && Enemy[1].m_cLocation.X == g_sChar.m_cLocation.X)
 				{
 					g_eGameState = S_GAMEOVER2;
+					PlaySound(NULL, 0, 0);
 				}
 			}
 			if (LevelSelection == 10)
@@ -131,6 +133,7 @@ void AiMovement()
 				if (Enemy[2].m_cLocation.Y == g_sChar.m_cLocation.Y && Enemy[2].m_cLocation.X == g_sChar.m_cLocation.X)
 				{
 					g_eGameState = S_GAMEOVER2;
+					PlaySound(NULL, 0, 0);
 				}
 			}
 		}

@@ -64,7 +64,8 @@ void init( void )
 	g_dDoorTime = 0.0;
 
     // sets the initial state for the game
-    g_eGameState = S_SPLASHSCREEN;
+	g_eGameState = S_SPLASHSCREEN;
+	PlaySound(TEXT("Menu.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
     g_sChar.m_bActive = true;
     // sets the width, height and the font name to use in the console
     g_Console.setConsoleFont(0, 16, L"Arial");
@@ -334,6 +335,7 @@ void spikes_on()
 	if ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == 'X')
 	{
 		g_eGameState = S_GAMEOVER;
+		PlaySound(NULL, 0, 0);
 	}
 }
 
@@ -392,6 +394,7 @@ void processUserInput()
     // pauses the game if player hits the escape key
 	if (g_abKeyPressed[K_ESCAPE]){
 		g_eGameState = S_PAUSE;
+		PlaySound(NULL, 0, 0);
 	}
 }
 
@@ -545,6 +548,7 @@ void renderStory(){
 		}
 
 		if (g_abKeyPressed[K_ESCAPE]){
+			PlaySound(NULL, 0, 0);
 			g_eGameState = S_PAUSE;
 		}
 	}
@@ -715,11 +719,21 @@ void renderFramerate()
 	g_Console.writeToBuffer(c, ss.str());
 
 	// displays level
+	if (LevelSelection < 11){
 	ss.str("");
 	ss << "Level: " << LevelSelection;
 	c.X = 45;
 	c.Y = 1;
 	g_Console.writeToBuffer(c, ss.str());
+	}
+
+	else if (LevelSelection >= 11 && LevelSelection <= 15) {
+		ss.str("");
+		ss << "Level: BONUS";
+		c.X = 45;
+		c.Y = 1;
+		g_Console.writeToBuffer(c, ss.str());
+	}
 
 	if (bonusTimeKey == true){
 		c.X = 5;
@@ -756,8 +770,10 @@ void renderToScreen()
 void pauseControls(){
 	// controls the player can use on the pause screen
 	if (g_abKeyPressed[K_ENTER]){
-		// enter brings player back to game
 		g_eGameState = S_GAME;
+		PlaySound(NULL, 0, 0);
+		PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+		// enter brings player back to game
 	}
 
 	if (g_abKeyPressed[K_SPACE]){
@@ -772,6 +788,8 @@ void pauseControls(){
 		bonusTimeKey = false;
 		LoadMaps();
 		g_eGameState = S_SPLASHSCREEN;
+		PlaySound(NULL, 0, 0);
+		PlaySound(TEXT("Menu.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 	if (g_abKeyPressed[K_R])
 	{
@@ -780,6 +798,8 @@ void pauseControls(){
 		treeAxe = false;
 		bonusTimeKey = false;
 		g_eGameState = S_RESTART;
+		PlaySound(NULL, 0, 0);
+		PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 }
 
@@ -924,59 +944,79 @@ void SelectLevel()
 	{
 		LevelSelection = 1;
 		g_eGameState = S_STORY;
+		PlaySound(NULL, 0, 0);
+		PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 17) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 2;
 		g_eGameState = S_STORY;
+		PlaySound(NULL, 0, 0);
+		PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 18) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 3;
 		g_eGameState = S_STORY;
+		PlaySound(NULL, 0, 0);
+		PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}	
 	
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 19) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 4;
 		g_eGameState = S_STORY;
+		PlaySound(NULL, 0, 0);
+		PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 20) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 5;
 		g_eGameState = S_STORY;
+		PlaySound(NULL, 0, 0);
+		PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 21) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 6;
 		g_eGameState = S_STORY;
+		PlaySound(NULL, 0, 0);
+		PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 22) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 7;
 		g_eGameState = S_STORY;
+		PlaySound(NULL, 0, 0);
+		PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 23) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 8;
 		g_eGameState = S_STORY;
+		PlaySound(NULL, 0, 0);
+		PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 24) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 9;
 		g_eGameState = S_STORY;
+		PlaySound(NULL, 0, 0);
+		PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 25) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 10;
 		g_eGameState = S_STORY;
+		PlaySound(NULL, 0, 0);
+		PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 26) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
@@ -1096,7 +1136,10 @@ void renderOption()
 	}
 	// checks for arrow location, then takes player to credit screen
 	if (g_abKeyPressed[K_ENTER] && (g_eGameState == S_OPTION) && arrow.Y == 15 && g_dElapsedTime>=g_dMenuToSelectTimer){
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5f2b71dff280c9cca310888470fedae571f0b44c
 		g_eGameState = S_CREDITS;
 	}
 	// turns all the other arrow choices false so it will work to only reach the range in options
@@ -1135,6 +1178,8 @@ void rendergameover()
 		AxeUses = 0;
 		bonusTimeKey = false;
 		g_eGameState = S_SPLASHSCREEN;
+		PlaySound(NULL, 0, 0);
+		PlaySound(TEXT("Menu.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 	// restarts the level
 	if (g_abKeyPressed[K_R] && (g_eGameState == S_GAMEOVER))
@@ -1144,6 +1189,8 @@ void rendergameover()
 		AxeUses = 0;
 		bonusTimeKey = false;
 		restart();
+		PlaySound(NULL, 0, 0);
+		PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 }
 void rendergameover2()
@@ -1174,11 +1221,15 @@ void rendergameover2()
 		AxeUses = 0;
 		bonusTimeKey = false;
 		g_eGameState = S_SPLASHSCREEN;
+		PlaySound(NULL, 0, 0);
+		PlaySound(TEXT("Menu.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 	// checks for arrow location, then takes player to credit screen
 	if (g_abKeyPressed[K_R] && (g_eGameState == S_GAMEOVER2))
 	{
 		restart();
+		PlaySound(NULL, 0, 0);
+		PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 }
 void Cut()
