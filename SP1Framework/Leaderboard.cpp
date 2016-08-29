@@ -5,6 +5,7 @@ extern bool g_abKeyPressed[K_COUNT];
 extern EGAMESTATES g_eGameState;
 extern COORD arrow;
 extern bool playedGame;
+extern bool playedGame1;
 bool changes;
 extern bool setArrowMenu;
 void renderLeaderboard()
@@ -52,7 +53,7 @@ void LeaderboardMenu()                                                          
 	g_Console.writeToBuffer(c.X - 22, c.Y + 1, Name.str(), 0x07);
 	g_Console.writeToBuffer(c.X - 2, c.Y + 1, Score.str(), 0x07);
 	g_Console.writeToBuffer(c.X + 20, c.Y + 1, Time.str(), 0x07);
-	g_Console.writeToBuffer(a.X + 12, a.Y + 23, mes.str(), 0x07);                     //the position highest score,fastest time,name,score and time
+	g_Console.writeToBuffer(a.X + 12, a.Y + 23, mes.str(), 0x07);                     //the position of highest score,fastest time,name,score and time
 
 	// reads and writes leaderboard.txt for the leaderboard screen
 	string sym;
@@ -90,11 +91,12 @@ void LoadLeaderboard()
 	}
 	File.close();
 
-	if (playedGame == true)
+	if (playedGame == true && playedGame1 == true )
 	{
 		Highscore();
 		FastTime();
 		playedGame = false;
+		playedGame1 = false;
 	}
 
 	for (int a = 0; a <= 2; a++)
