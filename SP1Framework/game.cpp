@@ -1136,10 +1136,7 @@ void renderOption()
 	}
 	// checks for arrow location, then takes player to credit screen
 	if (g_abKeyPressed[K_ENTER] && (g_eGameState == S_OPTION) && arrow.Y == 15 && g_dElapsedTime>=g_dMenuToSelectTimer){
-<<<<<<< HEAD
 
-=======
->>>>>>> 5f2b71dff280c9cca310888470fedae571f0b44c
 		g_eGameState = S_CREDITS;
 	}
 	// turns all the other arrow choices false so it will work to only reach the range in options
