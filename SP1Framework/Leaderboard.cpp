@@ -6,7 +6,7 @@ extern EGAMESTATES g_eGameState;
 extern COORD arrow;
 extern bool playedGame;
 bool changes;
-
+extern bool setArrowMenu;
 void renderLeaderboard()
 {
 	LeaderboardMenu();
@@ -14,7 +14,7 @@ void renderLeaderboard()
 
 void LoadLeaderboard();
 
-void LeaderboardMenu()
+void LeaderboardMenu()                                                          //"cout" highest score,fastest time,name,score and time
 {
 	changes = false;
 
@@ -32,7 +32,7 @@ void LeaderboardMenu()
 	ostringstream Time;
 
 	HighestScore.str("");
-	HighestScore << "Highest Score";
+	HighestScore << "Highest Score";       
 	FastestTime.str("");
 	FastestTime << "Fastest Time";
 	Name.str("");
@@ -44,7 +44,7 @@ void LeaderboardMenu()
 	mes.str("");
 	mes << "Press 'ESC' to return to the MAIN MENU";
 
-	g_Console.writeToBuffer(c.X - 7, c.Y - 7, HighestScore.str(), 0x07);
+	g_Console.writeToBuffer(c.X - 7, c.Y - 7, HighestScore.str(), 0x07);              ////////////////////////////////////////////////////////////////
 	g_Console.writeToBuffer(c.X - 22, c.Y - 6, Name.str(), 0x07);
 	g_Console.writeToBuffer(c.X - 2, c.Y - 6, Score.str(), 0x07);
 	g_Console.writeToBuffer(c.X + 20, c.Y - 6, Time.str(), 0x07);
@@ -52,11 +52,11 @@ void LeaderboardMenu()
 	g_Console.writeToBuffer(c.X - 22, c.Y + 1, Name.str(), 0x07);
 	g_Console.writeToBuffer(c.X - 2, c.Y + 1, Score.str(), 0x07);
 	g_Console.writeToBuffer(c.X + 20, c.Y + 1, Time.str(), 0x07);
-	g_Console.writeToBuffer(a.X + 12, a.Y + 23, mes.str(), 0x07);
+	g_Console.writeToBuffer(a.X + 12, a.Y + 23, mes.str(), 0x07);                     //the position highest score,fastest time,name,score and time
 
 	// reads and writes leaderboard.txt for the leaderboard screen
 	string sym;
-	ifstream myfile("Leaderboard.txt");
+	ifstream myfile("Leaderboard.txt");                                              //cout the ascii art for leaderboard
 
 	if (myfile.is_open())
 	{
@@ -72,15 +72,18 @@ void LeaderboardMenu()
 
 	if (g_abKeyPressed[K_ESCAPE])
 	{
+		setArrowMenu = false;
 		g_eGameState = S_SPLASHSCREEN;
+		
 	}
+
 }
 
 void LoadLeaderboard()
 {
 	int i = 0;
 
-	ifstream File("Leaderboard.csv");
+	ifstream File("Leaderboard.csv");                                          //get the data from the csv file
 	while (File >> Leaders[i].Name >> Leaders[i].Score >> Leaders[i].Time)
 	{
 		i++;
@@ -96,7 +99,7 @@ void LoadLeaderboard()
 
 	for (int a = 0; a <= 2; a++)
 	{
-		COORD c = g_Console.getConsoleSize();
+		COORD c = g_Console.getConsoleSize();                                      //cout the name,highest score score and time
 		c.Y = c.Y / 2 - 5;
 		c.X = c.X / 2;
 		g_Console.writeToBuffer(c.X - 22, c.Y + a, Leaders[a].Name);
@@ -104,7 +107,7 @@ void LoadLeaderboard()
 		g_Console.writeToBuffer(c.X + 20, c.Y + a, to_string(Leaders[a].Time));
 	}
 		
-	for (int a = 3; a <= 5; a++)
+	for (int a = 3; a <= 5; a++)                                                   //cout the name,fastest time score, and time
 	{
 		COORD c = g_Console.getConsoleSize();
 		c.Y = c.Y / 2 - 1;
@@ -114,8 +117,9 @@ void LoadLeaderboard()
 		g_Console.writeToBuffer(c.X + 20, c.Y + a, to_string(Leaders[a].Time));
 	}
 
-	if (changes == true)
+	if (changes == true)                                                          //update the leaderboard.csv
 	{
+
 		ofstream MyFile("Leaderboard.csv");
 		for (i = 0; i < 6; i++)
 		{
@@ -152,7 +156,7 @@ void Highscore()
 		changes = true;
 	}
 	else if ((g_sChar.points > Leaders[2].Score) && (g_sChar.points < Leaders[1].Score) && (g_sChar.points < Leaders[0].Score))
-	{ // If player's score is higher than second highest score
+	{ // If player's score is higher than third highest score
 		Leaders[2].Score = g_sChar.points; // Puts player's points into array
 		Leaders[2].Time = g_sChar.time; // Puts player's time into array
 		Leaders[2].Name = g_sChar.Name; // Puts player's name into array

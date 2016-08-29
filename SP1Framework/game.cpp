@@ -27,10 +27,6 @@ double g_dMenuToSelectTimer;
 double g_dDoorTime;
 double g_dSpikeTime;
 int g_dTotalPoints;
-int g_dHighestPoints = 0;
-int g_dLastPoints = 0;
-double	g_dShortestTime = 0.0;
-double	g_dLastTime = 0.0;
 double  g_dDeltaTime;
 bool g_abKeyPressed[K_COUNT];
 bool bonusTimeKey;
@@ -38,6 +34,8 @@ bool treeAxe = false;
 bool onRock = false;
 int SavedPoints = 0;
 bool playedGame;
+extern bool changes;
+int i = 0;
 
 // Game specific variables here
 SGameChar g_sChar;
@@ -846,7 +844,7 @@ void moveArrow()
 		g_Console.writeToBuffer(arrow, ">");
 
 	}
-	if (g_abKeyPressed[K_DOWN] && arrow.Y < 16 && g_eGameState == S_OPTION)//credits
+	if (g_abKeyPressed[K_DOWN] && arrow.Y < 15 && g_eGameState == S_OPTION)//credits
 	{
 		arrow.Y++;
 		bSomethingHappened = true;
@@ -1036,6 +1034,7 @@ void renderInstructions()
 	if (g_abKeyPressed[K_ESCAPE] && (g_eGameState == S_INSTRUCTIONS)){
 		g_eGameState = S_SPLASHSCREEN;
 	}
+	setArrowMenu = false;
 }
 
 void renderCredits()
@@ -1083,13 +1082,20 @@ void renderOption()
 		}
 		myfile.close();
 	}
-
+	//reset the leaderboard
+	if (g_abKeyPressed[K_ENTER] && (g_eGameState == S_OPTION) && arrow.Y == 14)
+	{
+		std::ofstream ofs;
+		ofs.open("Leaderboard.csv", std::ofstream::out | std::ofstream::trunc);
+		ofs.close();
+		
+	}
 	// goes back to splash screen if escape is pressed
 	if (g_abKeyPressed[K_ESCAPE] && (g_eGameState == S_OPTION)){
 		g_eGameState = S_SPLASHSCREEN;
 	}
 	// checks for arrow location, then takes player to credit screen
-	if (g_abKeyPressed[K_ENTER] && (g_eGameState == S_OPTION) && arrow.Y == 16 && g_dElapsedTime>=g_dMenuToSelectTimer){
+	if (g_abKeyPressed[K_ENTER] && (g_eGameState == S_OPTION) && arrow.Y == 15 && g_dElapsedTime>=g_dMenuToSelectTimer){
 
 		g_eGameState = S_CREDITS;
 	}
