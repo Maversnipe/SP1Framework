@@ -1,6 +1,6 @@
 #include "game.h"
+extern SGameChar g_sChar;
 extern int LevelSelection;
-extern struct SGameChar g_sChar;
 
 void charSpawn()
 {

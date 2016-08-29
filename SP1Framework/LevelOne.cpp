@@ -1,8 +1,5 @@
 #include "Levels.h"
 extern Console g_Console;
-extern SGameChar g_sChar;
-//extern char MapOne[100][100];
-#include <iostream>
 
 void LevelOne()
 {
@@ -20,16 +17,7 @@ void LevelOne()
 			{
 				File >> Map[1][Rows][Columns];
 			}
-
-			for (int Rows = 0; Rows < 24; Rows++){
-				for (int Columns = 0; Columns < 55; Columns++){
-					if (Map[1][Rows][Columns] == 'X'){
-						void spikes_on(); // turn spikes on
-						}
-					}
-				}
 		}
-
 		File.close();
 	}
 }

@@ -1,8 +1,10 @@
-#include "AI.h"
+#include "game.h"
+#include <stdlib.h>
+#include <time.h> 
 extern EGAMESTATES g_eGameState;
-EnemyChar Enemy[3];
-extern bool g_abKeyPressed[K_COUNT];
 extern SGameChar g_sChar;
+extern EnemyChar Enemy[3];
+extern bool g_abKeyPressed[K_COUNT];
 extern char Map[20][100][100];
 extern int LevelSelection;
 extern double g_dElapsedTime;

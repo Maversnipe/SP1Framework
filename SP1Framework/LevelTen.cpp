@@ -20,18 +20,5 @@ void LevelTen()
 			}
 		}
 		File.close();
-		/*for (int Rows = 0; Rows < 24; Rows++)
-		{
-			c.Y = Rows;
-			for (int Columns = 0; Columns < 55; Columns++)
-			{
-				if (Map[Rows][Columns] == 'i')
-				{
-					Map[Rows][Columns] = ' ';
-				}
-				c.X = Columns;
-				g_Console.writeToBuffer(c, Map[Rows][Columns], 0x0A);
-			}
-		}*/
 	}
 }

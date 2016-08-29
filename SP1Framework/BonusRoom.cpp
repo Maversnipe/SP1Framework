@@ -1,8 +1,5 @@
 #include "Levels.h"
 extern Console g_Console;
-extern SGameChar g_sChar;
-//extern char MapBonus[100][100];
-extern char Map[20][100][100];
 extern bool bonusTimeKey;
 
 void BonusRoom(){
@@ -11,6 +8,7 @@ void BonusRoom(){
 	COORD c;
 	c.Y = 0;
 	c.X = 0;
+	extern char Map[20][100][100];
 	extern int g_dTotalPoints;
 
 	for (int Levels = 11; Levels < 16; Levels++)

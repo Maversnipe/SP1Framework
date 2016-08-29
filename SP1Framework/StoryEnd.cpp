@@ -5,11 +5,11 @@ extern int SavedPoints;
 extern int AxeUses;
 extern bool treeAxe;
 extern bool bonusTimeKey;
-extern stringstream OverallTime;
-extern stringstream OverallPoints;
 extern Console g_Console;
+extern SGameChar g_sChar;
 extern EGAMESTATES g_eGameState;
 extern bool g_abKeyPressed[K_COUNT];
+extern bool playedGame;
 
 void StoryEnd()
 {
@@ -44,19 +44,30 @@ void StoryEnd()
 	g_Console.writeToBuffer(c.X, c.Y + 4, ss.str(), 0x2F);
 
 	if (g_abKeyPressed[K_ENTER]){
-		OverallTime << g_dTimer;
+		g_sChar.time = g_dTimer;
 		g_dTimer = 0.0;
-		OverallPoints << g_dTotalPoints;
+		g_sChar.points = g_dTotalPoints;
 		g_dTotalPoints = 0;
 		SavedPoints = 0;
 		treeAxe = false;
 		AxeUses = 0;
 		bonusTimeKey = false;
+		playedGame = true;
 		LoadMaps();
 		g_eGameState = S_LEADERBOARD;
 	}
 
 	if (g_abKeyPressed[K_SPACE]){
+		g_sChar.time = g_dTimer;
+		g_dTimer = 0.0;
+		g_sChar.points = g_dTotalPoints;
+		g_dTotalPoints = 0;
+		SavedPoints = 0;
+		treeAxe = false;
+		AxeUses = 0;
+		bonusTimeKey = false;
+		playedGame = true;
+		LoadMaps();
 		g_eGameState = S_SPLASHSCREEN;
 	}
 }

@@ -37,15 +37,12 @@ bool bonusTimeKey;
 bool treeAxe = false;
 bool onRock = false;
 int SavedPoints = 0;
-stringstream InputName;
-stringstream OverallPoints;
-stringstream OverallTime;
-int Points = 0;
-int Time = 0;
-
+bool playedGame;
 
 // Game specific variables here
-SGameChar   g_sChar;
+SGameChar g_sChar;
+EnemyChar Enemy[3];
+Leaderboard Leaders[6];
 EGAMESTATES g_eGameState = S_SPLASHSCREEN;
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
 
@@ -160,7 +157,9 @@ void update(double dt)
 			break;
 		case S_RESTART: restart(); // logic for restarting the game
 			break;
-		case S_LEADERBOARD:leaderboard(); // logic for the leaderboard
+		case S_LEADERBOARD:
+			//leaderboard(); // logic for the leaderboard
+			renderLeaderboard();
 			break;
 		case S_OPTION:renderOption(); // logic for the options
 			break;
@@ -203,7 +202,9 @@ void render()
 			break;
 		case S_RESTART: restart();
 			break;
-		case S_LEADERBOARD:leaderboard();
+		case S_LEADERBOARD:
+			//leaderboard();
+			renderLeaderboard();
 			break;
 		case S_OPTION:renderOption();
 			break;
@@ -685,14 +686,6 @@ void renderArrow()
 		g_Console.writeToBuffer(arrow, ">");
 		setArrowOption = true;
 	}
-	// this renders the arrrow that appears on the leaderboard screen
-	else if (setArrowLeaderboard == false && g_eGameState == S_LEADERBOARD)
-	{
-		arrow.X = 25;
-		arrow.Y = 15;
-		g_Console.writeToBuffer(arrow, ">");
-		setArrowLeaderboard = true;
-	}
 	// Draws the arrow
 	WORD charColor = 0x06;
 	g_Console.writeToBuffer(arrow, ">", charColor);
@@ -854,18 +847,6 @@ void moveArrow()
 
 	}
 	if (g_abKeyPressed[K_DOWN] && arrow.Y < 16 && g_eGameState == S_OPTION)//credits
-	{
-		arrow.Y++;
-		bSomethingHappened = true;
-		g_Console.writeToBuffer(arrow, ">");
-	}
-	if (g_abKeyPressed[K_UP] && arrow.Y > 15 && g_eGameState == S_LEADERBOARD)
-	{
-		arrow.Y--;
-		bSomethingHappened = true;
-		g_Console.writeToBuffer(arrow, ">");
-	}
-	if (g_abKeyPressed[K_DOWN] && arrow.Y < 16 && g_eGameState == S_LEADERBOARD)
 	{
 		arrow.Y++;
 		bSomethingHappened = true;

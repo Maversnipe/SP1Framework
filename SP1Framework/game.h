@@ -8,7 +8,6 @@
 #include <sstream>
 #include "Levels.h"
 #include "Story.h"
-#include "AI.h"
 
 using namespace std;
 
@@ -70,15 +69,25 @@ enum EGAMESTATES
 
 struct SGameChar
 {
-    COORD m_cLocation;
-    bool  m_bActive;
-};
+	COORD m_cLocation;
+	int points = 0;
+	double time = 0;
+	string Name = "JOHN";
+	bool  m_bActive;
+}
+;
 
 struct EnemyChar
 {
 	COORD m_cLocation;
 };
 
+struct Leaderboard
+{
+	string Name = "";
+	int Score = 0;
+	double Time = 0.0;
+};
 
 void init        ( void );      // initialize your variables, allocate memory, etc
 void getInput    ( void );      // get input from player
@@ -132,7 +141,7 @@ void treeAxeCheck();
 void renderInstructions();
 void charSpawn();
 void restart();
-void leaderboard();
+void renderLeaderboard();
 void renderOption();
 void renderCredits();
 void light();
@@ -141,4 +150,7 @@ void rendergameover2();
 void Highscore();
 void FastTime();
 void LeaderboardMenu();
+void AiMovement();
+void AiRender();
+void AiSpawn();
 #endif // _GAME_H

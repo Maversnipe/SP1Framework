@@ -111,7 +111,6 @@
     <ClCompile Include="Torchlight.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AI.h" />
     <ClInclude Include="Framework\console.h" />
     <ClInclude Include="Framework\timer.h" />
     <ClInclude Include="game.h" />

@@ -1,14 +1,12 @@
 #include "Levels.h"
 extern Console g_Console;
-#include <iostream>
-extern char Map[20][100][100];
-extern SGameChar g_sChar;
 
 void LevelFive()
 {
 	COORD c;
 	c.Y = 0;
 	c.X = 0;
+	extern char Map[20][100][100];
 
 	ifstream File("LevelFive.txt");
 
