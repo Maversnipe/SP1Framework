@@ -160,7 +160,7 @@ void update(double dt)
 			break;
 		case S_RESTART: restart(); // logic for restarting the game
 			break;
-		case S_LEADERBOARD:renderLeaderboard(); // logic for the leaderboard
+		case S_LEADERBOARD:leaderboard(); // logic for the leaderboard
 			break;
 		case S_OPTION:renderOption(); // logic for the options
 			break;
@@ -203,7 +203,7 @@ void render()
 			break;
 		case S_RESTART: restart();
 			break;
-		case S_LEADERBOARD:renderLeaderboard();
+		case S_LEADERBOARD:leaderboard();
 			break;
 		case S_OPTION:renderOption();
 			break;

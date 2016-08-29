@@ -12,11 +12,11 @@ void BonusRoom(){
 	c.Y = 0;
 	c.X = 0;
 	extern int g_dTotalPoints;
-	ifstream File("bonusroom.txt");
 
-	if (File.is_open())
+	for (int Levels = 11; Levels < 16; Levels++)
 	{
-		for (int Levels = 11; Levels < 16; Levels++)
+		ifstream File("bonusroom.txt");
+		if (File.is_open())
 		{
 			for (int Rows = 0; Rows < 25; Rows++)
 			{
@@ -25,8 +25,8 @@ void BonusRoom(){
 					File >> Map[Levels][Rows][Columns];
 				}
 			}
+			File.close();
 		}
-		File.close();
 	}
 }
 	
