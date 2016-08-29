@@ -68,11 +68,14 @@ void moveCharacter()
 				Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] != 'o' &&
 				Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] != (char)233)
 			{ //Moving the boulder
+				if (Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] == '.')
+				{
+					g_dTotalPoints += 10;
+				}
 				Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] = (char)233;
 				Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] = ' ';
 				g_sChar.m_cLocation.Y--;
 				bSomethingHappened = true;
-				g_dTotalPoints += 10;
 			}
 		}
 		else if (Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != '=' && 
@@ -138,11 +141,14 @@ void moveCharacter()
 				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] != 'o' &&
 				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] != (char)233)
 			{ //Moving the boulder
+				if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] == '.')
+				{
+					g_dTotalPoints += 10;
+				}
 				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 2] = (char)233;
 				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] = ' ';
 				g_sChar.m_cLocation.X--;
 				bSomethingHappened = true;
-				g_dTotalPoints += 10;
 			}
 		}
 		else if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != '=' && 
@@ -208,11 +214,14 @@ void moveCharacter()
 				Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] != 'o' &&
 				Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] != (char)233)
 			{ //Moving the boulder
+				if (Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] == '.')
+				{
+					g_dTotalPoints += 10;
+				}
 				Map[LevelSelection][g_sChar.m_cLocation.Y + 2][g_sChar.m_cLocation.X] = (char)233;
 				Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] = ' ';
 				g_sChar.m_cLocation.Y++;
 				bSomethingHappened = true;
-				g_dTotalPoints += 10;
 			}
 		}
 		else if ((Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != '=') && 
@@ -278,11 +287,14 @@ void moveCharacter()
 				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] != 'o' &&
 				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] != (char)233)
 			{ //Moving the boulder
+				if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] == '.')
+				{ // Check for points in front of boulder
+					g_dTotalPoints += 10;
+				}
 				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 2] = (char)233;
 				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] = ' ';
 				g_sChar.m_cLocation.X++;
 				bSomethingHappened = true;
-				g_dTotalPoints += 10;
 			}
 		}
 		else if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != '=' && 

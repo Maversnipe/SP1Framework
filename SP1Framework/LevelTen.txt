@@ -9,11 +9,11 @@ iii|iiii2|ii|iiii2|iiii1|iiiiiii2|5iiiiiiiiii|2i|iiii#|
 iii|ii|==|==|ii|ii|ii|ii|==|==|ii|iX|==|==|==|ii|==|ii|
 iii|Xiiiiii2|ii|ii|iiiiiiiiiiiiii|iiiiiiiiiiiiii|iiXii|
 iii|==|==|ii|ii|ii|ii|iiiiiiiiii=|ii|==|ii|==|==|TT|==|
-iii|iiiiiiiiiii|1iiiiiiiii$iiiiiiii$iiiiii|iiiiiiii|iX|
+iii|iiiiiiiiiii|1iiiiiiiiiiiiiiiiiiiiiiiii|iiiiiiii|iX|
 iii|ii|==|ii|==|==|==|=ii=iiiii==iii|ii|==|ii|==|==|Xi|
 iii|iiiiX|1i|5iiiiiii|iiiiiiiiiiiiii|ii|21|iiiii|iiiii|
 iii|==|2i|==|ii|ii|ii|i2|=iiiiiii|ii|ii|ii|==|ii|ii|==|
-iii|i1|iiiiiii1|ii|X2|iiiiiiii+ii|ii|iiii1|ii|iiii$|X&|
+iii|i1|iiiiiii1|ii|X2|iiiiiiii+ii|ii|iiii1|ii|iiiii|X&|
 iii|ii|==|==|==|ii|==|==|1Xi=i|i=|ii|==|==|ii|==|==|Xi|
 iii|ii|iiiii|iiiiiiiiiiiiii|iiiii|iiiii|iiiii|2iiiiTii|
 iii|ii|ii|ii|ii|iX|==|==|==|ii|ii|==|ii|ii|==|==|==|TX|

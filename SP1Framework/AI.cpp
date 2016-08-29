@@ -179,8 +179,8 @@ void AiSpawn()
 		Enemy[1].m_cLocation.X = 27;
 		Enemy[1].m_cLocation.Y = 12;
 
-		Enemy[2].m_cLocation.X = 51;
-		Enemy[2].m_cLocation.Y = 16;
+		Enemy[2].m_cLocation.X = 26;
+		Enemy[2].m_cLocation.Y = 11;
 		break;
 	}
 }
