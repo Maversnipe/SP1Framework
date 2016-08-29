@@ -721,11 +721,21 @@ void renderFramerate()
 	g_Console.writeToBuffer(c, ss.str());
 
 	// displays level
+	if (LevelSelection < 11){
 	ss.str("");
 	ss << "Level: " << LevelSelection;
 	c.X = 45;
 	c.Y = 1;
 	g_Console.writeToBuffer(c, ss.str());
+	}
+
+	else if (LevelSelection >= 11 && LevelSelection <= 15) {
+		ss.str("");
+		ss << "Level: BONUS";
+		c.X = 45;
+		c.Y = 1;
+		g_Console.writeToBuffer(c, ss.str());
+	}
 
 	if (bonusTimeKey == true){
 		c.X = 5;

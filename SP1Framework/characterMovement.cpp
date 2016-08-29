@@ -6,6 +6,7 @@ extern SGameChar g_sChar;
 extern bool g_abKeyPressed[K_COUNT];
 extern int LevelSelection;
 extern bool onRock;
+extern int g_dTotalPoints;
 
 void moveCharacter()
 {
@@ -71,6 +72,7 @@ void moveCharacter()
 				Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] = ' ';
 				g_sChar.m_cLocation.Y--;
 				bSomethingHappened = true;
+				g_dTotalPoints += 10;
 			}
 		}
 		else if (Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] != '=' && 
@@ -140,6 +142,7 @@ void moveCharacter()
 				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] = ' ';
 				g_sChar.m_cLocation.X--;
 				bSomethingHappened = true;
+				g_dTotalPoints += 10;
 			}
 		}
 		else if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X - 1] != '=' && 
@@ -209,6 +212,7 @@ void moveCharacter()
 				Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] = ' ';
 				g_sChar.m_cLocation.Y++;
 				bSomethingHappened = true;
+				g_dTotalPoints += 10;
 			}
 		}
 		else if ((Map[LevelSelection][g_sChar.m_cLocation.Y + 1][g_sChar.m_cLocation.X] != '=') && 
@@ -278,6 +282,7 @@ void moveCharacter()
 				Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] = ' ';
 				g_sChar.m_cLocation.X++;
 				bSomethingHappened = true;
+				g_dTotalPoints += 10;
 			}
 		}
 		else if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] != '=' && 
