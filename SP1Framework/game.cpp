@@ -13,36 +13,50 @@ extern Console g_Console;
 
 char Map[20][100][100];
 
-COORD arrow;
-bool setArrowMenu = false;
-bool setArrowSelect = false;
-bool setArrowOption = false;
-bool setArrowLeaderboard = false;
+//The menu arrow
+COORD arrow; 
+bool setArrowMenu = false; //Main menu arrow
+bool setArrowSelect = false; //Level selection arrow
+bool setArrowOption = false; //Options menu arrow
+
+//Shows which level player is at
 int LevelSelection = 1;
-int AxeUses = 0;
-int Battery = 0;
-double g_dElapsedTime;
-double g_dTimer;
-double g_dMenuToSelectTimer;
-double g_dDoorTime;
-double g_dSpikeTime;
-int g_dTotalPoints;
-double  g_dDeltaTime;
-bool g_abKeyPressed[K_COUNT];
+
+//Axe
+int AxeUses = 0; //Shows how many more times you can use the axe
+bool treeAxe = false; //Checks for axe
+
+//Time related
+double g_dElapsedTime; //Elapsed time when code starts to run
+double g_dTimer; //Timer for when the game starts
+double g_dMenuToSelectTimer; //Bounce time moving between menu to other pages and vice versa
+double  g_dDeltaTime; //Time taken in seconds to complete the last frame
+
+//Points collected in game
+int g_dTotalPoints; //Total points collected
+int SavedPoints = 0; //Points collected from previous level
+
+//Keyboard press
+bool g_abKeyPressed[K_COUNT]; 
+
+//Checks if player has bonus key
 bool bonusTimeKey;
-bool treeAxe = false;
+
+//Checks if player is on underwater boulder
 bool onRock = false;
-int SavedPoints = 0;
-bool playedGame;
-bool playedGame1;
+
+//Checks if player has played game (For leaderboard)
+bool playedGame; //Checks for level 10
+bool playedGame1; //Checks for level 1
+
+//Checks if there were changes made to leaderboard
 extern bool changes;
-int i = 0;
 
 // Game specific variables here
-SGameChar g_sChar;
-EnemyChar Enemy[3];
-Leaderboard Leaders[6];
-EGAMESTATES g_eGameState = S_SPLASHSCREEN;
+SGameChar g_sChar; //Player character
+EnemyChar Enemy[3]; //Enemies
+Leaderboard Leaders[6]; //Leaderboard leaders
+EGAMESTATES g_eGameState = S_SPLASHSCREEN; //Gamestate
 double  g_dBounceTime; // this is to prevent key bouncing, so we won't trigger keypresses more than once
 
 // Console object
@@ -62,7 +76,6 @@ void init( void )
     g_dBounceTime = 0.0;
 	g_dTotalPoints = 0;
 	g_dMenuToSelectTimer = 0.0;
-	g_dDoorTime = 0.0;
 
     // sets the initial state for the game
 	g_eGameState = S_SPLASHSCREEN;
@@ -300,7 +313,6 @@ void splashScreenWait() // checks the player input on the splash screen
 	// preventing the arrows from sending the player to an unknown spot when coming back to screen
 	setArrowOption = false;
 	setArrowSelect = false;
-	setArrowLeaderboard = false;
 }
 
 void gameplay()		// gameplay logic
@@ -458,7 +470,6 @@ void renderSplashScreen()  // renders the splash screen
 	moveArrow();
 	setArrowOption = false;
 	setArrowSelect = false;
-	setArrowLeaderboard = false;
 	// renders the arrow for the splash and level select screens
 
 	if ((g_eGameState == S_SPLASHSCREEN) && (g_abKeyPressed[K_ENTER]) && (arrow.Y == 19)){
@@ -651,8 +662,7 @@ void renderMap()
 	}
 	LevelClear(); // calls the function to check if player has arrived at the level clear character
 	setArrowOption = false;
-	setArrowSelect = false; 
-	setArrowLeaderboard = false; // resets arrows to make sure player doesn't end up at strange places on main screen
+	setArrowSelect = false; // resets arrows to make sure player doesn't end up at strange places on main screen
 }
 
 void renderCharacter()
@@ -1033,7 +1043,6 @@ void SelectLevel()
 	// sets arrow to false again to make sure it doesn't spawn at weird places after
 	setArrowMenu = false;
 	setArrowOption = false;
-	setArrowLeaderboard = false;
 }
 
 void LoadMaps()
@@ -1142,7 +1151,6 @@ void renderOption()
 	// turns all the other arrow choices false so it will work to only reach the range in options
 	setArrowSelect = false;
 	setArrowMenu = false;
-	setArrowLeaderboard = false;
 	renderArrow();
 	moveArrow();
 }

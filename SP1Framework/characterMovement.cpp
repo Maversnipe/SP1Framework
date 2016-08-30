@@ -20,22 +20,22 @@ void moveCharacter()
 	{
 		//Beep(1440, 30);
 		if (Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] == (char)233)
-		{
+		{ //Check for boulder in front of player
 			if (onRock == true && Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] == 'O')
-			{
+			{ //Checks if boulder is two characters in front of player while on boulder
 				Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] = (char)233;
 				Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] = 'O';
 				g_sChar.m_cLocation.Y--;
 				onRock = true;
 				bSomethingHappened = true;
 			}
-			else if (onRock == true && (Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] == 'r' ||
-				Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] == 'o'))
-			{ //Pushing boulder into water while on boulder
+			else if (onRock == true && ((Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] == 'r') ||
+				(Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] == 'o')))
+			{ //Pushing boulder into water/hole while on boulder
 				Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] = 'O';
 				Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] = 'O';
 				g_sChar.m_cLocation.Y--;
-				onRock = false;
+				onRock = true;
 				bSomethingHappened = true;
 			}
 			else if (onRock == false && Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] == 'O')
@@ -55,7 +55,7 @@ void moveCharacter()
 			}
 			else if (onRock == false && (Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] == 'r' ||
 				Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] == 'o'))
-			{ //Pushing boulder into water
+			{ //Pushing boulder into water while on land
 				Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] = 'O';
 				Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] = ' ';
 				g_sChar.m_cLocation.Y--;
@@ -64,13 +64,25 @@ void moveCharacter()
 			else if (Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] != '=' && 
 				Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] != '|' && 
 				Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] != 'T' && 
-				Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] != 'r' &&
-				Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] != 'o' &&
 				Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] != (char)233)
 			{ //Moving the boulder
-				if (Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] == '.')
+				switch (Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X])
 				{
+				case '.':
 					g_dTotalPoints += 10;
+					break;
+				case '1':
+					g_dTotalPoints += 100;
+					break;
+				case '2':
+					g_dTotalPoints += 200;
+					break;
+				case '5':
+					g_dTotalPoints += 500;
+					break;
+				case 'A':
+					g_dTotalPoints += 1000;
+					break;
 				}
 				Map[LevelSelection][g_sChar.m_cLocation.Y - 2][g_sChar.m_cLocation.X] = (char)233;
 				Map[LevelSelection][g_sChar.m_cLocation.Y - 1][g_sChar.m_cLocation.X] = ' ';
