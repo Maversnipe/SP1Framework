@@ -313,7 +313,7 @@ void gameplay()		// gameplay logic
 	bonusKey(); // checks for bonus key
 	treeAxeCheck(); // checks for axe
 	doorSwitch(); // door switch to open doors
-	spikes_on();
+	spikes_on(); // turns on the spikes
 }
 
 void doorSwitch(){
@@ -336,7 +336,7 @@ void spikes_on()
 	if ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == 'X')
 	{
 		g_eGameState = S_GAMEOVER;
-		PlaySound(NULL, 0, 0);
+		PlaySound(NULL, 0, 0); // game ends when player touches X
 	}
 }
 
@@ -534,23 +534,24 @@ void renderStory(){
 		ostringstream ss;
 		ss.str("");
 		ss << "Press SPACE to move on with the game...";
-		if (LevelSelection >= 1 || LevelSelection <= 4 || LevelSelection == 11){
+		if (LevelSelection > 0 && LevelSelection <= 4 || LevelSelection == 11){
 			g_Console.writeToBuffer(c, ss.str(), 0x2F);
 		}
-
-		if (LevelSelection >= 5 || LevelSelection <= 10){
+		// prints out text of command
+		if (LevelSelection >= 5 && LevelSelection <= 10){
 			g_Console.writeToBuffer(c, ss.str(), 0x1F);
 		}
-
+		// prints out text of command
 		if (g_abKeyPressed[K_SPACE]){
 			charSpawn();
 			AiSpawn();
 			g_eGameState = S_GAME;
 		}
-
+		// continues with the game
 		if (g_abKeyPressed[K_ESCAPE]){
 			PlaySound(NULL, 0, 0);
 			g_eGameState = S_PAUSE;
+			// pauses the game
 		}
 	}
 }
@@ -1137,7 +1138,10 @@ void renderOption()
 	}
 	// checks for arrow location, then takes player to credit screen
 	if (g_abKeyPressed[K_ENTER] && (g_eGameState == S_OPTION) && arrow.Y == 15 && g_dElapsedTime>=g_dMenuToSelectTimer){
+<<<<<<< HEAD
 
+=======
+>>>>>>> b39f3dab6912c66e1d07f6182a29572b33b77f43
 		g_eGameState = S_CREDITS;
 	}
 	// turns all the other arrow choices false so it will work to only reach the range in options
