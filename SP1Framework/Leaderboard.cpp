@@ -91,7 +91,7 @@ void LoadLeaderboard()
 	}
 	File.close();
 
-	if (playedGame == true && playedGame1 == true )
+	if (playedGame == true && playedGame1 == true )                            //the player has to play from level 1 to 10 so that he/she will get the score after he/she completed the game
 	{
 		Highscore();
 		FastTime();
@@ -148,7 +148,7 @@ void Highscore()
 		changes = true;
 	}
 	else if ((g_sChar.points > Leaders[1].Score) && (g_sChar.points < Leaders[0].Score))
-	{ // If player's score is higher than second highest score
+	{ // If player's score is higher than second highest score but lesser than the highest score
 		Leaders[2].Score = Leaders[1].Score;
 		Leaders[1].Score = g_sChar.points; // Puts player's points into array
 		Leaders[2].Time = Leaders[1].Time;
@@ -158,7 +158,7 @@ void Highscore()
 		changes = true;
 	}
 	else if ((g_sChar.points > Leaders[2].Score) && (g_sChar.points < Leaders[1].Score) && (g_sChar.points < Leaders[0].Score))
-	{ // If player's score is higher than third highest score
+	{ // If player's score is higher than third highest score but lesser than the second highest score and the highest score
 		Leaders[2].Score = g_sChar.points; // Puts player's points into array
 		Leaders[2].Time = g_sChar.time; // Puts player's time into array
 		Leaders[2].Name = g_sChar.Name; // Puts player's name into array
@@ -169,7 +169,7 @@ void Highscore()
 void FastTime()
 {
 	if ((g_sChar.time < Leaders[3].Time) && (Leaders[3].Time > 0) && (g_sChar.time > 0))
-	{
+	{//when the player's time is lesser than the fastest time.
 		Leaders[5].Score = Leaders[4].Score;
 		Leaders[4].Score = Leaders[3].Score;
 		Leaders[3].Score = g_sChar.points; // Puts player's points into array
@@ -183,7 +183,7 @@ void FastTime()
 	}
 	else if ((g_sChar.time < Leaders[4].Time) && (g_sChar.time > Leaders[3].Time) &&
 		(g_sChar.time > 0) && (Leaders[4].Time > 0) && (Leaders[3].Time > 0))
-	{
+	{//when the player's time is lesser than the 2nd fastest time but more than the top fastest time.
 		Leaders[5].Score = Leaders[4].Score;
 		Leaders[4].Score = g_sChar.points; // Puts player's points into array
 		Leaders[5].Time = Leaders[4].Time;
@@ -194,7 +194,7 @@ void FastTime()
 	}
 	else if ((g_sChar.time < Leaders[5].Time) && (g_sChar.time > Leaders[4].Time) && (g_sChar.time > Leaders[3].Time) &&
 		(g_sChar.time > 0) && (Leaders[5].Time > 0))
-	{
+	{//when the player's time is lesser than the 3rd fastest but more than the 2nd and 1st.
 		Leaders[5].Score = g_sChar.points; // Puts player's points into array
 		Leaders[5].Time = g_sChar.time; // Puts player's time into array
 		Leaders[5].Name = g_sChar.Name; // Puts player's name into array
@@ -202,21 +202,21 @@ void FastTime()
 	}
 
 	if ((Leaders[3].Time == 0) && (Leaders[4].Time == 0) && (Leaders[5].Time == 0))
-	{
+	{//putting the player's score,time,name in the 1st place for the fastest time score category
 		Leaders[3].Score = g_sChar.points; // Puts player's points into array
 		Leaders[3].Time = g_sChar.time; // Puts player's time into array
 		Leaders[3].Name = g_sChar.Name; // Puts player's name into array
 		changes = true;
 	}
 	else if ((Leaders[4].Time == 0) && (Leaders[5].Time == 0))
-	{
+	{//putting the player's score,time,name in the 2nd place for the fastest time score category
 		Leaders[4].Score = g_sChar.points; // Puts player's points into array
 		Leaders[4].Time = g_sChar.time; // Puts player's time into array
 		Leaders[4].Name = g_sChar.Name; // Puts player's name into array
 		changes = true;
 	}
 	else if (Leaders[5].Time == 0)
-	{
+	{//putting the player's score,time name in the 3rd place for the fastest time score category
 		Leaders[5].Score = g_sChar.points; // Puts player's points into array
 		Leaders[5].Time = g_sChar.time; // Puts player's time into array
 		Leaders[5].Name = g_sChar.Name; // Puts player's name into array
