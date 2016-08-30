@@ -9,22 +9,22 @@
 |              \     ||  .  \|     ||     | |  |   |  |  \    |                |
 |               \____||__|\_||_____||_____||____|  |__|   \___|                |
 |                                                                              |
-|                                                                              |                                                                        
-|                       Programmed by: Lucas                                   |                                                                        
-|                                      Dawn                                    |                                                                        
-|                                      Rui Jing                                |                                                                        
-|                                      Yong Han                                |                                                                        
-|                                                                              |                                                                        
+|                                                                              |
+|                       Programmed by: Lucas                                   |
+|                                      Dawn                                    |
+|                                      Rui Jing                                |
+|                                      Yong Han                                |
+|                                                                              |
 |           Music Credits:                                                     |
-|               Game Music: HertzDevil (YT)                                    |
+|               Game Music: HertzDevil (YouTube)                               |
 |                Interdimensional Voyage of a Ghostly Passenger Ship           |
 |                Touhou OST 8-bit remix, original by ZUN                       |
 |                                                                              |
-|               Menu Music: thepsynergist (YT)                                 |
+|               Menu Music: thepsynergist (YouTube)                            |
 |                Zelda Link to the Past - Hyrule Field                         |
 |                Gameboy 8-bit remix                                           |
 |                                                                              |
-|                                                                              |
-|                                                                              |
+|               Temple Music: Castlevania Adventure                            |
+|                Battle of the Holy                                            |
 |                                                                              |
 --------------------------------------------------------------------------------

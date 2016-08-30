@@ -325,7 +325,7 @@ void gameplay()		// gameplay logic
 	bonusKey(); // checks for bonus key
 	treeAxeCheck(); // checks for axe
 	doorSwitch(); // door switch to open doors
-	spikes_on();
+	spikes_on(); // turns on the spikes
 }
 
 void doorSwitch(){
@@ -348,7 +348,7 @@ void spikes_on()
 	if ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == 'X')
 	{
 		g_eGameState = S_GAMEOVER;
-		PlaySound(NULL, 0, 0);
+		PlaySound(NULL, 0, 0); // game ends when player touches X
 	}
 }
 
@@ -545,23 +545,24 @@ void renderStory(){
 		ostringstream ss;
 		ss.str("");
 		ss << "Press SPACE to move on with the game...";
-		if (LevelSelection >= 1 || LevelSelection <= 4 || LevelSelection == 11){
+		if (LevelSelection > 0 && LevelSelection <= 4 || LevelSelection == 11){
 			g_Console.writeToBuffer(c, ss.str(), 0x2F);
 		}
-
-		if (LevelSelection >= 5 || LevelSelection <= 10){
+		// prints out text of command
+		if (LevelSelection >= 5 && LevelSelection <= 10){
 			g_Console.writeToBuffer(c, ss.str(), 0x1F);
 		}
-
+		// prints out text of command
 		if (g_abKeyPressed[K_SPACE]){
 			charSpawn();
 			AiSpawn();
 			g_eGameState = S_GAME;
 		}
-
+		// continues with the game
 		if (g_abKeyPressed[K_ESCAPE]){
 			PlaySound(NULL, 0, 0);
 			g_eGameState = S_PAUSE;
+			// pauses the game
 		}
 	}
 }
@@ -656,10 +657,68 @@ void renderMap()
 			{
 				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x05); // turns switch and door into another colour
 			}
-			
-		 
 		}
+
+		// following code prints out the legend
+		COORD c;
+		ostringstream i1;
+		ostringstream i2;
+		ostringstream i3;
+		ostringstream i4;
+		ostringstream i5;
+		ostringstream i6;
+		ostringstream i7;
+		ostringstream i8;
+
+		i1 << std::fixed << std::setprecision(3);
+		i1 << "Legend";
+		c.X = 56;
+		c.Y = 5;
+		g_Console.writeToBuffer(c, i1.str());
+
+		i2 << std::fixed << std::setprecision(3);
+		i2 << "X - Spikes / $ - AI";
+		c.X = c.X;
+		c.Y = c.Y + 1;
+		g_Console.writeToBuffer(c, i2.str(), 0x04);
+
+		i3 << std::fixed << std::setprecision(3);
+		i3 << "1, 2, 5, A - Points";
+		c.X = c.X;
+		c.Y = c.Y + 1;
+		g_Console.writeToBuffer(c, i3.str(), 0x0E);
+
+		i4 << std::fixed << std::setprecision(3);
+		i4 << "T - Trees";
+		c.X = c.X;
+		c.Y = c.Y + 1;
+		g_Console.writeToBuffer(c, i4.str(), 0x0A);
+
+		i5 << std::fixed << std::setprecision(3);
+		i5 << "r - River";
+		c.X = c.X;
+		c.Y = c.Y + 1;
+		g_Console.writeToBuffer(c, i5.str(), 0x0B);
+
+		i6 << std::fixed << std::setprecision(3);
+		i6 << "#, & - Lock/Switch";
+		c.X = c.X;
+		c.Y = c.Y + 1;
+		g_Console.writeToBuffer(c, i6.str(), 0x05);
+
+		i7 << std::fixed << std::setprecision(3);
+		i7 << (char)158 << " - Level Clear";
+		c.X = c.X;
+		c.Y = c.Y + 1;
+		g_Console.writeToBuffer(c, i7.str(), 0x07);
+
+		i8 << std::fixed << std::setprecision(3);
+		i8 << "+, " << (char)233 << ", " << (char)210 << " - Tools";
+		c.X = c.X;
+		c.Y = c.Y + 1;
+		g_Console.writeToBuffer(c, i8.str(), 0x07);
 	}
+
 	LevelClear(); // calls the function to check if player has arrived at the level clear character
 	setArrowOption = false;
 	setArrowSelect = false; // resets arrows to make sure player doesn't end up at strange places on main screen
@@ -783,7 +842,14 @@ void pauseControls(){
 	if (g_abKeyPressed[K_ENTER]){
 		g_eGameState = S_GAME;
 		PlaySound(NULL, 0, 0);
-		PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+		if (LevelSelection < 5){
+			PlaySound(NULL, 0, 0);
+			PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+		}
+		if (LevelSelection >= 5){
+			PlaySound(NULL, 0, 0);
+			PlaySound(TEXT("Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+		}
 		// enter brings player back to game
 	}
 
@@ -809,8 +875,14 @@ void pauseControls(){
 		treeAxe = false;
 		bonusTimeKey = false;
 		g_eGameState = S_RESTART;
-		PlaySound(NULL, 0, 0);
-		PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+		if (LevelSelection < 5){
+			PlaySound(NULL, 0, 0);
+			PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+		}
+		if (LevelSelection >= 5){
+			PlaySound(NULL, 0, 0);
+			PlaySound(TEXT("Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+		}
 	}
 }
 
@@ -894,6 +966,10 @@ void LevelClear()
 	if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X] == char(158)) // checks if player has reached the point to clear level
 	{
 		LevelSelection += 1;
+		if (LevelSelection == 5){
+				PlaySound(NULL, 0, 0);
+				PlaySound(TEXT("Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC); // changes music once player reached level 5
+			}
 		SavedPoints += g_dTotalPoints;
 		g_eGameState = S_STORY;
 		AiSpawn();
@@ -988,7 +1064,7 @@ void SelectLevel()
 		LevelSelection = 5;
 		g_eGameState = S_STORY;
 		PlaySound(NULL, 0, 0);
-		PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+		PlaySound(TEXT("Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 21) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
@@ -996,7 +1072,7 @@ void SelectLevel()
 		LevelSelection = 6;
 		g_eGameState = S_STORY;
 		PlaySound(NULL, 0, 0);
-		PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+		PlaySound(TEXT("Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 22) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
@@ -1004,7 +1080,7 @@ void SelectLevel()
 		LevelSelection = 7;
 		g_eGameState = S_STORY;
 		PlaySound(NULL, 0, 0);
-		PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+		PlaySound(TEXT("Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 23) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
@@ -1012,7 +1088,7 @@ void SelectLevel()
 		LevelSelection = 8;
 		g_eGameState = S_STORY;
 		PlaySound(NULL, 0, 0);
-		PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+		PlaySound(TEXT("Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 24) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
@@ -1020,14 +1096,14 @@ void SelectLevel()
 		LevelSelection = 9;
 		g_eGameState = S_STORY;
 		PlaySound(NULL, 0, 0);
-		PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+		PlaySound(TEXT("Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 25) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 10;
 		g_eGameState = S_STORY;
 		PlaySound(NULL, 0, 0);
-		PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+		PlaySound(TEXT("Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 26) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
@@ -1194,8 +1270,15 @@ void rendergameover()
 		AxeUses = 0;
 		bonusTimeKey = false;
 		restart();
-		PlaySound(NULL, 0, 0);
-		PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+
+		if (LevelSelection < 5){
+			PlaySound(NULL, 0, 0);
+			PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+		}
+		if (LevelSelection >= 5){
+			PlaySound(NULL, 0, 0);
+			PlaySound(TEXT("Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+		}
 	}
 }
 void rendergameover2()
@@ -1233,8 +1316,14 @@ void rendergameover2()
 	if (g_abKeyPressed[K_R] && (g_eGameState == S_GAMEOVER2))
 	{
 		restart();
-		PlaySound(NULL, 0, 0);
-		PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+		if (LevelSelection < 5){
+			PlaySound(NULL, 0, 0);
+			PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+		}
+		if (LevelSelection >= 5){
+			PlaySound(NULL, 0, 0);
+			PlaySound(TEXT("Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+		}
 	}
 }
 void Cut()
