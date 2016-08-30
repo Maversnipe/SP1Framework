@@ -313,7 +313,7 @@ void gameplay()		// gameplay logic
 	bonusKey(); // checks for bonus key
 	treeAxeCheck(); // checks for axe
 	doorSwitch(); // door switch to open doors
-	spikes_on();
+	spikes_on(); // turns on the spikes
 }
 
 void doorSwitch(){
@@ -336,7 +336,7 @@ void spikes_on()
 	if ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == 'X')
 	{
 		g_eGameState = S_GAMEOVER;
-		PlaySound(NULL, 0, 0);
+		PlaySound(NULL, 0, 0); // game ends when player touches X
 	}
 }
 
@@ -534,23 +534,24 @@ void renderStory(){
 		ostringstream ss;
 		ss.str("");
 		ss << "Press SPACE to move on with the game...";
-		if (LevelSelection >= 1 || LevelSelection <= 4 || LevelSelection == 11){
+		if (LevelSelection > 0 && LevelSelection <= 4 || LevelSelection == 11){
 			g_Console.writeToBuffer(c, ss.str(), 0x2F);
 		}
-
-		if (LevelSelection >= 5 || LevelSelection <= 10){
+		// prints out text of command
+		if (LevelSelection >= 5 && LevelSelection <= 10){
 			g_Console.writeToBuffer(c, ss.str(), 0x1F);
 		}
-
+		// prints out text of command
 		if (g_abKeyPressed[K_SPACE]){
 			charSpawn();
 			AiSpawn();
 			g_eGameState = S_GAME;
 		}
-
+		// continues with the game
 		if (g_abKeyPressed[K_ESCAPE]){
 			PlaySound(NULL, 0, 0);
 			g_eGameState = S_PAUSE;
+			// pauses the game
 		}
 	}
 }
