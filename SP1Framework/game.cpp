@@ -34,6 +34,7 @@ bool treeAxe = false;
 bool onRock = false;
 int SavedPoints = 0;
 bool playedGame;
+bool playedGame1;
 extern bool changes;
 int i = 0;
 
@@ -1136,12 +1137,6 @@ void renderOption()
 	}
 	// checks for arrow location, then takes player to credit screen
 	if (g_abKeyPressed[K_ENTER] && (g_eGameState == S_OPTION) && arrow.Y == 15 && g_dElapsedTime>=g_dMenuToSelectTimer){
-
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 11f11f69ddf004c53ce970d45f954b1d5ba77afe
->>>>>>> 14cdd0e06c4a7cec75062aaa96ffb67ccb2cf802
 		g_eGameState = S_CREDITS;
 	}
 	// turns all the other arrow choices false so it will work to only reach the range in options
