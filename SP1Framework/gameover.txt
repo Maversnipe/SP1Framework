@@ -9,12 +9,12 @@
 |             /_____/     \/      \/     \/                \/                  |
 |                                                                              |
 |                                                                              |
-|                               you just got spiked                            |
+|                               You got spiked!                                |
 |                                                                              |
 |                                                                              |
-|                          press R to restart the level                        |
+|                          Press R to restart the level                        |
 |                                                                              |
-|                       press 'Esc' to return to Main Menu                     |
+|                       Press 'Esc' to return to Main Menu                     |
 |                                                                              |
 |                                                                              |
 |                                                                              |

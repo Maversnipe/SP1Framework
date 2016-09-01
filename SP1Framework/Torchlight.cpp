@@ -12,7 +12,7 @@ void light()
 	if ((g_abKeyPressed[K_B]) && ((g_eGameState != S_GAMEOVER) || (g_eGameState != S_GAMEOVER2)))
 	{
 		//down is +y , up is -y, left is -x , left is +x,
-
+		//Check if there's . in the area, if there is , change its color through writetobuffer.
 		if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] == '.')
 		{
 			
@@ -607,7 +607,7 @@ void light()
 		g_Console.writeToBuffer(c.X + 2, c.Y - 2, "|", 0x7B);
 
 	}
-	// Check for spikes
+	// Check for spikes by X.
 
 
 	if (Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X + 1] == 'X')
