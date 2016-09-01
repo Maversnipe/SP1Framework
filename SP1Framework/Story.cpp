@@ -263,7 +263,7 @@ void StoryEnd()
 		bonusTimeKey = false;
 		playedGame = true;
 		LoadMaps();
-		g_eGameState = S_LEADERBOARD;
+		g_eGameState = S_INPUT_NAME;
 	}
 
 	if (g_abKeyPressed[K_SPACE]){
