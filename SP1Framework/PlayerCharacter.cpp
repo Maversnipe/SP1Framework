@@ -524,7 +524,7 @@ void charSpawn()
 		break;
 	case 7:
 		g_sChar.m_cLocation.X = 5;
-		g_sChar.m_cLocation.Y = 21;
+		g_sChar.m_cLocation.Y = 20;
 		break;
 	case 8:
 		g_sChar.m_cLocation.X = 5;

@@ -7,7 +7,7 @@ void LevelOne()
 	c.Y = 0;
 	c.X = 0;
 	extern char Map[20][100][100];
-	ifstream File("LevelOne.txt");
+	ifstream File("Maps/LevelOne.txt");
 
 	if (File.is_open())
 	{
@@ -28,7 +28,7 @@ void LevelTwo()
 	c.Y = 0;
 	c.X = 0;
 	extern char Map[20][100][100];
-	ifstream File("LevelTwo.txt");
+	ifstream File("Maps/LevelTwo.txt");
 
 	if (File.is_open())
 	{
@@ -49,7 +49,7 @@ void LevelThree()
 	c.Y = 0;
 	c.X = 0;
 	extern char Map[20][100][100];
-	ifstream File("LevelThree.txt");
+	ifstream File("Maps/LevelThree.txt");
 
 	if (File.is_open())
 	{
@@ -70,7 +70,7 @@ void LevelFour()
 	c.Y = 0;
 	c.X = 0;
 	extern char Map[20][100][100];
-	ifstream File("LevelFour.txt");
+	ifstream File("Maps/LevelFour.txt");
 
 	if (File.is_open())
 	{
@@ -92,7 +92,7 @@ void LevelFive()
 	c.X = 0;
 	extern char Map[20][100][100];
 
-	ifstream File("LevelFive.txt");
+	ifstream File("Maps/LevelFive.txt");
 
 	if (File.is_open())
 	{
@@ -113,7 +113,7 @@ void LevelSix()
 	c.Y = 0;
 	c.X = 0;
 	extern char Map[20][100][100];
-	ifstream File("LevelSix.txt");
+	ifstream File("Maps/LevelSix.txt");
 
 	if (File.is_open())
 	{
@@ -134,7 +134,7 @@ void LevelSeven()
 	c.Y = 0;
 	c.X = 0;
 	extern char Map[20][100][100];
-	ifstream File("LevelSeven.txt");
+	ifstream File("Maps/LevelSeven.txt");
 
 	if (File.is_open())
 	{
@@ -155,7 +155,7 @@ void LevelEight()
 	c.Y = 0;
 	c.X = 0;
 	extern char Map[20][100][100];
-	ifstream File("LevelEight.txt");
+	ifstream File("Maps/LevelEight.txt");
 
 	if (File.is_open())
 	{
@@ -176,7 +176,7 @@ void LevelNine()
 	c.Y = 0;
 	c.X = 0;
 	extern char Map[20][100][100];
-	ifstream File("LevelNine.txt");
+	ifstream File("Maps/LevelNine.txt");
 
 	if (File.is_open())
 	{
@@ -197,7 +197,7 @@ void LevelTen()
 	c.Y = 0;
 	c.X = 0;
 	extern char Map[20][100][100];
-	ifstream File("LevelTen.txt");
+	ifstream File("Maps/LevelTen.txt");
 
 	if (File.is_open())
 	{
@@ -224,7 +224,7 @@ void BonusRoom(){
 
 	for (int Levels = 11; Levels < 16; Levels++)
 	{
-		ifstream File("bonusroom.txt");
+		ifstream File("Maps/bonusroom.txt");
 		if (File.is_open())
 		{
 			for (int Rows = 0; Rows < 25; Rows++)

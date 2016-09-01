@@ -1,4 +1,4 @@
-﻿iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
+iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
 iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
 iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
 iii====================================================
@@ -8,7 +8,7 @@ iii|..TT........TTTTT.......X..............T..T.T.....|
 iii|.T..T....XT..T...T..............X.........T..T.T..|
 iii|T...X...X.T..T..TT...rrrrr...r............T.T..T..|
 iii|T.T....X.....T.TTTrrrrrrr.rr..rrrrrrrr.TX..T...TXX|
-iii|..$....T..X....rrrr======+======rrr.T..........TTT|
+iii|.......T..X....rrrr======+======rrr.T..........TTT|
 iii|...T.5.T...X...rrrrr|5.........5|rrrrr.X..T..T.T..|
 iii|..XT....T......rrr.r|..........b|rrrrr..T......T..|
 iii|...XT...T.....rrrrrr|...........|rrrrrrr.TT.T.TT..|

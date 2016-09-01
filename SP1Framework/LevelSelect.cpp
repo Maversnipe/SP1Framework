@@ -7,7 +7,7 @@ void renderSelectLevel()
 	c.X = 0;
 
 	string sym;
-	ifstream myfile("levelselection.txt");
+	ifstream myfile("Menu/levelselection.txt");
 
 	if (myfile.is_open())
 	{

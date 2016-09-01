@@ -113,7 +113,7 @@ void AiMovement()
 				enemyMoveTime = g_dElapsedTime + 0.2;
 			}
 
-			if ((LevelSelection == 4) || (LevelSelection == 9) || (LevelSelection == 10))
+			if ((LevelSelection == 4) || (LevelSelection == 8) || (LevelSelection == 9) || (LevelSelection == 10))
 			{
 				if (Enemy[0].m_cLocation.Y == g_sChar.m_cLocation.Y && Enemy[0].m_cLocation.X == g_sChar.m_cLocation.X && GMode == false)
 				{
@@ -144,7 +144,7 @@ void AiMovement()
 void AiRender()
 {
 	WORD charColor = 0x04;
-	if ((LevelSelection == 4) || (LevelSelection == 9) || (LevelSelection == 10))
+	if ((LevelSelection == 4) || (LevelSelection == 8) || (LevelSelection == 9) || (LevelSelection == 10))
 	{
 		g_Console.writeToBuffer(Enemy[0].m_cLocation, '$', charColor);
 	}
@@ -165,6 +165,10 @@ void AiSpawn()
 	case 4:
 		Enemy[0].m_cLocation.X = 32;
 		Enemy[0].m_cLocation.Y = 4;
+		break;
+	case 8:
+		Enemy[0].m_cLocation.X = 7;
+		Enemy[0].m_cLocation.Y = 11;
 		break;
 	case 9:
 		Enemy[0].m_cLocation.X = 36;

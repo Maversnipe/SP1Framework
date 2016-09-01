@@ -95,7 +95,7 @@ void init( void )
 
     // sets the initial state for the game
 	g_eGameState = S_SPLASHSCREEN;
-	PlaySound(TEXT("Menu.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+	PlaySound(TEXT("Music/Menu.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
     g_sChar.m_bActive = true;
     // sets the width, height and the font name to use in the console
     g_Console.setConsoleFont(0, 16, L"Arial");
@@ -206,9 +206,8 @@ void update(double dt)
 			break;
 		case S_RESTART: restart(); // logic for restarting the game
 			break;
-		case S_LEADERBOARD:
-			// logic for the leaderboard
-			renderLeaderboard();
+		case S_LEADERBOARD:		
+			renderLeaderboard(); // logic for the leaderboard
 			break;
 		case S_OPTION:renderOption(); // logic for the options
 			break;
@@ -462,7 +461,7 @@ void titleText() {
 	c.X = 7;
 
 	string sym;
-	ifstream myfile("GameTitle.txt"); // calls .txt file to print
+	ifstream myfile("Menu/GameTitle.txt"); // calls .txt file to print
 
 	if (myfile.is_open()){
 		while (getline(myfile, sym)) {
@@ -473,7 +472,7 @@ void titleText() {
 	} // creates a loop to read the file line by line, then closes it.
 
 	string art;
-	ifstream temple("templeArt.txt"); // ascii art .txt file
+	ifstream temple("Menu/templeArt.txt"); // ascii art .txt file
 
 	if (temple.is_open()){
 		while (getline(temple, art)) {
@@ -519,7 +518,7 @@ void renderGame()
 {
     renderMap();        // renders the map to the buffer first
     renderCharacter();  // renders the character into the buffer
-	if ((LevelSelection == 4) || (LevelSelection == 9) || (LevelSelection == 10))
+	if ((LevelSelection == 4) || (LevelSelection == 8) || (LevelSelection == 9) || (LevelSelection == 10))
 	{
 		AiRender();			// renders AI into the buffer
 	}
@@ -630,6 +629,7 @@ void renderStory(){
 				CheckLever[LevelsDone] = false;
 			}
 			bonusTimeKey = false;
+			GMode = false;
 			playedGame = true;
 			LoadMaps();
 			g_eGameState = S_INPUT_NAME;
@@ -913,11 +913,11 @@ void pauseControls(){
 		PlaySound(NULL, 0, 0);
 		if (LevelSelection < 5){
 			PlaySound(NULL, 0, 0);
-			PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+			PlaySound(TEXT("Music/Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 		}
 		if (LevelSelection >= 5){
 			PlaySound(NULL, 0, 0);
-			PlaySound(TEXT("Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+			PlaySound(TEXT("Music/Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 		}
 		// enter brings player back to game
 	}
@@ -943,7 +943,7 @@ void pauseControls(){
 		}
 		g_eGameState = S_SPLASHSCREEN;
 		PlaySound(NULL, 0, 0);
-		PlaySound(TEXT("Menu.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+		PlaySound(TEXT("Music/Menu.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 	if (g_abKeyPressed[K_R])
 	{
@@ -954,11 +954,11 @@ void pauseControls(){
 		g_eGameState = S_RESTART;
 		if (LevelSelection < 5){
 			PlaySound(NULL, 0, 0);
-			PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+			PlaySound(TEXT("Music/Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 		}
 		if (LevelSelection >= 5){
 			PlaySound(NULL, 0, 0);
-			PlaySound(TEXT("Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+			PlaySound(TEXT("Music/Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 		}
 	}
 }
@@ -972,7 +972,7 @@ void renderPauseScreen()
 
 		// reads pausescreen.txt and writes it line by line
 		string sym;
-		ifstream myfile("PauseScreen.txt");
+		ifstream myfile("Menu/PauseScreen.txt");
 
 		if (myfile.is_open()){
 			while (getline(myfile, sym)) {
@@ -1045,8 +1045,9 @@ void LevelClear()
 		LevelSelection += 1;
 		if (LevelSelection == 5){
 				PlaySound(NULL, 0, 0);
-				PlaySound(TEXT("Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC); // changes music once player reached level 5
+				PlaySound(TEXT("Music/Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC); // changes music once player reached level 5
 			}
+		bonusTimeKey = false;
 		SavedPoints += g_dTotalPoints;
 		g_eGameState = S_STORY;
 		AiSpawn();
@@ -1110,7 +1111,7 @@ void SelectLevel()
 		LevelSelection = 1;
 		g_eGameState = S_STORY;
 		PlaySound(NULL, 0, 0);
-		PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+		PlaySound(TEXT("Music/Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 17) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
@@ -1118,7 +1119,7 @@ void SelectLevel()
 		LevelSelection = 2;
 		g_eGameState = S_STORY;
 		PlaySound(NULL, 0, 0);
-		PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+		PlaySound(TEXT("Music/Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 18) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
@@ -1126,7 +1127,7 @@ void SelectLevel()
 		LevelSelection = 3;
 		g_eGameState = S_STORY;
 		PlaySound(NULL, 0, 0);
-		PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+		PlaySound(TEXT("Music/Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}	
 	
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 19) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
@@ -1134,7 +1135,7 @@ void SelectLevel()
 		LevelSelection = 4;
 		g_eGameState = S_STORY;
 		PlaySound(NULL, 0, 0);
-		PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+		PlaySound(TEXT("Music/Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 20) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
@@ -1142,7 +1143,7 @@ void SelectLevel()
 		LevelSelection = 5;
 		g_eGameState = S_STORY;
 		PlaySound(NULL, 0, 0);
-		PlaySound(TEXT("Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+		PlaySound(TEXT("Music/Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 21) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
@@ -1150,7 +1151,7 @@ void SelectLevel()
 		LevelSelection = 6;
 		g_eGameState = S_STORY;
 		PlaySound(NULL, 0, 0);
-		PlaySound(TEXT("Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+		PlaySound(TEXT("Music/Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 22) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
@@ -1158,7 +1159,7 @@ void SelectLevel()
 		LevelSelection = 7;
 		g_eGameState = S_STORY;
 		PlaySound(NULL, 0, 0);
-		PlaySound(TEXT("Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+		PlaySound(TEXT("Music/Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 23) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
@@ -1166,7 +1167,7 @@ void SelectLevel()
 		LevelSelection = 8;
 		g_eGameState = S_STORY;
 		PlaySound(NULL, 0, 0);
-		PlaySound(TEXT("Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+		PlaySound(TEXT("Music/Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 24) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
@@ -1174,14 +1175,14 @@ void SelectLevel()
 		LevelSelection = 9;
 		g_eGameState = S_STORY;
 		PlaySound(NULL, 0, 0);
-		PlaySound(TEXT("Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+		PlaySound(TEXT("Music/Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 25) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
 		LevelSelection = 10;
 		g_eGameState = S_STORY;
 		PlaySound(NULL, 0, 0);
-		PlaySound(TEXT("Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+		PlaySound(TEXT("Music/Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 26) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
@@ -1223,7 +1224,7 @@ void renderInstructions()
 
 	// reads and writes instructions.txt for the instructions screen
 	string sym;
-	ifstream myfile("instructions.txt");
+	ifstream myfile("Menu/instructions.txt");
 
 	if (myfile.is_open())
 	{
@@ -1249,7 +1250,7 @@ void renderCredits()
 
 	// reads and writes credits.txt for the leaderboard screen
 	string sym;
-	ifstream myfile("credits.txt");
+	ifstream myfile("Menu/credits.txt");
 
 	if (myfile.is_open())
 	{
@@ -1275,7 +1276,7 @@ void renderOption()
 
 	// reads and writes options.txt for the options screen
 	string sym;
-	ifstream myfile("options.txt");
+	ifstream myfile("Menu/options.txt");
 
 	if (myfile.is_open())
 	{
@@ -1290,7 +1291,7 @@ void renderOption()
 	if (g_abKeyPressed[K_ENTER] && (g_eGameState == S_OPTION) && arrow.Y == 14)
 	{
 		std::ofstream ofs;
-		ofs.open("Leaderboard.csv", std::ofstream::out | std::ofstream::trunc);
+		ofs.open("Menu/Leaderboard.csv", std::ofstream::out | std::ofstream::trunc);
 		ofs.close();
 		
 	}
@@ -1317,7 +1318,7 @@ void rendergameover()
 
 	// reads and writes options.txt for the options screen
 	string sym;
-	ifstream myfile("gameover.txt");
+	ifstream myfile("Gameover/gameover.txt");
 
 	if (myfile.is_open())
 	{
@@ -1345,7 +1346,7 @@ void rendergameover()
 		}
 		g_eGameState = S_SPLASHSCREEN;
 		PlaySound(NULL, 0, 0);
-		PlaySound(TEXT("Menu.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+		PlaySound(TEXT("Music/Menu.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 	// restarts the level
 	if (g_abKeyPressed[K_R] && (g_eGameState == S_GAMEOVER))
@@ -1358,11 +1359,11 @@ void rendergameover()
 
 		if (LevelSelection < 5){
 			PlaySound(NULL, 0, 0);
-			PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+			PlaySound(TEXT("Music/Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 		}
 		if (LevelSelection >= 5){
 			PlaySound(NULL, 0, 0);
-			PlaySound(TEXT("Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+			PlaySound(TEXT("Music/Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 		}
 	}
 }
@@ -1375,7 +1376,7 @@ void rendergameover2()
 
 	// reads and writes options.txt for the options screen
 	string sym;
-	ifstream myfile("gameover2.txt");
+	ifstream myfile("Gameover/gameover2.txt");
 
 	if (myfile.is_open())
 	{
@@ -1403,7 +1404,7 @@ void rendergameover2()
 		}
 		g_eGameState = S_SPLASHSCREEN;
 		PlaySound(NULL, 0, 0);
-		PlaySound(TEXT("Menu.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+		PlaySound(TEXT("Music/Menu.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 	}
 	// checks for arrow location, then takes player to credit screen
 	if (g_abKeyPressed[K_R] && (g_eGameState == S_GAMEOVER2))
@@ -1411,11 +1412,11 @@ void rendergameover2()
 		restart();
 		if (LevelSelection < 5){
 			PlaySound(NULL, 0, 0);
-			PlaySound(TEXT("Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+			PlaySound(TEXT("Music/Game.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 		}
 		if (LevelSelection >= 5){
 			PlaySound(NULL, 0, 0);
-			PlaySound(TEXT("Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
+			PlaySound(TEXT("Music/Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 		}
 	}
 }
@@ -1427,7 +1428,7 @@ void RenderInput(){
 
 	// reads and writes options.txt for the options screen
 	string sym;
-	ifstream myfile("InputName.txt");
+	ifstream myfile("Menu/InputName.txt");
 
 	while (myfile.is_open())
 	{

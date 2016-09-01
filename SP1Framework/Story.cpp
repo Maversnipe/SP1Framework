@@ -8,7 +8,7 @@ void StoryOne()
 	c.Y = 4;
 	c.X = 4;
 	string sym;
-	ifstream myfile("StoryOne.txt");
+	ifstream myfile("Stories/StoryOne.txt");
 
 	if (myfile.is_open())
 	{
@@ -28,7 +28,7 @@ void StoryTwo()
 	c.Y = 4;
 	c.X = 4;
 	string sym;
-	ifstream myfile("StoryTwo.txt");
+	ifstream myfile("Stories/StoryTwo.txt");
 
 	if (myfile.is_open())
 	{
@@ -48,7 +48,7 @@ void StoryThree()
 	c.Y = 4;
 	c.X = 4;
 	string sym;
-	ifstream myfile("StoryThree.txt");
+	ifstream myfile("Stories/StoryThree.txt");
 
 	if (myfile.is_open())
 	{
@@ -68,7 +68,7 @@ void StoryFour()
 	c.Y = 4;
 	c.X = 4;
 	string sym;
-	ifstream myfile("StoryFour.txt");
+	ifstream myfile("Stories/StoryFour.txt");
 
 	if (myfile.is_open())
 	{
@@ -88,7 +88,7 @@ void StoryFive()
 	c.Y = 4;
 	c.X = 4;
 	string sym;
-	ifstream myfile("StoryFive.txt");
+	ifstream myfile("Stories/StoryFive.txt");
 
 	if (myfile.is_open())
 	{
@@ -108,7 +108,7 @@ void StorySix()
 	c.Y = 4;
 	c.X = 4;
 	string sym;
-	ifstream myfile("StorySix.txt");
+	ifstream myfile("Stories/StorySix.txt");
 
 	if (myfile.is_open())
 	{
@@ -128,7 +128,7 @@ void StorySeven()
 	c.Y = 4;
 	c.X = 4;
 	string sym;
-	ifstream myfile("StorySeven.txt");
+	ifstream myfile("Stories/StorySeven.txt");
 
 	if (myfile.is_open())
 	{
@@ -148,7 +148,7 @@ void StoryEight()
 	c.Y = 4;
 	c.X = 4;
 	string sym;
-	ifstream myfile("StoryEight.txt");
+	ifstream myfile("Stories/StoryEight.txt");
 
 	if (myfile.is_open())
 	{
@@ -168,7 +168,7 @@ void StoryNine()
 	c.Y = 4;
 	c.X = 4;
 	string sym;
-	ifstream myfile("StoryNine.txt");
+	ifstream myfile("Stories/StoryNine.txt");
 
 	if (myfile.is_open())
 	{
@@ -188,7 +188,7 @@ void StoryTen()
 	c.Y = 4;
 	c.X = 4;
 	string sym;
-	ifstream myfile("StoryTen.txt");
+	ifstream myfile("Stories/StoryTen.txt");
 
 	if (myfile.is_open())
 	{
@@ -209,7 +209,7 @@ void StoryEnd()
 	c.X = 4;
 
 	string sym;
-	ifstream myfile("StoryLast.txt");
+	ifstream myfile("Stories/StoryLast.txt");
 
 	if (myfile.is_open())
 	{

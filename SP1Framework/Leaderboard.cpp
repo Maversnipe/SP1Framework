@@ -59,7 +59,7 @@ void LeaderboardMenu()                                                          
 
 	// reads and writes leaderboard.txt for the leaderboard screen
 	string sym;
-	ifstream myfile("Leaderboard.txt");                                              //cout the ascii art for leaderboard
+	ifstream myfile("Menu/Leaderboard.txt");                                              //cout the ascii art for leaderboard
 
 	if (myfile.is_open())
 	{
@@ -87,7 +87,7 @@ void LoadLeaderboard()
 {
 	int i = 0;
 
-	ifstream File("Leaderboard.csv");                                          //get the data from the csv file
+	ifstream File("Menu/Leaderboard.csv");                                          //get the data from the csv file
 	while (File >> Leaders[i].Name >> Leaders[i].Score >> Leaders[i].Time)
 	{
 		i++;
@@ -124,7 +124,7 @@ void LoadLeaderboard()
 
 	if (changesPoints == true || changesTime == true)                                                          //update the leaderboard.csv
 	{
-		ofstream MyFile("Leaderboard.csv");
+		ofstream MyFile("Menu/Leaderboard.csv");
 		for (i = 0; i < 6; i++)
 		{
 			MyFile << Leaders[i].Name << " " << Leaders[i].Score << " " << Leaders[i].Time << endl;
