@@ -37,6 +37,7 @@ using namespace std;
 #define VK_X 0x58
 #define VK_Y 0x59
 #define VK_Z 0x5A
+#define VK_BS 0x08
 
 
 extern CStopWatch g_swTimer;
@@ -99,8 +100,8 @@ enum EGAMESTATES
 	S_STORY,
 	S_GAMEOVER,
 	S_GAMEOVER2,
-	S_COUNT,
-	S_INPUT_NAME
+	S_INPUT_NAME,
+	S_COUNT
 };
 
 
@@ -110,7 +111,7 @@ struct SGameChar
 	COORD m_cLocation;
 	int points = 0;
 	double time = 0;
-	string Name = "JOHN";
+	string Name = "";
 	bool  m_bActive;
 }
 ;

@@ -32,6 +32,7 @@ double g_dElapsedTime; //Elapsed time when code starts to run
 double g_dTimer; //Timer for when the game starts
 double g_dMenuToSelectTimer; //Bounce time moving between menu to other pages and vice versa
 double  g_dDeltaTime; //Time taken in seconds to complete the last frame
+double g_dEndToName;
 
 //Points collected in game
 int g_dTotalPoints; //Total points collected
@@ -52,8 +53,14 @@ bool playerOnRock = false; //If player on boulder
 bool playedGame; //Checks for level 10
 bool playedGame1; //Checks for level 1
 
+//Checks if player is invulnerable
+bool GMode = false;
+
 //Checks if there were changes made to leaderboard
 extern bool changes;
+
+//Counts number of letters in player name
+int nameLetterCounter = 0;
 
 // Game specific variables here
 SGameChar g_sChar; //Player character
@@ -79,6 +86,8 @@ void init( void )
     g_dBounceTime = 0.0;
 	g_dTotalPoints = 0;
 	g_dMenuToSelectTimer = 0.0;
+	g_dEndToName = 0.0;
+
 	for (int LevelsDone = 5; LevelsDone <= 10; LevelsDone++) //Reset check lever to false
 	{
 		CheckLever[LevelsDone] = false;
@@ -127,13 +136,33 @@ void getInput(void)
 	g_abKeyPressed[K_SPACE] = isKeyPressed(VK_SPACE);
 	g_abKeyPressed[K_ESCAPE] = isKeyPressed(VK_ESCAPE);
 	g_abKeyPressed[K_ENTER] = isKeyPressed(VK_RETURN);
-	g_abKeyPressed[K_W] = isKeyPressed(VK_W);
-	g_abKeyPressed[K_S] = isKeyPressed(VK_S);
+	g_abKeyPressed[K_BACKSPACE] = isKeyPressed(VK_BS);
 	g_abKeyPressed[K_A] = isKeyPressed(VK_A);
-	g_abKeyPressed[K_D] = isKeyPressed(VK_D);
-	g_abKeyPressed[K_R] = isKeyPressed(VK_R);
-	g_abKeyPressed[K_C] = isKeyPressed(VK_C);
 	g_abKeyPressed[K_B] = isKeyPressed(VK_B);
+	g_abKeyPressed[K_C] = isKeyPressed(VK_C);
+	g_abKeyPressed[K_D] = isKeyPressed(VK_D);
+	g_abKeyPressed[K_E] = isKeyPressed(VK_E);
+	g_abKeyPressed[K_F] = isKeyPressed(VK_F);
+	g_abKeyPressed[K_G] = isKeyPressed(VK_G);
+	g_abKeyPressed[K_H] = isKeyPressed(VK_H);
+	g_abKeyPressed[K_I] = isKeyPressed(VK_I);
+	g_abKeyPressed[K_J] = isKeyPressed(VK_J);
+	g_abKeyPressed[K_K] = isKeyPressed(VK_K);
+	g_abKeyPressed[K_L] = isKeyPressed(VK_L);
+	g_abKeyPressed[K_M] = isKeyPressed(VK_M);
+	g_abKeyPressed[K_N] = isKeyPressed(VK_N);
+	g_abKeyPressed[K_O] = isKeyPressed(VK_O);
+	g_abKeyPressed[K_P] = isKeyPressed(VK_P);
+	g_abKeyPressed[K_Q] = isKeyPressed(VK_Q);
+	g_abKeyPressed[K_R] = isKeyPressed(VK_R);
+	g_abKeyPressed[K_S] = isKeyPressed(VK_S);
+	g_abKeyPressed[K_T] = isKeyPressed(VK_T);
+	g_abKeyPressed[K_U] = isKeyPressed(VK_U);
+	g_abKeyPressed[K_V] = isKeyPressed(VK_V);
+	g_abKeyPressed[K_W] = isKeyPressed(VK_W);
+	g_abKeyPressed[K_X] = isKeyPressed(VK_X);
+	g_abKeyPressed[K_Y] = isKeyPressed(VK_Y);
+	g_abKeyPressed[K_Z] = isKeyPressed(VK_Z);
 }
 
 //--------------------------------------------------------------
@@ -178,7 +207,7 @@ void update(double dt)
 		case S_RESTART: restart(); // logic for restarting the game
 			break;
 		case S_LEADERBOARD:
-			//leaderboard(); // logic for the leaderboard
+			// logic for the leaderboard
 			renderLeaderboard();
 			break;
 		case S_OPTION:renderOption(); // logic for the options
@@ -354,7 +383,7 @@ void doorSwitch(){
 
 void spikes_on()
 {
-	if ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == 'X')
+	if ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == 'X' && GMode == false)
 	{
 		g_eGameState = S_GAMEOVER;
 		PlaySound(NULL, 0, 0); // game ends when player touches X
@@ -572,6 +601,40 @@ void renderStory(){
 			// pauses the game
 		}
 	}
+	else if (LevelSelection == 11)
+	{
+		COORD c;
+		c.X = 25;
+		c.Y = 20;
+
+		ostringstream ss;
+		ss.str("");
+		ss << "You've finished the game.";
+		g_Console.writeToBuffer(c, ss.str(), 0x2F);
+		ss.str("");
+		ss << "Press SPACE to proceed to input your name.";
+		g_Console.writeToBuffer(c.X, c.Y + 2, ss.str(), 0x2F);
+
+		if (g_abKeyPressed[K_SPACE]){
+			g_dEndToName = g_dElapsedTime + 0.125;
+			g_sChar.time = g_dTimer;
+			g_dTimer = 0.0;
+			g_sChar.points = g_dTotalPoints;
+			g_dTotalPoints = 0;
+			SavedPoints = 0;
+			playerOnRock = false;
+			treeAxe = false;
+			AxeUses = 0;
+			for (int LevelsDone = 5; LevelsDone <= 10; LevelsDone++) //Reset check lever to false
+			{
+				CheckLever[LevelsDone] = false;
+			}
+			bonusTimeKey = false;
+			playedGame = true;
+			LoadMaps();
+			g_eGameState = S_INPUT_NAME;
+		}
+	}
 }
 
 void renderMap()
@@ -713,7 +776,7 @@ void renderMap()
 		g_Console.writeToBuffer(c, i5.str(), 0x0B);
 
 		i6 << std::fixed << std::setprecision(3);
-		i6 << "#, & - Locked Door/Switch";
+		i6 << "#,& - Locked Door/Switch";
 		c.X = c.X;
 		c.Y = c.Y + 1;
 		g_Console.writeToBuffer(c, i6.str(), 0x05);
@@ -871,6 +934,8 @@ void pauseControls(){
 		treeAxe = false;
 		AxeUses = 0;
 		bonusTimeKey = false;
+		playedGame1 = false;
+		GMode = false;
 		LoadMaps();
 		for (int LevelsDone = 5; LevelsDone <= 10; LevelsDone++) //Reset check lever to false
 		{
@@ -1041,6 +1106,7 @@ void SelectLevel()
 	// checks for enter key pressed and position of arrow, then brings player to the chosen level and starts the game
 	if ((g_abKeyPressed[K_ENTER]) && (arrow.Y == 16) && (g_eGameState == S_SELECT) && (g_dElapsedTime >= g_dMenuToSelectTimer))
 	{
+		playedGame1 = true;
 		LevelSelection = 1;
 		g_eGameState = S_STORY;
 		PlaySound(NULL, 0, 0);
@@ -1272,6 +1338,7 @@ void rendergameover()
 		playerOnRock = false;
 		onRock = false;
 		bonusTimeKey = false;
+		playedGame1 = false;
 		for (int LevelsDone = 5; LevelsDone <= 10; LevelsDone++) //Reset check lever to false
 		{
 			CheckLever[LevelsDone] = false;
@@ -1329,6 +1396,7 @@ void rendergameover2()
 		playerOnRock = false;
 		onRock = false;
 		bonusTimeKey = false;
+		playedGame1 = false;
 		for (int LevelsDone = 5; LevelsDone <= 10; LevelsDone++) //Reset check lever to false
 		{
 			CheckLever[LevelsDone] = false;
@@ -1361,7 +1429,7 @@ void RenderInput(){
 	string sym;
 	ifstream myfile("InputName.txt");
 
-	if (myfile.is_open())
+	while (myfile.is_open())
 	{
 		while (getline(myfile, sym))
 		{
@@ -1370,20 +1438,8 @@ void RenderInput(){
 		}
 		myfile.close();
 	}
-
+	
 	CharName();
-
-	ostringstream ss;
-	c.X = 20;
-	c.Y = 10;
-	ss.str("");
-	ss << g_sChar.Name;
-	g_Console.writeToBuffer(c, ss.str());
-
-	if (g_abKeyPressed[K_ENTER] && (g_eGameState == S_INPUT_NAME))
-	{
-		g_eGameState == S_LEADERBOARD;
-	}
 }
 
 void Cut()

@@ -7,7 +7,8 @@
 |        \____/\___|\__/_|\__/_|\___|_|  |____/ \___/ \__/_|_|  \____|         |
 |                                                                              |
 |                                                                              |
-|                              Input your name.                                |
+|                            Please input your name                            |
+|                          (Maximum of 10 characters)                          |
 |                                                                              |
 |                                                                              |
 |                                                                              |

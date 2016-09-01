@@ -11,6 +11,7 @@ extern double g_dElapsedTime;
 double enemyMoveTime = 0.0;
 bool detected = false;
 int randomMovement; 
+extern bool GMode;
 
 void AiMovement()
 {
@@ -114,7 +115,7 @@ void AiMovement()
 
 			if ((LevelSelection == 4) || (LevelSelection == 9) || (LevelSelection == 10))
 			{
-				if (Enemy[0].m_cLocation.Y == g_sChar.m_cLocation.Y && Enemy[0].m_cLocation.X == g_sChar.m_cLocation.X)
+				if (Enemy[0].m_cLocation.Y == g_sChar.m_cLocation.Y && Enemy[0].m_cLocation.X == g_sChar.m_cLocation.X && GMode == false)
 				{
 					g_eGameState = S_GAMEOVER2;
 					PlaySound(NULL, 0, 0);
@@ -122,7 +123,7 @@ void AiMovement()
 			}
 			if ((LevelSelection == 9) || (LevelSelection == 10))
 			{
-				if (Enemy[1].m_cLocation.Y == g_sChar.m_cLocation.Y && Enemy[1].m_cLocation.X == g_sChar.m_cLocation.X)
+				if (Enemy[1].m_cLocation.Y == g_sChar.m_cLocation.Y && Enemy[1].m_cLocation.X == g_sChar.m_cLocation.X && GMode == false)
 				{
 					g_eGameState = S_GAMEOVER2;
 					PlaySound(NULL, 0, 0);
@@ -130,7 +131,7 @@ void AiMovement()
 			}
 			if (LevelSelection == 10)
 			{
-				if (Enemy[2].m_cLocation.Y == g_sChar.m_cLocation.Y && Enemy[2].m_cLocation.X == g_sChar.m_cLocation.X)
+				if (Enemy[2].m_cLocation.Y == g_sChar.m_cLocation.Y && Enemy[2].m_cLocation.X == g_sChar.m_cLocation.X && GMode == false)
 				{
 					g_eGameState = S_GAMEOVER2;
 					PlaySound(NULL, 0, 0);
