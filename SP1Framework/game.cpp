@@ -191,7 +191,7 @@ void update(double dt)
 			break;
 		case S_GAMEOVER2:rendergameover2();
 			break;
-		case S_INPUT_NAME:
+		case S_INPUT_NAME: RenderInput();
 			break;
 		}
 }
@@ -237,7 +237,7 @@ void render()
 			break;
 		case S_GAMEOVER2:rendergameover2();
 			break;
-		case S_INPUT_NAME: CharName();
+		case S_INPUT_NAME: RenderInput();
 			break;
     }  // renders everything required for the screens
 
@@ -1349,6 +1349,40 @@ void rendergameover2()
 			PlaySound(NULL, 0, 0);
 			PlaySound(TEXT("Temple.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 		}
+	}
+}
+
+void RenderInput(){
+	COORD c = g_Console.getConsoleSize();
+	c.Y = 0;
+	c.X = 0;
+
+	// reads and writes options.txt for the options screen
+	string sym;
+	ifstream myfile("InputName.txt");
+
+	if (myfile.is_open())
+	{
+		while (getline(myfile, sym))
+		{
+			g_Console.writeToBuffer(c, sym, 0x07);
+			c.Y++;
+		}
+		myfile.close();
+	}
+
+	CharName();
+
+	ostringstream ss;
+	c.X = 20;
+	c.Y = 10;
+	ss.str("");
+	ss << g_sChar.Name;
+	g_Console.writeToBuffer(c, ss.str());
+
+	if (g_abKeyPressed[K_ENTER] && (g_eGameState == S_INPUT_NAME))
+	{
+		g_eGameState == S_LEADERBOARD;
 	}
 }
 

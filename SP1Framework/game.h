@@ -191,4 +191,5 @@ void AiMovement();
 void AiRender();
 void AiSpawn();
 void CharName();
+void RenderInput();
 #endif // _GAME_H
