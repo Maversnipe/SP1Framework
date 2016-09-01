@@ -74,40 +74,20 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AI.cpp" />
-    <ClCompile Include="BonusRoom.cpp" />
-    <ClCompile Include="characterMovement.cpp" />
-    <ClCompile Include="characterSpawn.cpp" />
     <ClCompile Include="Framework\console.cpp" />
     <ClCompile Include="Framework\timer.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="Leaderboard.cpp" />
-    <ClCompile Include="LevelEight.cpp" />
-    <ClCompile Include="LevelFive.cpp" />
-    <ClCompile Include="LevelFour.cpp" />
-    <ClCompile Include="LevelNine.cpp" />
-    <ClCompile Include="LevelOne.cpp" />
+    <ClCompile Include="Levels.cpp" />
     <ClCompile Include="LevelSelect.cpp" />
-    <ClCompile Include="LevelSeven.cpp" />
-    <ClCompile Include="LevelSix.cpp" />
-    <ClCompile Include="LevelTen.cpp" />
-    <ClCompile Include="LevelThree.cpp" />
-    <ClCompile Include="LevelTwo.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="StoryEight.cpp" />
-    <ClCompile Include="StoryEnd.cpp" />
-    <ClCompile Include="StoryFive.cpp" />
-    <ClCompile Include="StoryFour.cpp" />
-    <ClCompile Include="StoryNine.cpp" />
-    <ClCompile Include="StoryOne.cpp" />
-    <ClCompile Include="StorySeven.cpp" />
-    <ClCompile Include="StorySix.cpp" />
-    <ClCompile Include="StoryTen.cpp" />
-    <ClCompile Include="StoryThree.cpp" />
-    <ClCompile Include="StoryTwo.cpp" />
+    <ClCompile Include="PlayerCharacter.cpp" />
+    <ClCompile Include="Story.cpp" />
     <ClCompile Include="Torchlight.cpp" />
   </ItemGroup>
   <ItemGroup>

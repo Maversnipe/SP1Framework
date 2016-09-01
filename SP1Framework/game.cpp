@@ -11,6 +11,7 @@
 #include <stdlib.h>
 extern Console g_Console;
 
+//Maps
 char Map[20][100][100];
 
 //The menu arrow
@@ -39,11 +40,13 @@ int SavedPoints = 0; //Points collected from previous level
 //Keyboard press
 bool g_abKeyPressed[K_COUNT]; 
 
-//Checks if player has bonus key
-bool bonusTimeKey;
+//Door related
+bool bonusTimeKey; //Checks if player has bonus key
+bool CheckLever[11];
 
-//Checks if player is on underwater boulder
-bool onRock = false;
+//Checks for boulder
+bool onRock = false; //If boulder on boulder
+bool playerOnRock = false; //If player on boulder
 
 //Checks if player has played game (For leaderboard)
 bool playedGame; //Checks for level 10
@@ -76,6 +79,10 @@ void init( void )
     g_dBounceTime = 0.0;
 	g_dTotalPoints = 0;
 	g_dMenuToSelectTimer = 0.0;
+	for (int LevelsDone = 5; LevelsDone <= 10; LevelsDone++) //Reset check lever to false
+	{
+		CheckLever[LevelsDone] = false;
+	}
 
     // sets the initial state for the game
 	g_eGameState = S_SPLASHSCREEN;
@@ -184,6 +191,8 @@ void update(double dt)
 			break;
 		case S_GAMEOVER2:rendergameover2();
 			break;
+		case S_INPUT_NAME:
+			break;
 		}
 }
 //--------------------------------------------------------------
@@ -216,7 +225,6 @@ void render()
 		case S_RESTART: restart();
 			break;
 		case S_LEADERBOARD:
-			//leaderboard();
 			renderLeaderboard();
 			break;
 		case S_OPTION:renderOption();
@@ -229,12 +237,15 @@ void render()
 			break;
 		case S_GAMEOVER2:rendergameover2();
 			break;
+		case S_INPUT_NAME: CharName();
+			break;
     }  // renders everything required for the screens
 
 	light();
     renderToScreen();
 	// dump the contents of the buffer to the screen, one frame worth of game
 }
+
 void restart()
 {
 	// restart function for the game, checks for the level so the game will know which level to restart at
@@ -243,48 +254,45 @@ void restart()
 	case 1: // level one
 		LevelOne();
 		break;
-
 	case 2: // level two
 		LevelTwo();
 		break;
-
 	case 3: // level three
 		LevelThree();
 		break;
-
 	case 4: // level four
 		LevelFour();
 		break;
-
 	case 5: // level five
 		LevelFive();
 		break;
-
 	case 6: // level six
 		LevelSix();
 		break;
-
 	case 7: // level seven
 		LevelSeven();
 		break;
-
 	case 8: // level eight
 		LevelEight();
 		break;
-
 	case 9: // level nine
 		LevelNine();
 		break;
-
 	case 10: // level ten
 		LevelTen();
 		break;
 	}
-	g_eGameState = S_GAME;
+	for (int LevelsDone = 5; LevelsDone <= 10; LevelsDone++) //Reset check lever to false
+	{
+		CheckLever[LevelsDone] = false;
+	}
+	g_eGameState = S_GAME; 
 	charSpawn();
 	AiSpawn();
 	treeAxe = false;
 	AxeUses = 0;
+	playerOnRock = false;
+	onRock = false;
 	bonusTimeKey = false;
 	g_dTotalPoints = SavedPoints;
 }
@@ -329,8 +337,9 @@ void gameplay()		// gameplay logic
 }
 
 void doorSwitch(){
-	if ((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == '&') // checks if player is on the switch
+	if (((Map[LevelSelection][g_sChar.m_cLocation.Y][g_sChar.m_cLocation.X]) == '&') && (CheckLever[LevelSelection] == false)) // checks if player is on the switch
 	{
+		CheckLever[LevelSelection] = true;
 		for (int Rows = 0; Rows < 24; Rows++)
 		{
 			for (int Columns = 0; Columns < 55; Columns++)
@@ -486,8 +495,6 @@ void renderGame()
 		AiRender();			// renders AI into the buffer
 	}
 }
-
-
 
 void renderStory(){
 	switch (LevelSelection)
@@ -655,7 +662,12 @@ void renderMap()
 
 			if (Map[LevelSelection][rows][columns] == '#' || Map[LevelSelection][rows][columns] == '&')
 			{
-				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x05); // turns switch and door into another colour
+				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x0D); // turns switch and door into another colour
+			}
+
+			if ((Map[LevelSelection][rows][columns] == '&') && (CheckLever[LevelSelection] == true))
+			{
+				g_Console.writeToBuffer(c, Map[LevelSelection][rows][columns], 0x02); // Lever change colours if player touches it
 			}
 		}
 
@@ -701,7 +713,7 @@ void renderMap()
 		g_Console.writeToBuffer(c, i5.str(), 0x0B);
 
 		i6 << std::fixed << std::setprecision(3);
-		i6 << "#, & - Lock/Switch";
+		i6 << "#, & - Locked Door/Switch";
 		c.X = c.X;
 		c.Y = c.Y + 1;
 		g_Console.writeToBuffer(c, i6.str(), 0x05);
@@ -722,13 +734,6 @@ void renderMap()
 	LevelClear(); // calls the function to check if player has arrived at the level clear character
 	setArrowOption = false;
 	setArrowSelect = false; // resets arrows to make sure player doesn't end up at strange places on main screen
-}
-
-void renderCharacter()
-{
-    // Draw the location of the character
-	WORD charColor = 0x06;
-    g_Console.writeToBuffer(g_sChar.m_cLocation, (char)232, charColor);
 }
 
 void renderArrow()
@@ -831,6 +836,7 @@ void renderFramerate()
 		g_Console.writeToBuffer(c, ss.str());
 	}
 }
+
 void renderToScreen()
 {
     // Writes the buffer to the console, hence you will see what you have written
@@ -860,10 +866,16 @@ void pauseControls(){
 		SavedPoints = 0;
 		charSpawn();
 		AiSpawn();
+		playerOnRock = false;
+		onRock = false;
 		treeAxe = false;
 		AxeUses = 0;
 		bonusTimeKey = false;
 		LoadMaps();
+		for (int LevelsDone = 5; LevelsDone <= 10; LevelsDone++) //Reset check lever to false
+		{
+			CheckLever[LevelsDone] = false;
+		}
 		g_eGameState = S_SPLASHSCREEN;
 		PlaySound(NULL, 0, 0);
 		PlaySound(TEXT("Menu.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
@@ -1257,7 +1269,13 @@ void rendergameover()
 		g_dTimer = 0.0;
 		treeAxe = false;
 		AxeUses = 0;
+		playerOnRock = false;
+		onRock = false;
 		bonusTimeKey = false;
+		for (int LevelsDone = 5; LevelsDone <= 10; LevelsDone++) //Reset check lever to false
+		{
+			CheckLever[LevelsDone] = false;
+		}
 		g_eGameState = S_SPLASHSCREEN;
 		PlaySound(NULL, 0, 0);
 		PlaySound(TEXT("Menu.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
@@ -1281,6 +1299,7 @@ void rendergameover()
 		}
 	}
 }
+
 void rendergameover2()
 {
 	COORD c = g_Console.getConsoleSize();
@@ -1307,7 +1326,13 @@ void rendergameover2()
 		g_dTimer = 0.0;
 		treeAxe = false;
 		AxeUses = 0;
+		playerOnRock = false;
+		onRock = false;
 		bonusTimeKey = false;
+		for (int LevelsDone = 5; LevelsDone <= 10; LevelsDone++) //Reset check lever to false
+		{
+			CheckLever[LevelsDone] = false;
+		}
 		g_eGameState = S_SPLASHSCREEN;
 		PlaySound(NULL, 0, 0);
 		PlaySound(TEXT("Menu.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
@@ -1326,6 +1351,7 @@ void rendergameover2()
 		}
 	}
 }
+
 void Cut()
 {
 	// the function to be able to cut trees down.

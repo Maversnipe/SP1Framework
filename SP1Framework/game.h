@@ -63,6 +63,7 @@ enum EGAMESTATES
 	S_GAMEOVER,
 	S_GAMEOVER2,
 	S_COUNT,
+	S_INPUT_NAME
 };
 
 
@@ -153,4 +154,5 @@ void LeaderboardMenu();
 void AiMovement();
 void AiRender();
 void AiSpawn();
+void CharName();
 #endif // _GAME_H

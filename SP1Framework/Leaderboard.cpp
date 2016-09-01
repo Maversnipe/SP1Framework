@@ -121,7 +121,6 @@ void LoadLeaderboard()
 
 	if (changes == true)                                                          //update the leaderboard.csv
 	{
-
 		ofstream MyFile("Leaderboard.csv");
 		for (i = 0; i < 6; i++)
 		{
