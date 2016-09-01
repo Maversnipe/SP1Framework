@@ -587,89 +587,149 @@ void charSpawn()
 void CharName()
 {
 	g_sChar.Name = "";
-	int Key = 0;
-	switch (g_abKeyPressed[K_COUNT])
-	{
-	case K_A:
-		g_sChar.Name += 'A';
-		break;
-	case K_B:
-		g_sChar.Name += 'B';
-		break;
-	case K_C:
-		g_sChar.Name += 'C';
-		break;
-	case K_D:
-		g_sChar.Name += 'D';
-		break;
-	case K_E:
-		g_sChar.Name += 'E';
-		break;
-	case K_F:
-		g_sChar.Name += 'F';
-		break;
-	case K_G:
-		g_sChar.Name += 'G';
-		break;
-	case K_H:
-		g_sChar.Name += 'H';
-		break;
-	case K_I:
-		g_sChar.Name += 'I';
-		break;
-	case K_J:
-		g_sChar.Name += 'J';
-		break;
-	case K_K:
-		g_sChar.Name += 'K';
-		break;
-	case K_L:
-		g_sChar.Name += 'L';
-		break;
-	case K_M:
-		g_sChar.Name += 'M';
-		break;
-	case K_N:
-		g_sChar.Name += 'N';
-		break;
-	case K_O:
-		g_sChar.Name += 'O';
-		break;
-	case K_P:
-		g_sChar.Name += 'P';
-		break;
-	case K_Q:
-		g_sChar.Name += 'Q';
-		break;
-	case K_R:
-		g_sChar.Name += 'R';
-		break;
-	case K_S:
-		g_sChar.Name += 'S';
-		break;
-	case K_T:
-		g_sChar.Name += 'T';
-		break;
-	case K_U:
-		g_sChar.Name += 'U';
-		break;
-	case K_V:
-		g_sChar.Name += 'V';
-		break;
-	case K_W:
-		g_sChar.Name += 'W';
-		break;
-	case K_X:
-		g_sChar.Name += 'X';
-		break;
-	case K_Y:
-		g_sChar.Name += 'Y';
-		break;
-	case K_Z:
-		g_sChar.Name += 'Z';
-		break;
-	case K_SPACE:
-		g_sChar.Name += ' ';
+	int counter = 0;
 
+	while ((counter < 10) || (g_abKeyPressed[K_ENTER] == false))
+	{
+		if (g_abKeyPressed[K_A])
+		{
+			counter++;
+			g_sChar.Name += "A";
+		}
+		else if (g_abKeyPressed[K_B])
+		{
+			counter++;
+			g_sChar.Name += "B";
+		}
+		else if (g_abKeyPressed[K_C])
+		{
+			counter++;
+			g_sChar.Name += "C";
+		}
+		else if (g_abKeyPressed[K_D])
+		{
+			counter++;
+			g_sChar.Name += "D";
+		}
+		else if (g_abKeyPressed[K_E])
+		{
+			counter++;
+			g_sChar.Name += "E";
+		}
+		else if (g_abKeyPressed[K_F])
+		{
+			counter++;
+			g_sChar.Name += "F";
+		}
+		else if (g_abKeyPressed[K_G])
+		{
+			counter++;
+			g_sChar.Name += "G";
+		}
+		else if (g_abKeyPressed[K_H])
+		{
+			counter++;
+			g_sChar.Name += "H";
+		}
+		else if (g_abKeyPressed[K_I])
+		{
+			counter++;
+			g_sChar.Name += "I";
+		}
+		else if (g_abKeyPressed[K_J])
+		{
+			counter++;
+			g_sChar.Name += "J";
+		}
+		else if (g_abKeyPressed[K_K])
+		{
+			counter++;
+			g_sChar.Name += "K";
+		}
+		else if (g_abKeyPressed[K_L])
+		{
+			counter++;
+			g_sChar.Name += "L";
+		}
+		else if (g_abKeyPressed[K_M])
+		{
+			counter++;
+			g_sChar.Name += "M";
+		}
+		else if (g_abKeyPressed[K_N])
+		{
+			counter++;
+			g_sChar.Name += "N";
+		}
+		else if (g_abKeyPressed[K_O])
+		{
+			counter++;
+			g_sChar.Name += "O";
+		}
+		else if (g_abKeyPressed[K_P])
+		{
+			counter++;
+			g_sChar.Name += "P";
+		}
+		else if (g_abKeyPressed[K_Q])
+		{
+			counter++;
+			g_sChar.Name += "Q";
+		}
+		else if (g_abKeyPressed[K_R])
+		{
+			counter++;
+			g_sChar.Name += "R";
+		}
+		else if (g_abKeyPressed[K_S])
+		{
+			counter++;
+			g_sChar.Name += "S";
+		}
+		else if (g_abKeyPressed[K_T])
+		{
+			counter++;
+			g_sChar.Name += "T";
+		}
+		else if (g_abKeyPressed[K_U])
+		{
+			counter++;
+			g_sChar.Name += "U";
+		}
+		else if (g_abKeyPressed[K_V])
+		{
+			counter++;
+			g_sChar.Name += "V";
+		}
+		else if (g_abKeyPressed[K_W])
+		{
+			counter++;
+			g_sChar.Name += "W";
+		}
+		else if (g_abKeyPressed[K_X])
+		{
+			counter++;
+			g_sChar.Name += "X";
+		}
+		else if (g_abKeyPressed[K_Y])
+		{
+			counter++;
+			g_sChar.Name += "Y";
+		}
+		else if (g_abKeyPressed[K_Z])
+		{
+			counter++;
+			g_sChar.Name += "Z";
+		}
+		else if (g_abKeyPressed[K_SPACE])
+		{
+			counter++;
+			g_sChar.Name += " ";
+		}
+		else if (g_abKeyPressed[K_BACKSPACE])
+		{
+			g_sChar.Name.erase(counter, 1);
+			counter--;
+		}
 	}
 }

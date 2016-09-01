@@ -54,6 +54,7 @@ enum EKEYS
 	K_ESCAPE,
 	K_SPACE,
 	K_ENTER,
+	K_BACKSPACE,
 	K_A,
 	K_B,
 	K_C,
