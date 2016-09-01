@@ -586,5 +586,90 @@ void charSpawn()
 
 void CharName()
 {
+	g_sChar.Name = "";
+	int Key = 0;
+	switch (g_abKeyPressed[K_COUNT])
+	{
+	case K_A:
+		g_sChar.Name += 'A';
+		break;
+	case K_B:
+		g_sChar.Name += 'B';
+		break;
+	case K_C:
+		g_sChar.Name += 'C';
+		break;
+	case K_D:
+		g_sChar.Name += 'D';
+		break;
+	case K_E:
+		g_sChar.Name += 'E';
+		break;
+	case K_F:
+		g_sChar.Name += 'F';
+		break;
+	case K_G:
+		g_sChar.Name += 'G';
+		break;
+	case K_H:
+		g_sChar.Name += 'H';
+		break;
+	case K_I:
+		g_sChar.Name += 'I';
+		break;
+	case K_J:
+		g_sChar.Name += 'J';
+		break;
+	case K_K:
+		g_sChar.Name += 'K';
+		break;
+	case K_L:
+		g_sChar.Name += 'L';
+		break;
+	case K_M:
+		g_sChar.Name += 'M';
+		break;
+	case K_N:
+		g_sChar.Name += 'N';
+		break;
+	case K_O:
+		g_sChar.Name += 'O';
+		break;
+	case K_P:
+		g_sChar.Name += 'P';
+		break;
+	case K_Q:
+		g_sChar.Name += 'Q';
+		break;
+	case K_R:
+		g_sChar.Name += 'R';
+		break;
+	case K_S:
+		g_sChar.Name += 'S';
+		break;
+	case K_T:
+		g_sChar.Name += 'T';
+		break;
+	case K_U:
+		g_sChar.Name += 'U';
+		break;
+	case K_V:
+		g_sChar.Name += 'V';
+		break;
+	case K_W:
+		g_sChar.Name += 'W';
+		break;
+	case K_X:
+		g_sChar.Name += 'X';
+		break;
+	case K_Y:
+		g_sChar.Name += 'Y';
+		break;
+	case K_Z:
+		g_sChar.Name += 'Z';
+		break;
+	case K_SPACE:
+		g_sChar.Name += ' ';
 
+	}
 }
